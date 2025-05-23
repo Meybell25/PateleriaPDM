@@ -5,15 +5,203 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo1"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <!-- Elementos decorativos flotantes -->
+
+    <ImageView
+        android:id="@+id/iv_cupcake_top_left"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="72dp"
+        android:alpha="0.7"
+        android:src="@drawable/decoracion_pastel"
+        android:contentDescription="Decoración cupcake"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_donut_top_right"
+        android:layout_width="63dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="40dp"
+        android:alpha="0.6"
+        android:contentDescription="Decoración dona"
+        android:src="@drawable/decoracion_pastel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Contenedor principal del logo -->
+
+    <ImageView
+        android:id="@+id/iv_cake_slice_left"
+        android:layout_width="76dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="180dp"
+        android:layout_marginBottom="292dp"
+        android:alpha="0.5"
+        android:contentDescription="Decoración rebanada de pastel"
+        android:src="@drawable/decoracion_pastel"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_app_name"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_cookie_right"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="105dp"
+        android:alpha="0.6"
+        android:contentDescription="Decoración galleta"
+        android:src="@drawable/decoracion_pastel"
+        app:layout_constraintStart_toEndOf="@+id/cv_logo_container"
+        app:layout_constraintTop_toBottomOf="@+id/iv_donut_top_right" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_logo_container"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="120dp"
+        app:cardCornerRadius="90dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/logo">
+
+            <ImageView
+                android:id="@+id/iv_main_logo"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:contentDescription="Logo principal de la pastelería"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Nombre de la aplicación -->
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Dulces Momentos"
+        android:textColor="@color/marron_chocolate"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_logo_container" />
+
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Endulzando tu día"
+        android:textColor="@color/rosa_fucsia_suave"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:alpha="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_app_name" />
+
+    <!-- Contenedor de la barra de progreso -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_progress_container"
+        android:layout_width="200dp"
+        android:layout_height="8dp"
+        android:layout_marginBottom="120dp"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/blanco_hueso"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:progressDrawable="@drawable/progres_bar"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="0" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Texto de carga -->
+    <TextView
+        android:id="@+id/tv_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:alpha="0.7"
+        android:text="Preparando deliciosos sabores..."
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_progress_container" />
+
+    <!-- Elementos decorativos inferiores -->
+    <ImageView
+        android:id="@+id/iv_muffin_bottom_left"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="80dp"
+        android:alpha="0.5"
+        android:src="@drawable/decoracion_pastel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="Decoración muffin" />
+
+    <ImageView
+        android:id="@+id/iv_pretzel_bottom_right"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="90dp"
+        android:alpha="0.6"
+        android:src="@drawable/decoracion_pastel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="Decoración pretzel" />
+
+    <!-- Mascota kawaii (opcional) -->
+    <ImageView
+        android:id="@+id/iv_kawaii_mascot"
+        android:layout_width="175dp"
+        android:layout_height="124dp"
+        android:layout_marginTop="24dp"
+        android:alpha="0.9"
+        android:contentDescription="Mascota kawaii de la pastelería"
+        android:src="@drawable/gatito"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
