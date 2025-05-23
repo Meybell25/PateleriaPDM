@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "960456817418",
+    "project_id": "pasteleriapdm",
+    "storage_bucket": "pasteleriapdm.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960456817418:android:e23c51e2d0533eee0e58f3",
+        "android_client_info": {
+          "package_name": "com.example.pasteleriapdm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960456817418-8mqk7hvf1a9mkjilprk4o2l78m7et8ta.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pasteleriapdm",
+            "certificate_hash": "3e349e29f0bd097c8741339bdea4d6cc17749dc8"
+          }
+        },
+        {
+          "client_id": "960456817418-tuhh8j9h7e9mtbbq3b2q246t3reoe9jj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfCxWlWt4ShgVv3JqC3RxB7lNyLgtV6Mg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960456817418-tuhh8j9h7e9mtbbq3b2q246t3reoe9jj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
