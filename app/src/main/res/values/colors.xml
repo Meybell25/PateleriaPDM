@@ -2,4 +2,33 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="morado_oscuro">#533B4D</color>
+    <color name="rosa">#F564A9</color>
+    <color name="rosa_claro">#FAA4BD</color>
+    <color name="crema">#FAE3C6</color>
+    <color name="rosa_acento">#E91E63</color>
+
+    <!-- Colores con transparencia -->
+    <color name="blanco_50">#80FFFFFF</color>
+    <color name="blanco_20">#33FFFFFF</color>
+    <color name="blanco_80">#CCFFFFFF</color>
+
+    <!-- Colores adicionales para pastelería -->
+    <color name="rosa_pastel">#F8BBD9</color>
+    <color name="crema_suave">#FFF8E7</color>
+    <color name="marron_chocolate">#8B4513</color>
+    <color name="dorado_suave">#F4E4BC</color>
+    <color name="rosa_millennial">#F7CAC9</color>
+    <color name="gris_carbon">#2C2C2C</color>
+    <color name="dorado">#D4AF37</color>
+    <color name="blanco_hueso">#FAF0E6</color>
+    <color name="durazno">#FFCBA4</color>
+    <color name="vainilla">#F3E5AB</color>
+    <color name="canela">#D2691E</color>
+    <color name="marfil">#FFFFF0</color>
+    <color name="rosa_fucsia_suave">#FF69B4</color>
+    <color name="amarillo_mantequilla">#FFDB58</color>
+    <color name="turquesa_pastel">#AFEEEE</color>
+    <color name="coral">#FF7F50</color>
+
 </resources>
