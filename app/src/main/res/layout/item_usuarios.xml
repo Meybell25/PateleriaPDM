@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Icono -->
+        <ImageView
+            android:id="@+id/imgUsuario"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_usuario"
+            android:tint="@color/morado_oscuro"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Nombre -->
+        <TextView
+            android:id="@+id/tvNombreUsuario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Juan Pérez"
+            android:textStyle="bold"
+            android:textColor="@color/morado_oscuro"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgUsuario"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="12dp" />
+
+        <!-- Rol -->
+        <TextView
+            android:id="@+id/tvRol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Rol: Seller"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tvNombreUsuario"
+            app:layout_constraintStart_toStartOf="@id/tvNombreUsuario"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="juan@example.com"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tvRol"
+            app:layout_constraintStart_toStartOf="@id/tvRol"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp" />
+
+        <!-- Último login -->
+        <TextView
+            android:id="@+id/tvUltimoLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Último acceso: 20/05/2025"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tvEmail"
+            app:layout_constraintStart_toStartOf="@id/tvEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp" />
+
+        <!-- Switch Activo/Inactivo -->
+        <Switch
+            android:id="@+id/switchEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Activo"
+            android:textColor="@color/morado_oscuro"
+            app:layout_constraintTop_toBottomOf="@id/tvUltimoLogin"
+            app:layout_constraintStart_toStartOf="@id/tvUltimoLogin"
+            android:layout_marginTop="6dp" />
+
+        <!-- Botón Editar -->
+        <ImageButton
+            android:id="@+id/btnEditar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/style_circulo2"
+            android:src="@drawable/ic_editar"
+            android:tint="@color/white"
+            android:contentDescription="Editar usuario"
+            app:layout_constraintTop_toBottomOf="@id/switchEstado"
+            app:layout_constraintEnd_toStartOf="@id/btnEliminar" />
+
+        <!-- Botón Eliminar -->
+        <ImageButton
+            android:id="@+id/btnEliminar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/style_circulo2"
+            android:src="@drawable/ic_eliminar"
+            android:tint="@color/white"
+            android:contentDescription="Eliminar usuario"
+            app:layout_constraintTop_toBottomOf="@id/switchEstado"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
