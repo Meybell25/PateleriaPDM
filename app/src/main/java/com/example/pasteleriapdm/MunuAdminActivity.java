@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.pasteleriapdm.FragmentsAdmin.GestionClientesFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.GestionPastelesFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.GestionUsuariosFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.PanelAdministrativoFragment;
@@ -19,7 +20,6 @@ import com.example.pasteleriapdm.R;
 public class MunuAdminActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
-    private Toolbar toolbarAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,6 @@ public class MunuAdminActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-
             if (id == R.id.navPanelAdministrativo) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragmnetContainer, new PanelAdministrativoFragment())
