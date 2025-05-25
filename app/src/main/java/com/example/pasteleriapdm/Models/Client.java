@@ -21,7 +21,6 @@ public class Client {
     private String name;                // Nombre completo
     private String email;               // Email de contacto
     private String phone;               // Teléfono principal
-    private String alternativePhone;    // Teléfono alternativo
     private String address;             // Dirección completa
     private String neighborhood;        // Barrio
     private String city;                // Ciudad
@@ -29,7 +28,6 @@ public class Client {
     private long createdAt;             // Timestamp de creación
     private long updatedAt;             // Timestamp de última actualización
     private String createdBy;           // UID del seller que lo creó
-    private String notes;               // Notas adicionales
     private int totalOrders;            // Total de pedidos realizados
     private double totalSpent;          // Total gastado histórico
     private long lastOrderDate;         // Fecha del último pedido
@@ -83,13 +81,6 @@ public class Client {
         updateTimestamp();
     }
 
-    @PropertyName("alternativePhone")
-    public String getAlternativePhone() { return alternativePhone; }
-    @PropertyName("alternativePhone")
-    public void setAlternativePhone(String alternativePhone) {
-        this.alternativePhone = alternativePhone;
-        updateTimestamp();
-    }
 
     public String getAddress() { return address; }
     public void setAddress(String address) {
@@ -132,11 +123,6 @@ public class Client {
     @PropertyName("createdBy")
     public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
 
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) {
-        this.notes = notes;
-        updateTimestamp();
-    }
 
     @PropertyName("totalOrders")
     public int getTotalOrders() { return totalOrders; }
@@ -244,7 +230,6 @@ public class Client {
         result.put("name", name);
         result.put("email", email);
         result.put("phone", phone);
-        result.put("alternativePhone", alternativePhone);
         result.put("address", address);
         result.put("neighborhood", neighborhood);
         result.put("city", city);
@@ -252,7 +237,6 @@ public class Client {
         result.put("createdAt", createdAt);
         result.put("updatedAt", updatedAt);
         result.put("createdBy", createdBy);
-        result.put("notes", notes);
         result.put("totalOrders", totalOrders);
         result.put("totalSpent", totalSpent);
         result.put("lastOrderDate", lastOrderDate);

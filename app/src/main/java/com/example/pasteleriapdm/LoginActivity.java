@@ -16,9 +16,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public TextView lblRegistrarse;
-    private MaterialButton btnIniciarSesion;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,20 +25,6 @@ public class LoginActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-        lblRegistrarse = findViewById(R.id.lblRegistrarse);
-        btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
-
-        btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MunuAdminActivity.class);
-                startActivity(intent);
-            }
-        });
-        lblRegistrarse.setOnClickListener(v ->{
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
         });
     }
 }

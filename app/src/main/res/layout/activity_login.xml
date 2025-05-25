@@ -153,32 +153,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnIniciarSesion" />
 
-    <TextView
-        android:id="@+id/lblNoCuenta"
-        android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginTop="29dp"
-        android:text="¿No tienes una cuenta? "
-        android:textColor="#CCFFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@id/lblRegistrarse"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnIniciarSesionGoogle" />
-
-    <TextView
-        android:id="@+id/lblRegistrarse"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:text="REGISTRARSE"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/lblNoCuenta"
-        app:layout_constraintTop_toBottomOf="@+id/btnIniciarSesionGoogle" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="122dp"
