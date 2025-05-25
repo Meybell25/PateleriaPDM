@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
         tvLoading = findViewById(R.id.tv_loading);
         handler = new Handler(Looper.getMainLooper());
 
-        // Iniciar animación del splash
+        // Iniciar animacion del splash
         startSplashAnimation();
     }
 
     private void startSplashAnimation() {
-        // Animación suave del ProgressBar
+        // Animacion suave del ProgressBar
         ObjectAnimator progressAnimator = ObjectAnimator.ofInt(progressBar, "progress", 0, 100);
         progressAnimator.setDuration(3000); // 3 segundos
         progressAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Cambiar textos durante la carga
         changeLoadingTexts();
 
-        // Navegar a la siguiente pantalla después de 3.5 segundos
+        // Navegar a la siguiente pantalla despues de 3.5 segundos
         handler.postDelayed(() -> {
             navigateToNextScreen();
         }, 3500);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(() -> {
                 tvLoading.setText(loadingTexts[index]);
 
-                // Pequeña animación de fade para el texto
+                // Pequeña animacion de fade para el texto
                 tvLoading.setAlpha(0.5f);
                 tvLoading.animate()
                         .alpha(1.0f)
@@ -81,11 +81,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void navigateToNextScreen() {
-        // Aquí puedes decidir a qué pantalla ir
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
 
-        // Animación de transición suave
+        // Animación de transicion suave
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         // Finalizar esta actividad
