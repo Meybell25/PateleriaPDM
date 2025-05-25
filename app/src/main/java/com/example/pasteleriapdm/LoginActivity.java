@@ -3,6 +3,7 @@ package com.example.pasteleriapdm;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -15,6 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
+    private Button btnIniciarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +28,16 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        btnIniciarSesion= findViewById(R.id.btnIniciarSesion);
+
+        btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(getApplicationContext(), MunuAdminActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
