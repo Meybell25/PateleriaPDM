@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/degradado_rosa"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp"
+        tools:context=".UserRegisterActivity">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/lblTituloDialogoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="REGISTRAR USUARIO"
+            android:textColor="#F6F3F3"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Nombre Completo -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNombreUsuario"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#80FFFFFF"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxStrokeColor="@android:color/white"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoUsuario"
+            app:startIconDrawable="@drawable/ic_usuario"
+            app:startIconTint="@android:color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtNombreUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Nombre completo"
+                android:inputType="textCapWords"
+                android:paddingVertical="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="#80FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilEmailUsuario"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#80FFFFFF"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxStrokeColor="@android:color/white"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilNombreUsuario"
+            app:startIconDrawable="@drawable/ic_correo"
+            app:startIconTint="@android:color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtEmailUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo electrónico"
+                android:inputType="textEmailAddress"
+                android:paddingVertical="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="#80FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <!-- Rol del Usuario -->
+        <LinearLayout
+            android:id="@+id/layoutRolUsuario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/spinner_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilEmailUsuario">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_usuario"
+                android:tint="@color/rosa_acento" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rol del usuario"
+                android:textColor="@color/rosa_acento"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinnerRolUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/rosa_acento"
+                android:background="@drawable/spinner_background" />
+        </LinearLayout>
+
+        <!-- Estado del Usuario -->
+        <LinearLayout
+            android:id="@+id/layoutEstadoUsuario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/spinner_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutRolUsuario">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_estado_usuario"
+                android:tint="@color/rosa_acento" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Estado del usuario"
+                android:textColor="@color/rosa_acento"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/spinnerEstadoUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/rosa_acento"
+                android:background="@drawable/spinner_background" />
+        </LinearLayout>
+
+        <!-- Notas adicionales -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilNotasUsuario"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#80FFFFFF"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxStrokeColor="@android:color/white"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutEstadoUsuario"
+            app:startIconDrawable="@drawable/ic_nota"
+            app:startIconTint="@android:color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtNotasUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Notas adicionales (opcional)"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:maxLines="4"
+                android:paddingVertical="16dp"
+                android:textColor="@color/blanco_hueso"
+                android:textColorHint="#80FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Botón de acción -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnInsertarUsuario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#EFE7E7"
+            android:padding="15dp"
+            android:text="Registrar Usuario"
+            android:textAllCaps="false"
+            android:textColor="@color/rosa_acento"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:tint="@color/rosa_acento"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/ic_mas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilNotasUsuario" />
+
+        <!-- Texto de salir -->
+        <TextView
+            android:id="@+id/btnSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Cancelar"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnInsertarUsuario" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

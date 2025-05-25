@@ -298,7 +298,7 @@
                 android:lines="2"
                 android:maxLines="4"
                 android:paddingVertical="16dp"
-                android:textColor="@color/rosa_acento"
+                android:textColor="@color/blanco_hueso"
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 

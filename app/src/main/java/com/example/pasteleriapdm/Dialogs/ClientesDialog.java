@@ -37,7 +37,7 @@ public class ClientesDialog extends DialogFragment {
         AsociarElementoXML(view);
 
         // Llenar el Spinner con los datos
-        String[] estados = {"Activo", "Inactivo", "Pendiente"};
+        String[] estados = {"Activo", "Inactivo", "Bloquedao"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item, estados);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
