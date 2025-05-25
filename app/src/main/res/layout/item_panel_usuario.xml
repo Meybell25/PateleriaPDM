@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:backgroundTint="@color/rosa_lila"
+    android:clickable="true"
+    android:focusable="true"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Imagen del pastel -->
+        <ImageView
+            android:id="@+id/imgPastel"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/style_redondeado"
+            android:backgroundTint="@color/blanco_80"
+            android:scaleType="centerInside"
+            android:src="@drawable/gatito"
+            card_view:cardCornerRadius="12dp" />
+
+        <!-- Layout inferior con texto y botón -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Contenedor para texto y botón en la misma línea -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="0dp">
+
+                <!-- Texto PASTELES -->
+
+                <!-- Botón circular con número -->
+
+                <TextView
+                    android:id="@+id/txtNombrePastel"
+                    android:layout_width="188dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/style_redondeado"
+                    android:backgroundTint="@color/rosa_millennial"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="Usuarios"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtCantidadUsiariosPanel"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/style_redondeado"
+                    android:backgroundTint="@color/rosa_fucsia_suave"
+                    android:gravity="center"
+                    android:text="20"
+                    android:textColor="#070707"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
