@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:padding="12dp"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Icono Cliente -->
+        <ImageView
+            android:id="@+id/imgCliente"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/ic_usuario"
+            android:tint="@color/morado_oscuro"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Nombre Completo -->
+        <TextView
+            android:id="@+id/lblNombreCompleto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="María Elena Rodríguez García"
+            android:textStyle="bold"
+            android:textColor="@color/morado_oscuro"
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgCliente"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="12dp" />
+
+        <!-- Email -->
+        <TextView
+            android:id="@+id/lblCorreo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="maria.rodriguez@gmail.com"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/lblNombreCompleto"
+            app:layout_constraintStart_toStartOf="@id/lblNombreCompleto"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Teléfono Principal -->
+        <TextView
+            android:id="@+id/lblTelefono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Tel: +503 6027 1616"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/lblCorreo"
+            app:layout_constraintTop_toBottomOf="@id/lblCorreo" />
+
+        <!-- Teléfono Alternativo -->
+        <TextView
+            android:id="@+id/lblTelefonoAlternativo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Tel Alt: +503 7990 2121"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/lblTelefono"
+            app:layout_constraintTop_toBottomOf="@id/lblTelefono" />
+
+        <!-- Dirección -->
+        <TextView
+            android:id="@+id/tvDireccion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Calle 45 # 12-34, Apt 201"
+            android:textSize="13sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/lblTelefonoAlternativo"
+            app:layout_constraintStart_toStartOf="@id/lblTelefonoAlternativo"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="2dp" />
+
+        <!-- Barrio -->
+        <TextView
+            android:id="@+id/lblBarrio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Barrio: El Centro"
+            android:textColor="#D500F9"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@id/lblCiudad"
+            app:layout_constraintStart_toStartOf="@id/tvDireccion"
+            app:layout_constraintTop_toBottomOf="@id/tvDireccion" />
+
+        <!-- Ciudad -->
+        <TextView
+            android:id="@+id/lblCiudad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:text="Ciudad: San Miguel"
+            android:textColor="#D500F9"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/lblBarrio"
+            app:layout_constraintTop_toBottomOf="@id/tvDireccion" />
+
+        <!-- Notas Adicionales -->
+        <TextView
+            android:id="@+id/lblNotasAdicionales"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Notas: Cliente preferencial, compra mensualmente"
+            android:textColor="#D500F9"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/lblBarrio"
+            app:layout_constraintTop_toBottomOf="@id/lblBarrio" />
+
+        <!-- Cliente Preferencial (Badge) -->
+        <TextView
+            android:id="@+id/tvClientePreferencial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:padding="4dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="⭐ PREFERENCIAL"
+            android:textColor="@color/morado_oscuro"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="@id/lblNotasAdicionales"
+            app:layout_constraintTop_toBottomOf="@id/lblNotasAdicionales" />
+
+        <!-- Spinner Estado Cliente -->
+        <TextView
+            android:id="@+id/labelEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado:"
+            android:textSize="12sp"
+            android:textColor="@color/morado_oscuro"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvClientePreferencial"
+            app:layout_constraintStart_toStartOf="@id/tvClientePreferencial"
+            android:layout_marginTop="6dp" />
+
+        <Spinner
+            android:id="@+id/spinnerEstadoCliente"
+            android:layout_width="135dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/spinner_background"
+            app:layout_constraintStart_toEndOf="@id/labelEstado"
+            app:layout_constraintTop_toBottomOf="@id/tvClientePreferencial" />
+
+
+
+        <!-- Botón Editar -->
+        <ImageButton
+            android:id="@+id/btnEditarCliente"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/style_circulo2"
+            android:src="@drawable/ic_editar"
+            android:tint="@color/white"
+            android:contentDescription="Editar cliente"
+            app:layout_constraintTop_toBottomOf="@id/spinnerEstadoCliente"
+            app:layout_constraintEnd_toStartOf="@id/btnEliminarCliente" />
+
+        <!-- Botón Eliminar -->
+        <ImageButton
+            android:id="@+id/btnEliminarCliente"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/style_circulo2"
+            android:src="@drawable/ic_eliminar"
+            android:tint="@color/white"
+            android:contentDescription="Eliminar cliente"
+            app:layout_constraintTop_toBottomOf="@id/spinnerEstadoCliente"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

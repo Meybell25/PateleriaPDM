@@ -51,6 +51,8 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
         holder.lblPorcionesPastel.setText("Porciones: 23");
         holder.lblPrecioPastel.setText("$ 20");
 
+
+
         //EVENTO DEL BOTON EDITAR
         holder.btnEditarPastel.setOnClickListener(new View.OnClickListener() {
             @Override

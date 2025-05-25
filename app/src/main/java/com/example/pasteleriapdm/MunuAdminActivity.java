@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.FragmentContainerView;
 
+import com.example.pasteleriapdm.FragmentsAdmin.GestionClientesFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.GestionPastelesFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.GestionUsuariosFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.PanelAdministrativoFragment;
@@ -58,8 +59,8 @@ public class MunuAdminActivity extends AppCompatActivity {
                     case R.id.navGestionarUsuarios:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new GestionUsuariosFragment()).commit();
                         break;
-                    case R.id.navReportesEstadisticas:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new ReporteEstadisticasFragment()).commit();
+                    case R.id.navGestionarClientes:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new GestionClientesFragment()).commit();
                         break;
                     default:
                         System.out.println("Opcion no calida");
