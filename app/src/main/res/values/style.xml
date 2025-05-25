@@ -8,4 +8,59 @@
         <item name="boxCornerRadiusBottomEnd">24dp</item>
         <item name="boxStrokeColor">@android:color/white</item>
     </style>
+
+
+    <!-- Estilo para el texto del titulo -->
+    <style name="ToolbarTitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Estilo general del Toolbar -->
+    <style name="ToolbarThemeCustom" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+        <item name="actionBarSize">56dp</item>
+    </style>
+
+    <!-- Estilo del meni emergente -->
+    <style name="PopupMenuTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:popupBackground">@drawable/style_fondo_menu_peronalizado</item> <!-- opcional -->
+    </style>
+
+    <style name="PopupMenuTheme1" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:popupBackground">@color/rosa_acento</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/PopupMenu.TextAppearance</item>
+    </style>
+
+    <style name="PopupMenu.TextAppearance" parent="TextAppearance.AppCompat.Widget.PopupMenu.Large">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+
+    <style name="TextoSpinnerItemEstilo" parent="Widget.AppCompat.Spinner">
+        <item name="android:textColor">@color/rosa_fucsia_suave</item>
+        <item name="android:textColorPrimary">@color/rosa_lila</item>
+    </style>
+
+    <style name="SpinnerTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@color/rosa_fucsia_suave</item>
+        <item name="android:textColorSecondary">@color/rosa_lila</item>
+    </style>
+
+    <style name="SpinnerTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/rosa_fucsia_suave</item>
+    </style>
+
+    <style name="toolbarDesplegable" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:popupBackground">@drawable/style_toolbar_button_selector</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
+
+
 </resources>

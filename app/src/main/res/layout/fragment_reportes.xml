@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentsAdmin.GestionPastelesFragment">
+    tools:context=".FragmentsAdmin.ReportesFragment">
 
     <!-- Espacio reservado para el Toolbar -->
     <Space
@@ -31,25 +31,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Título mejorado -->
             <TextView
                 android:id="@+id/lblTituloPastel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:letterSpacing="0.15"
-                android:padding="20dp"
-                android:text="PASTELES"
-                android:textAlignment="center"
+                android:padding="16dp"
+                android:text="REPORTES Y ESTADISTICAS"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
+            <!-- Línea decorativa más delgada -->
             <View
-                android:layout_width="120dp"
-                android:layout_height="3dp"
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
                 android:background="@color/rosa"
                 app:layout_constraintTop_toBottomOf="@id/lblTituloPastel"
                 app:layout_constraintStart_toStartOf="parent"
@@ -59,38 +62,21 @@
 
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvcPasteles"
+        android:id="@+id/rvcReportes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:paddingHorizontal="8dp"
         android:paddingBottom="80dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="1"
         app:layout_constraintTop_toBottomOf="@id/appBarProductos"
         app:layout_constraintBottom_toTopOf="@id/spaceForNavigation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botón flotante -->
 
-    <!-- Espacio para menú -->
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/btnAbrirDialogoPasteles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:backgroundTint="@color/rosa_acento"
-        android:paddingBottom="16dp"
-        android:text="AGREGAR PASTEL"
-        android:textColor="@color/white"
-        app:icon="@drawable/ic_mas"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/spaceForNavigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- Espacio para menú de navegación inferior -->
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
@@ -99,8 +85,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Texto de error -->
     <TextView
-        android:id="@+id/errorProductos"
+        android:id="@+id/lblerror"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

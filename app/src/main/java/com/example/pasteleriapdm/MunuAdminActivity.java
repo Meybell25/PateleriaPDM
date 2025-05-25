@@ -3,7 +3,6 @@ package com.example.pasteleriapdm;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -11,15 +10,15 @@ import com.example.pasteleriapdm.FragmentsAdmin.GestionClientesFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.GestionPastelesFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.GestionUsuariosFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.PanelAdministrativoFragment;
-import com.example.pasteleriapdm.FragmentsAdmin.ReporteEstadisticasFragment;
+import com.example.pasteleriapdm.FragmentsAdmin.ReportesFragment;
+import com.example.pasteleriapdm.FragmentsAdmin.ReservaFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.example.pasteleriapdm.R;
 
 
 public class MunuAdminActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
+    private Toolbar toolbarAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class MunuAdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_munu_admin);
 
         bottomNavigationView = findViewById(R.id.bottomnavigation);
-
+        toolbarAdmin = findViewById(R.id.toolbar);
 
         // Cargar fragmento por defecto
         if (savedInstanceState == null) {
@@ -37,6 +36,24 @@ public class MunuAdminActivity extends AppCompatActivity {
             bottomNavigationView.setSelectedItemId(R.id.navPanelAdministrativo);
         }
 
+        //LOGICA DEL TOOLBAR
+        toolbarAdmin.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.navReservas:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new ReservaFragment()).commit();
+                        break;
+                    case R.id.navVerReportes:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new ReportesFragment()).commit();
+                        break;
+
+                }
+                return true;
+            }
+        });
+
+        //LOGICA DEL BTNNAVIGATION
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.navPanelAdministrativo) {
@@ -63,9 +80,7 @@ public class MunuAdminActivity extends AppCompatActivity {
                         .commit();
                 return true;
             }
-
             return false;
         });
-
     }
 }

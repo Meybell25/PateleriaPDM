@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/degradado_rosa"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:background="@drawable/style_redondeado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="32dp">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/lblTituloDialogoPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="PROCESAR PAGO"
+            android:textColor="#F6F3F3"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Precio del pastel -->
+        <TextView
+            android:id="@+id/lblPrecioPastel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Precio del pastel:"
+            android:textColor="#F6F3F3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoPago"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtPrecioPastel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0.00"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoPago"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Descuento -->
+        <TextView
+            android:id="@+id/lblDescuento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descuento (opcional)"
+            android:textColor="#F6F3F3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@id/lblPrecioPastel"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDescuento"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintTop_toBottomOf="@id/lblDescuento"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxStrokeColor="@android:color/white"
+            app:startIconTint="@android:color/white"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusBottomEnd="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtDescuento"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Ingrese descuento"
+                android:inputType="numberDecimal"
+                android:padding="20dp"
+                android:paddingVertical="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="#80FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Metodo de pago -->
+        <TextView
+            android:id="@+id/lblMetodoPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Método de pago"
+            android:textColor="#F6F3F3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@id/tilDescuento"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutMetodoPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/spinner_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@id/lblMetodoPago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_moneda"
+                android:tint="@color/rosa_acento" />
+
+            <Spinner
+                android:id="@+id/spinnerMetodoPago"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/SpinnerTextAppearance"
+                android:theme="@style/SpinnerTheme"
+                android:textColor="@color/rosa_fucsia_suave"
+                style="@style/TextoSpinnerItemEstilo"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
+
+        <!-- Monto total -->
+        <TextView
+            android:id="@+id/lblMontoTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monto total a pagar:"
+            android:textColor="#F6F3F3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="40dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutMetodoPago"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txtMontoTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$0.00"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutMetodoPago"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Referencia -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilReferencia"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintTop_toBottomOf="@id/lblMontoTotal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxStrokeColor="@android:color/white"
+            app:startIconTint="@android:color/white"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusBottomEnd="24dp" />
+
+        <!-- Botones de acción -->
+        <LinearLayout
+            android:id="@+id/layoutBotonesPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@id/tilReferencia"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancelarPago"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                android:padding="15dp"
+                android:text="Cancelar"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/morado_oscuro"
+                app:cornerRadius="24dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnProcesarPago"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:padding="15dp"
+                android:text="Procesar Pago"
+                android:textAllCaps="false"
+                android:textColor="@color/rosa_acento"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:backgroundTint="#EFE7E7"
+                app:cornerRadius="24dp" />
+        </LinearLayout>
+
+        <!-- Botón de Salir -->
+        <TextView
+            android:id="@+id/btnSalir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Salir"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutBotonesPago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

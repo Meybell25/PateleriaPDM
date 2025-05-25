@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+
+        <!-- Header con ID y Estado -->
+        <LinearLayout
+            android:id="@+id/llHeaderReserva"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/lblIdReserva"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Reserva #R001"
+                android:textColor="@color/morado_oscuro"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lblEstadoReserva"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/style_estado_reserva"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="4dp"
+                android:text="PENDIENTE"
+                android:textColor="@color/amarillo_mantequilla"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Información del cliente -->
+        <LinearLayout
+            android:id="@+id/llInfoCliente"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/llHeaderReserva"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_usuario"
+                android:tint="@color/rosa_acento"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/lblNombreCliente"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Cliente: Juan Pérez"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Información del vendedor/admin -->
+        <LinearLayout
+            android:id="@+id/llInfoVendedor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/llInfoCliente"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_usuario"
+                android:tint="@color/rosa_acento"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/lblNombreVendedor"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Atendido por: María González"
+                android:textColor="@color/morado_oscuro"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Fecha de entrega -->
+        <LinearLayout
+            android:id="@+id/llInfoEntrega"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/llInfoVendedor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_calendario"
+                android:tint="@color/rosa_acento"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/lblFechaEntrega"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Fecha: 25/05/2025"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Hora de entrega -->
+        <LinearLayout
+            android:id="@+id/llInfoHoraEntrega"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/llInfoEntrega"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_reloj"
+                android:tint="@color/rosa_acento"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/lblHoraEntrega"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Hora: 15:30"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Dirección de entrega -->
+        <LinearLayout
+            android:id="@+id/llInfoDireccion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/llInfoHoraEntrega"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_ubicacion"
+                android:tint="@color/rosa_acento"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/lblDireccionEntrega"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Calle Principal #123, Col. Centro"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <!-- Items del pedido -->
+        <LinearLayout
+            android:id="@+id/llInfoItems"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/llInfoDireccion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_pastel"
+                    android:tint="@color/rosa_acento"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pasteles Reservados:"
+                    android:textColor="@color/morado_oscuro"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/lblNombresPasteles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="28dp"
+                android:text="• Pastel de Chocolate (2x)\n• Cheesecake de Fresa (1x)"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:lineSpacingExtra="2dp" />
+        </LinearLayout>
+
+        <!-- Prioridad y Total -->
+        <LinearLayout
+            android:id="@+id/llPrioridadTotal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/llInfoItems"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/lblPrioridadReserva"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="ALTA"
+                android:textColor="@color/rosa"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_estado_cliente"
+                android:drawableTint="@color/rosa"
+                android:drawablePadding="6dp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/lblTotalReserva"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$450.00"
+                android:textColor="@color/rosa"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Notas especiales (si existen) -->
+        <TextView
+            android:id="@+id/lblNotasReserva"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Nota: Sin azúcar adicional"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/llPrioridadTotal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Botones de acción -->
+        <LinearLayout
+            android:id="@+id/llBotonesAccion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="end"
+            app:layout_constraintTop_toBottomOf="@id/lblNotasReserva"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- Botón Ver/Detalles -->
+            <ImageButton
+                android:id="@+id/btnVerReserva"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/style_circulo2"
+                android:src="@drawable/ic_ojo"
+                android:tint="@color/white"
+                android:contentDescription="Ver detalles" />
+
+            <!-- Botón Editar -->
+            <ImageButton
+                android:id="@+id/btnEditarReserva"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/style_circulo2"
+                android:src="@drawable/ic_editar"
+                android:tint="@color/white"
+                android:contentDescription="Editar reserva" />
+
+            <!-- Botón Cambiar Estado -->
+
+            <!-- Botón Eliminar -->
+            <ImageButton
+                android:id="@+id/btnEliminarReserva"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/style_circulo2"
+                android:src="@drawable/ic_eliminar"
+                android:tint="@color/white"
+                android:contentDescription="Eliminar reserva" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
