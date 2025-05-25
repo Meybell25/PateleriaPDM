@@ -57,9 +57,9 @@ public class MunuAdminActivity extends AppCompatActivity {
                         .commit();
                 return true;
             }
-            else if (id == R.id.navReportesEstadisticas) {
+            else if (id == R.id.navGestionarClientes) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragmnetContainer, new ReporteEstadisticasFragment())
+                        .replace(R.id.fragmnetContainer, new GestionClientesFragment())
                         .commit();
                 return true;
             }

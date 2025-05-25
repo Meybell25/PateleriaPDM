@@ -8,19 +8,15 @@
         android:icon="@drawable/ic_pastel"
         android:title="Pasteles" />
     <item
-<<<<<<< HEAD
+
         android:id="@+id/navGestionarClientes"
         android:icon="@drawable/ic_usuario"
         android:title="Clientes " />
+
+
     <item
-=======
->>>>>>> a5624fc30988b2cbca965002d0c914b0f0191964
         android:id="@+id/navGestionarUsuarios"
         android:icon="@drawable/ic_getionar_usuarios"
         android:title="Usuarios" />
-    <item
-        android:id="@+id/navReportesEstadisticas"
-        android:icon="@drawable/ic_reporte_estadistica"
-        android:title="Reportes" />
 </menu>
 
