@@ -3,13 +3,9 @@ package com.example.pasteleriapdm;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentContainerView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.pasteleriapdm.FragmentsAdmin.GestionPastelesFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.GestionUsuariosFragment;
@@ -17,58 +13,60 @@ import com.example.pasteleriapdm.FragmentsAdmin.PanelAdministrativoFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.ReporteEstadisticasFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.example.pasteleriapdm.R;
+
 
 public class MunuAdminActivity extends AppCompatActivity {
-    public FragmentContainerView fragmnetContainer;
-    public BottomNavigationView bottomNavigationView;
+
+    private BottomNavigationView bottomNavigationView;
+    private Toolbar toolbarAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_munu_admin);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        AsociarElemntosXML();
 
-        // Cargar el fragmento por defecto al iniciar
+        bottomNavigationView = findViewById(R.id.bottomnavigation);
+
+
+        // Cargar fragmento por defecto
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmnetContainer, new GestionPastelesFragment())
+                    .replace(R.id.fragmnetContainer, new PanelAdministrativoFragment())
                     .commit();
-            // Establecer también el ítem seleccionado en la barra de navegación
-            bottomNavigationView.setSelectedItemId(R.id.navGetionarPasteles);
+            bottomNavigationView.setSelectedItemId(R.id.navPanelAdministrativo);
         }
 
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int id = item.getItemId();
 
-                //consultar a que se le esta dando clic
-                switch (item.getItemId()){
-                    case R.id.navPanelAdminitrativo:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new PanelAdministrativoFragment()).commit();
-                        break;
-                    case R.id.navGetionarPasteles:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new GestionPastelesFragment()).commit();
-                        break;
-                    case R.id.navGestionarUsuarios:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new GestionUsuariosFragment()).commit();
-                        break;
-                    case R.id.navReportesEstadisticas:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new ReporteEstadisticasFragment()).commit();
-                        break;
-                    default:
-                        System.out.println("Opcion no calida");
-                }
+            if (id == R.id.navPanelAdministrativo) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmnetContainer, new PanelAdministrativoFragment())
+                        .commit();
                 return true;
             }
+            else if (id == R.id.navGestionarPasteles) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmnetContainer, new GestionPastelesFragment())
+                        .commit();
+                return true;
+            }
+            else if (id == R.id.navGestionarUsuarios) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmnetContainer, new GestionUsuariosFragment())
+                        .commit();
+                return true;
+            }
+            else if (id == R.id.navReportesEstadisticas) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmnetContainer, new ReporteEstadisticasFragment())
+                        .commit();
+                return true;
+            }
+
+            return false;
         });
-    }
-    public void AsociarElemntosXML(){
-        bottomNavigationView = findViewById(R.id.bottomnavigation);
+
     }
 }
