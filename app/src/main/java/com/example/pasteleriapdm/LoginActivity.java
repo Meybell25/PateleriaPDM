@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public TextView lblRegistrarse;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +28,7 @@ public class LoginActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        lblRegistrarse = findViewById(R.id.lblRegistrarse);
-        lblRegistrarse.setOnClickListener(v ->{
-            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        });
+
+
     }
 }
