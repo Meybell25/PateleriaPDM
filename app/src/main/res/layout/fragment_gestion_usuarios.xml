@@ -7,14 +7,23 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsAdmin.GestionUsuariosFragment">
 
+    <!-- Espacio reservado para el Toolbar -->
+    <Space
+        android:id="@+id/spaceForToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- AppBar -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarProductos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/morado_oscuro"
+        android:background="@color/rosa_claro"
         android:elevation="8dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spaceForToolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -22,25 +31,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <!-- Título mejorado -->
             <TextView
                 android:id="@+id/lblTituloPastel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:letterSpacing="0.15"
-                android:padding="20dp"
+                android:padding="16dp"
                 android:text="USUARIOS"
-                android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:textAlignment="center"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
+            <!-- Línea decorativa más delgada -->
             <View
-                android:layout_width="120dp"
-                android:layout_height="3dp"
+                android:layout_width="80dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="4dp"
                 android:background="@color/rosa"
                 app:layout_constraintTop_toBottomOf="@id/lblTituloPastel"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,9 +79,9 @@
         android:id="@+id/btnAbrirDialogoUsuarios"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="36dp"
         android:backgroundTint="@color/rosa_acento"
-        android:text="AGRGEGAR CLIENTES"
+        android:text="AGREGAR CLIENTES"
         android:textColor="@color/white"
         app:icon="@drawable/ic_mas"
         app:iconTint="@color/white"
@@ -77,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Espacio para menú -->
+    <!-- Espacio para menú de navegación inferior -->
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
@@ -86,6 +98,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Texto de error -->
     <TextView
         android:id="@+id/lblerrorClientes"
         android:layout_width="wrap_content"

@@ -9,6 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
+        android:background="@drawable/style_redondeado"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="32dp"

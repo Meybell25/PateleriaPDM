@@ -53,6 +53,7 @@ public class UsuariosDialog extends DialogFragment {
         spinnerRolUsuario.setAdapter(adapterRol);
         spinnerRolUsuario.setSelection(0); // Selecciona "admin" por defecto
 
+        btnSalir.setOnClickListener(v -> dismiss());
 
         return view;
     }
@@ -61,7 +62,6 @@ public class UsuariosDialog extends DialogFragment {
         // TextViews
         lblTituloDialogoUsuario = view.findViewById(R.id.lblTituloDialogoUsuario);
         btnSalir = view.findViewById(R.id.btnSalir);
-
 
         // TextInputEditTexts
         txtNombreUsuario = view.findViewById(R.id.txtNombreUsuario);
