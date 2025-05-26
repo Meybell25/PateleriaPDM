@@ -42,10 +42,10 @@ public class PagosDialog extends DialogFragment {
         // Spinner con metodos de pago
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_personalizado,
                 new String[]{"Efectivo", "Tarjeta", "Transferencia", "deposito"}
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerMetodoPago.setAdapter(adapter);
 
         btnSalir.setOnClickListener(v -> dismiss());

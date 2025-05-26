@@ -129,7 +129,7 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintVertical_weight="1" />
 
-    <!-- Espacio reservado para buton navigation inferior -->
+    <!-- Espacio reservado para buton menu -->
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
