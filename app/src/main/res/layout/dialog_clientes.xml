@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".ClientRegisterActivity">
 
-        <!-- Título -->
+        <!-- titulo -->
         <TextView
             android:id="@+id/lblTituloDialogoCliente"
             android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Teléfonos en una fila -->
+        <!-- tel en una fila -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTelefonoCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -164,7 +164,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Dirección -->
+        <!-- Direccion -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDireccionCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -382,7 +382,7 @@
                 android:trackTint="@color/rosa_acento" />
         </LinearLayout>
 
-        <!-- Botón de acción -->
+        <!-- btn de accion -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInsertarCliente"
             android:layout_width="0dp"

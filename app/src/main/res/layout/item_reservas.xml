@@ -47,7 +47,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Información del cliente -->
+        <!-- Informacion del cliente -->
         <LinearLayout
             android:id="@+id/llInfoCliente"
             android:layout_width="0dp"
@@ -76,7 +76,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Información del vendedor/admin -->
+        <!-- Informacion del vendedor/admin -->
         <LinearLayout
             android:id="@+id/llInfoVendedor"
             android:layout_width="0dp"
@@ -163,7 +163,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Dirección de entrega -->
+        <!-- direccion de entrega -->
         <LinearLayout
             android:id="@+id/llInfoDireccion"
             android:layout_width="0dp"
@@ -294,7 +294,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Botones de acción -->
+        <!-- btns de accion -->
         <LinearLayout
             android:id="@+id/llBotonesAccion"
             android:layout_width="0dp"
@@ -307,7 +307,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Botón Ver/Detalles -->
+            <!-- btn Ver/Detalles -->
             <ImageButton
                 android:id="@+id/btnVerReserva"
                 android:layout_width="42dp"
@@ -318,7 +318,7 @@
                 android:tint="@color/white"
                 android:contentDescription="Ver detalles" />
 
-            <!-- Botón Editar -->
+            <!-- btn Editar -->
             <ImageButton
                 android:id="@+id/btnEditarReserva"
                 android:layout_width="42dp"
@@ -329,9 +329,7 @@
                 android:tint="@color/white"
                 android:contentDescription="Editar reserva" />
 
-            <!-- Botón Cambiar Estado -->
-
-            <!-- Botón Eliminar -->
+            <!-- btn Eliminar -->
             <ImageButton
                 android:id="@+id/btnEliminarReserva"
                 android:layout_width="42dp"

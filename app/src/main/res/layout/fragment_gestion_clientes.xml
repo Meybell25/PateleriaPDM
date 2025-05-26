@@ -16,52 +16,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- AppBar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarProductos"
+    <!-- Card de Bienvenida para Pasteles -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardTitulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/rosa_claro"
-        android:elevation="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        android:backgroundTint="@color/rosa_claro"
         app:layout_constraintTop_toBottomOf="@id/spaceForToolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- Texto de ttulo -->
+        <TextView
+            android:id="@+id/lblTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="C L I E N T E S 🧑‍💼"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:padding="16dp" />
 
-            <TextView
-                android:id="@+id/lblTituloPastel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:letterSpacing="0.15"
-                android:padding="20dp"
-                android:text="CLIENTES"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+    </androidx.cardview.widget.CardView>
 
-            <View
-                android:layout_width="120dp"
-                android:layout_height="3dp"
-                android:background="@color/rosa"
-                app:layout_constraintTop_toBottomOf="@id/lblTituloPastel"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- RecyclerView -->
 
-    <!-- Botón flotante -->
-
-    <!-- Espacio para menú -->
+    <!-- Espacio para menu -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcClientes"
         android:layout_width="0dp"
@@ -74,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBarProductos"
+        app:layout_constraintTop_toBottomOf="@id/CardTitulo"
         app:layout_constraintVertical_bias="1.0" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

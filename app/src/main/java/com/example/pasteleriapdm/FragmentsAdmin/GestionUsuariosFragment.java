@@ -9,17 +9,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.example.pasteleriapdm.Adapters.GestionarClientesAdapter;
 import com.example.pasteleriapdm.Adapters.GestionarUsuariosAdapter;
 import com.example.pasteleriapdm.Dialogs.ClientesDialog;
 import com.example.pasteleriapdm.R;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 public class GestionUsuariosFragment extends Fragment {
     private Button btnAbrirDialogoUsuarios;
     private RecyclerView rvcUsuarios;
+    private Spinner spinnerFiltroRol;
+    private EditText txtBuscarPastel;
 
     public GestionUsuariosFragment() {
         // Required empty public constructor
@@ -56,11 +64,21 @@ public class GestionUsuariosFragment extends Fragment {
                 dialog.show(getParentFragmentManager(), "clientesDialogo");
             }
         });
+
+        // Llenar el Spinner de roles
+        List<String> rol = Arrays.asList("admin", "seller", "production", "Todos");
+        ArrayAdapter<String> adapterPioridad = new ArrayAdapter<>(getContext(), R.layout.spinner_personalizado, rol);
+        adapterPioridad.setDropDownViewResource(R.layout.spinner_personalizado);
+        spinnerFiltroRol.setAdapter(adapterPioridad);
+
+
         return view;
     }
 
     private  void AsociarElementoXML(View view){
         btnAbrirDialogoUsuarios = view.findViewById(R.id.btnAbrirDialogoUsuarios);
         rvcUsuarios = view.findViewById(R.id.rvcUsuarios);
+        spinnerFiltroRol = view.findViewById(R.id.spinnerFiltroRol);
+        txtBuscarPastel = view.findViewById(R.id.txtBuscarPastel);
     }
 }
