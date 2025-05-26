@@ -53,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="4dp" />
 
-        <!-- Teléfono Principal -->
+        <!-- tel Principal -->
         <TextView
             android:id="@+id/lblTelefono"
             android:layout_width="0dp"
@@ -66,7 +66,7 @@
             app:layout_constraintStart_toStartOf="@id/lblCorreo"
             app:layout_constraintTop_toBottomOf="@id/lblCorreo" />
 
-        <!-- Teléfono Alternativo -->
+        <!-- tel Alternativo -->
         <TextView
             android:id="@+id/lblTelefonoAlternativo"
             android:layout_width="0dp"
@@ -79,7 +79,7 @@
             app:layout_constraintStart_toStartOf="@id/lblTelefono"
             app:layout_constraintTop_toBottomOf="@id/lblTelefono" />
 
-        <!-- Dirección -->
+        <!-- Direccion -->
         <TextView
             android:id="@+id/tvDireccion"
             android:layout_width="0dp"
@@ -133,7 +133,7 @@
             app:layout_constraintStart_toStartOf="@id/lblBarrio"
             app:layout_constraintTop_toBottomOf="@id/lblBarrio" />
 
-        <!-- Cliente Preferencial (Badge) -->
+        <!-- Cliente Preferencial  -->
         <TextView
             android:id="@+id/tvClientePreferencial"
             android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
             app:layout_constraintStart_toStartOf="@id/lblNotasAdicionales"
             app:layout_constraintTop_toBottomOf="@id/lblNotasAdicionales" />
 
-        <!-- Spinner Estado Cliente -->
+        <!-- Spinner estado Cliente -->
         <TextView
             android:id="@+id/labelEstado"
             android:layout_width="wrap_content"
@@ -173,7 +173,7 @@
 
 
 
-        <!-- Botón Editar -->
+        <!-- btn Editar -->
         <ImageButton
             android:id="@+id/btnEditarCliente"
             android:layout_width="36dp"
@@ -187,7 +187,7 @@
             app:layout_constraintTop_toBottomOf="@id/spinnerEstadoCliente"
             app:layout_constraintEnd_toStartOf="@id/btnEliminarCliente" />
 
-        <!-- Botón Eliminar -->
+        <!-- btn Eliminar -->
         <ImageButton
             android:id="@+id/btnEliminarCliente"
             android:layout_width="36dp"

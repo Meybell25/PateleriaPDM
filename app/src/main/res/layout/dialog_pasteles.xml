@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".CakeDesignActivity">
 
-        <!-- Título -->
+        <!-- titulo -->
         <TextView
             android:id="@+id/lblTituloDailogoPastel"
             android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Descripción -->
+        <!-- Descripcion -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDescripcionPastel"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -99,7 +99,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Categoría con Spinner -->
+        <!-- Categoroa con Spinner -->
         <LinearLayout
             android:id="@+id/layoutCategoria"
             android:layout_width="0dp"
@@ -130,7 +130,7 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- Tamaño y Porciones en una fila -->
+        <!-- Tamanioo y Porciones en una fila -->
         <LinearLayout
             android:id="@+id/layoutTamano"
             android:layout_width="0dp"
@@ -232,7 +232,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Sección para imagen -->
+        <!-- Seccion para imagen -->
         <TextView
             android:id="@+id/lblImagenTitulo"
             android:layout_width="wrap_content"
@@ -288,7 +288,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Botones de acción -->
+        <!-- Botones de accion -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInsertarPastel"
             android:layout_width="0dp"

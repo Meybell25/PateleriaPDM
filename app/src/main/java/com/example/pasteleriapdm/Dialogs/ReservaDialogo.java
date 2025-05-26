@@ -81,16 +81,16 @@ public class ReservaDialogo extends DialogFragment {
         List<String> pioridad = Arrays.asList("baja", "normal", "alta", "urgente");
 
         // Adaptadores
-        ArrayAdapter<String> adapterClientes = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, clientes);
-        adapterClientes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterClientes = new ArrayAdapter<>(getContext(), R.layout.spinner_personalizado, clientes);
+        adapterClientes.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerCliente.setAdapter(adapterClientes);
 
-        ArrayAdapter<String> adapterEstados = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, estados);
-        adapterEstados.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterEstados = new ArrayAdapter<>(getContext(), R.layout.spinner_personalizado, estados);
+        adapterEstados.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerEstadoReserva.setAdapter(adapterEstados);
 
-        ArrayAdapter<String> adapterPioridad = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, pioridad);
-        adapterPioridad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterPioridad = new ArrayAdapter<>(getContext(), R.layout.spinner_personalizado, pioridad);
+        adapterPioridad.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerPrioridad.setAdapter(adapterPioridad);
 
         // Fecha

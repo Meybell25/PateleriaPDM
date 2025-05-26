@@ -47,7 +47,7 @@
                 android:maxLines="2"
                 android:ellipsize="end" />
 
-            <!-- Categoría -->
+            <!-- Categorioa -->
             <TextView
                 android:id="@+id/lblCategoriaPastel"
                 android:layout_width="match_parent"
@@ -59,7 +59,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <!-- Descripción -->
+            <!-- descripcion -->
             <TextView
                 android:id="@+id/lblDescripcionPastel"
                 android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                 android:textSize="14sp" />
 
 
-            <!-- Tamaño y porciones -->
+            <!-- Tamanioo y porciones -->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="6dp" />
 
-            <!-- Botones del administrador -->
+            <!-- botones del administrador -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,9 +118,8 @@
                 android:layout_marginTop="10dp"
                 android:gravity="end">
 
-                <!-- Botón Realidad Aumentada -->
 
-                <!-- Botón Editar -->
+                <!-- btn Editar -->
                 <ImageButton
                     android:id="@+id/btnEditarPastel"
                     android:layout_width="42dp"
@@ -131,7 +130,7 @@
                     android:tint="@color/white"
                     android:contentDescription="Editar producto" />
 
-                <!-- Botón Eliminar -->
+                <!-- btn Eliminar -->
                 <ImageButton
                     android:id="@+id/btnEliminarPastel"
                     android:layout_width="42dp"

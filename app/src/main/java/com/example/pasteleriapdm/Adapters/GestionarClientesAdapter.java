@@ -63,8 +63,8 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
 
         // Spinner de ejemplo
         String[] estados = {"Activo", "Inactivo", "Pendiente"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.itemView.getContext(), android.R.layout.simple_spinner_item, estados);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(holder.itemView.getContext(), R.layout.spinner_personalizado, estados);
+        adapter.setDropDownViewResource(R.layout.spinner_personalizado);
         holder.spinnerEstadoCliente.setAdapter(adapter);
         holder.spinnerEstadoCliente.setSelection(0); // Seleccionar "Activo"
 

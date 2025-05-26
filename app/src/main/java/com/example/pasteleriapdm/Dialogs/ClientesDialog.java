@@ -39,8 +39,8 @@ public class ClientesDialog extends DialogFragment {
         // Llenar el Spinner con los datos
         String[] estados = {"Activo", "Inactivo", "Bloquedao"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, estados);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_personalizado, estados);
+        adapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerEstadoCliente.setAdapter(adapter);
         spinnerEstadoCliente.setSelection(0); // Selecciona "Activo" por defecto
 

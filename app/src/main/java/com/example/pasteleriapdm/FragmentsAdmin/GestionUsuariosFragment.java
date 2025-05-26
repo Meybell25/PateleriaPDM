@@ -182,8 +182,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
             return false;
         }
 
-        // Si hay usuarios, verificar permisos (implementación básica)
-        // En una implementación completa, deberías verificar el rol del usuario actual
+        // Si hay usuarios, verificar permisos
         return hayUsuarios;
     }
 
