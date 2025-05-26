@@ -141,6 +141,11 @@ public class DatabaseHelper {
             Log.d(TAG, "No se actualiza la contraseña (está vacía)");
         }
 
+        // AGREGAR: Actualizar lastLogin si tiene un valor válido
+        if (user.getLastLogin() > 0) {
+            updates.put("lastLogin", user.getLastLogin());
+            Log.d(TAG, "Actualizando lastLogin del usuario: " + user.getLastLogin());
+        }
         // Timestamp de actualización
         updates.put("updatedAt", System.currentTimeMillis());
 
