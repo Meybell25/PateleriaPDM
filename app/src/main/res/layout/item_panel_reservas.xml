@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="280dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="5dp"
     android:backgroundTint="@color/rosa_lila"
     android:clickable="true"
     android:focusable="true"
@@ -18,22 +18,20 @@
 
         <!-- Imagen del pastel -->
         <ImageView
-            android:id="@+id/imgPastel"
+            android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/style_redondeado"
             android:backgroundTint="@color/blanco_80"
             android:scaleType="centerInside"
-            android:src="@drawable/gatito"
+            android:src="@drawable/img_reserva164"
             card_view:cardCornerRadius="12dp" />
 
-        <!-- Layout inferior con texto y botón -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Contenedor para texto y botón en la misma línea -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,12 +39,10 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <!-- Texto PASTELES -->
 
-                <!-- Botón circular con número -->
 
                 <TextView
-                    android:id="@+id/txtNombrePastel"
+                    android:id="@+id/lblReserva"
                     android:layout_width="188dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
@@ -56,11 +52,12 @@
                     android:gravity="center_vertical"
                     android:padding="10dp"
                     android:text="Reservas"
-                    android:textSize="16sp"
+                    android:textSize="12dp"
+                    android:textColor="@color/morado_oscuro"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtCantidaReseservasPanel"
+                    android:id="@+id/lblCantidaReseservasPanel"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="8dp"

@@ -116,7 +116,7 @@
             app:layout_constraintStart_toEndOf="@id/lblEstado"
             app:layout_constraintTop_toBottomOf="@id/lblLastLogin" />
 
-        <!-- Botón Editar -->
+        <!-- btn Editar -->
         <ImageButton
             android:id="@+id/btnEditarUsuario"
             android:layout_width="36dp"
@@ -130,7 +130,7 @@
             app:layout_constraintTop_toBottomOf="@id/lblEstadoUsuario"
             app:layout_constraintEnd_toStartOf="@id/btnEliminarUsuario" />
 
-        <!-- Botón Eliminar -->
+        <!-- btn Eliminar -->
         <ImageButton
             android:id="@+id/btnEliminarUsuario"
             android:layout_width="36dp"

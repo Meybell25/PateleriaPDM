@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="32dp">
 
-        <!-- Título -->
+        <!-- titulo -->
         <TextView
             android:id="@+id/lblTituloDialogoPago"
             android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
             app:boxCornerRadiusBottomStart="24dp"
             app:boxCornerRadiusBottomEnd="24dp" />
 
-        <!-- Botones de acción -->
+        <!-- Botones de accion -->
         <LinearLayout
             android:id="@+id/layoutBotonesPago"
             android:layout_width="0dp"
@@ -239,7 +239,7 @@
                 app:cornerRadius="24dp" />
         </LinearLayout>
 
-        <!-- Botón de Salir -->
+        <!-- btn de Salir -->
         <TextView
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"

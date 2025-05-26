@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".UserRegisterActivity">
 
-        <!-- Título -->
+        <!-- tituloo -->
         <TextView
             android:id="@+id/lblTituloDialogoUsuario"
             android:layout_width="wrap_content"

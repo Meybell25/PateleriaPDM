@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="280dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="5dp"
     android:backgroundTint="@color/rosa_lila"
     android:clickable="true"
     android:focusable="true"
@@ -25,7 +25,7 @@
             android:background="@drawable/style_redondeado"
             android:backgroundTint="@color/blanco_80"
             android:scaleType="centerInside"
-            android:src="@drawable/gatito"
+            android:src="@drawable/img_pastel_panel"
             card_view:cardCornerRadius="12dp" />
 
         <!-- Layout inferior con texto y botón -->
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Contenedor para texto y botón en la misma línea -->
+            <!-- Contenedor para texto y boton en la misma lin -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,9 +41,7 @@
                 android:orientation="horizontal"
                 android:padding="0dp">
 
-                <!-- Texto PASTELES -->
 
-                <!-- Botón circular con número -->
 
                 <TextView
                     android:id="@+id/txtNombrePastel"
@@ -55,8 +53,9 @@
                     android:backgroundTint="@color/rosa_millennial"
                     android:gravity="center_vertical"
                     android:padding="10dp"
-                    android:text="Usuarios"
-                    android:textSize="16sp"
+                    android:text="Pasteles"
+                    android:textSize="12dp"
+                    android:textColor="@color/morado_oscuro"
                     android:textStyle="bold" />
 
                 <TextView
