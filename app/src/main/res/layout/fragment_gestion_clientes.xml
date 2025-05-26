@@ -57,11 +57,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- RecyclerView -->
-
-    <!-- Botón flotante -->
-
-    <!-- Espacio para menú -->
+    <!-- Espacio para menu -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcClientes"
         android:layout_width="0dp"

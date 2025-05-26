@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".UserRegisterActivity">
 
-        <!-- Título -->
+        <!-- tituloo -->
         <TextView
             android:id="@+id/lblTituloDialogoUsuario"
             android:layout_width="wrap_content"
@@ -213,7 +213,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón de acción -->
+        <!-- btn de accion -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInsertarUsuario"
             android:layout_width="0dp"

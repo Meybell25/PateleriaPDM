@@ -73,9 +73,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botón flotante -->
 
-    <!-- Espacio para menú -->
+    <!-- Espacio para menu -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btnAbrirDialogoPasteles"
         android:layout_width="wrap_content"

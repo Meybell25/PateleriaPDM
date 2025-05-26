@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".ReservaActivity">
 
-        <!-- Título -->
+        <!-- Titulo -->
         <TextView
             android:id="@+id/lblTituloDialogoReserva"
             android:layout_width="wrap_content"
@@ -230,7 +230,7 @@
                 android:background="@android:color/transparent" />
         </LinearLayout>
 
-        <!-- Dirección de entrega -->
+        <!-- ddireccion de entrega -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDireccionEntrega"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -344,7 +344,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botones de acción en fila -->
+        <!-- btns de accion en fila -->
         <LinearLayout
             android:id="@+id/layoutBotones"
             android:layout_width="0dp"
