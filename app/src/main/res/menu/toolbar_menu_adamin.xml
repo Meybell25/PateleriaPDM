@@ -12,5 +12,15 @@
         android:icon="@drawable/ic_reporte"
         android:title="Reportes"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/navCerrarSesion"
+        android:title="Cerrar Sesión"
+        android:icon="@drawable/ic_logout"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/navSalir"
+        android:title="Salir de la App"
+        android:icon="@drawable/ic_exit"
+        app:showAsAction="never" />
 
 </menu>

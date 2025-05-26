@@ -33,4 +33,12 @@
     <color name="turquesa_pastel">#AFEEEE</color>
     <color name="coral">#FF7F50</color>
 
+    <color name="verde_exitoso">#67AE6E</color>
+    <color name="naranja_advertencia">#FF9149</color>
+    <color name="rojo_error">#A91D3A</color>
+    <color name="gris_texto">#7F8CAA</color>
+
+
+
+
 </resources>

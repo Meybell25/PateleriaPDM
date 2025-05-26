@@ -125,8 +125,27 @@ public class DatabaseHelper {
      * Actualizar usuario
      */
     public void updateUser(User user, DatabaseCallback<User> callback) {
-        Map<String, Object> updates = user.toMap();
-        updates.remove("uid"); // No actualizar el UID
+        // Crear mapa de actualizaciones sin incluir campos null o vacíos
+        Map<String, Object> updates = new HashMap<>();
+
+        // Campos obligatorios que siempre se actualizan
+        updates.put("name", user.getName());
+        updates.put("role", user.getRole());
+        updates.put("status", user.getStatus());
+
+        // Solo actualizar contraseña si no está vacía
+        if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
+            updates.put("password", user.getPassword());
+            Log.d(TAG, "Actualizando contraseña del usuario");
+        } else {
+            Log.d(TAG, "No se actualiza la contraseña (está vacía)");
+        }
+
+        // Timestamp de actualización
+        updates.put("updatedAt", System.currentTimeMillis());
+
+        Log.d(TAG, "Actualizando usuario con UID: " + user.getUid());
+        Log.d(TAG, "Campos a actualizar: " + updates.keySet().toString());
 
         databaseRef.child(USERS_NODE).child(user.getUid())
                 .updateChildren(updates)
@@ -139,6 +158,94 @@ public class DatabaseHelper {
                     callback.onError("Error actualizando usuario: " + e.getMessage());
                 });
     }
+
+    /**
+     * Crear el primer usuario administrador del sistema
+     * Este metodo incluye validaciones especiales para el primer usuario
+     */
+    public void createFirstAdmin(User user, DatabaseCallback<User> callback) {
+        if (user.getUid() == null) {
+            callback.onError("UID del usuario no puede ser null");
+            return;
+        }
+
+        Log.d(TAG, "Iniciando creación del primer administrador con UID: " + user.getUid());
+
+        // Verificar primero si ya existen usuarios
+        databaseRef.child(USERS_NODE)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                            Log.d(TAG, "Ya existen usuarios en el sistema");
+                            // Ya existen usuarios, usar metodo normal
+                            createUser(user, callback);
+                        } else {
+                            // No hay usuarios, crear el primer admin
+                            Log.d(TAG, "No hay usuarios existentes, creando primer administrador");
+
+                            // Asegurar que sea admin y activo
+                            user.setRole(User.ROLE_ADMIN);
+                            user.setStatus(User.STATUS_ACTIVE);
+                            user.setCreatedAt(System.currentTimeMillis());
+                            user.setLastLogin(0);
+
+                            // Crear el Map COMPLETO incluyendo la contraseña (necesario para primer admin)
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("uid", user.getUid());
+                            userData.put("name", user.getName());
+                            userData.put("email", user.getEmail());
+                            userData.put("password", user.getPassword());
+                            userData.put("role", user.getRole());
+                            userData.put("status", user.getStatus());
+                            userData.put("createdAt", user.getCreatedAt());
+                            userData.put("lastLogin", user.getLastLogin());
+
+                            Log.d(TAG, "Datos del primer admin a guardar: " + userData.toString());
+
+                            // Crear directamente sin las restricciones normales
+                            databaseRef.child(USERS_NODE).child(user.getUid())
+                                    .setValue(userData)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d(TAG, "Primer administrador creado exitosamente en BD: " + user.getUid());
+                                        callback.onSuccess(user);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e(TAG, "Error creando primer administrador en BD", e);
+                                        Log.e(TAG, "Detalles del error: " + e.getMessage());
+                                        callback.onError("Error creando primer administrador: " + e.getMessage());
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error verificando existencia de usuarios", error.toException());
+                        callback.onError("Error verificando usuarios existentes: " + error.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * Verificar si existen usuarios en el sistema
+     */
+    public void checkIfUsersExist(DatabaseCallback<Boolean> callback) {
+        databaseRef.child(USERS_NODE)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        boolean usersExist = snapshot.exists() && snapshot.getChildrenCount() > 0;
+                        callback.onSuccess(usersExist);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error verificando existencia de usuarios", error.toException());
+                        callback.onError("Error verificando usuarios: " + error.getMessage());
+                    }
+                });
+    }
+
 
     // ==================== OPERACIONES DE PASTELES ====================
 
