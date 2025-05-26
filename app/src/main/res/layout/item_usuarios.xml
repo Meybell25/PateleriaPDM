@@ -20,7 +20,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:src="@drawable/ic_usuario"
-            android:tint="@color/morado_oscuro"
+            app:tint="@color/morado_oscuro"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,16 +50,15 @@
             app:layout_constraintTop_toBottomOf="@id/lblNombreCompleto"
             app:layout_constraintStart_toStartOf="@id/lblNombreCompleto"
             app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- Notas adicionales -->
+        <!-- Password -->
         <TextView
-            android:id="@+id/lblNotasAdicionales"
+            android:id="@+id/lblOlvidePassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Notas: Tiene permisos completos"
-            android:textColor="#D500F9"
-            android:textSize="13sp"
-            android:layout_marginTop="4dp"
+            android:text="Contraseña: 123456"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginTop="6dp"
             app:layout_constraintTop_toBottomOf="@id/lblRol"
             app:layout_constraintStart_toStartOf="@id/lblRol"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -73,9 +72,10 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:layout_marginTop="6dp"
-            app:layout_constraintTop_toBottomOf="@id/lblNotasAdicionales"
-            app:layout_constraintStart_toStartOf="@id/lblNotasAdicionales"
+            app:layout_constraintTop_toBottomOf="@id/lblOlvidePassword"
+            app:layout_constraintStart_toStartOf="@id/lblOlvidePassword"
             app:layout_constraintEnd_toEndOf="parent" />
+
 
         <!-- LastLogin -->
         <TextView
@@ -125,7 +125,7 @@
             android:layout_marginEnd="8dp"
             android:background="@drawable/style_circulo2"
             android:src="@drawable/ic_editar"
-            android:tint="@color/white"
+            app:tint="@color/white"
             android:contentDescription="Editar usuario"
             app:layout_constraintTop_toBottomOf="@id/lblEstadoUsuario"
             app:layout_constraintEnd_toStartOf="@id/btnEliminarUsuario" />
@@ -138,10 +138,10 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/style_circulo2"
             android:src="@drawable/ic_eliminar"
-            android:tint="@color/white"
             android:contentDescription="Eliminar usuario"
             app:layout_constraintTop_toBottomOf="@id/lblEstadoUsuario"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

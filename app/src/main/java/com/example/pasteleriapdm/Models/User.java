@@ -1,6 +1,8 @@
 package com.example.pasteleriapdm.Models;
 
 import com.google.firebase.database.PropertyName;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +10,7 @@ import java.util.Map;
  * Modelo para representar un Usuario del sistema
  * Corresponde al nodo users/ en Firebase Realtime Database
  */
-public class User {
+public class User implements Serializable {
 
     // Constantes para roles
     public static final String ROLE_ADMIN = "admin";
@@ -23,30 +25,33 @@ public class User {
     private String uid;           // ID de Firebase Auth
     private String name;          // Nombre completo
     private String email;         // Email del usuario
+    private String password;      // Contraseña del usuario
     private String role;          // Rol: admin, seller, production
     private String status;        // Estado: active, inactive, blocked
     private long createdAt;       // Timestamp de creación
     private long lastLogin;       // Último login
-    private String createdBy;     // UID del admin que lo creó
+    private long updatedAt;
 
     // Constructor vacío requerido por Firebase
     public User() {}
 
     // Constructor completo
-    public User(String uid, String name, String email, String role) {
+    public User(String uid, String name, String email, String role, String password) {
         this.uid = uid;
         this.name = name;
         this.email = email;
         this.role = role;
+        this.password = password;
         this.status = STATUS_ACTIVE;
         this.createdAt = System.currentTimeMillis();
         this.lastLogin = 0;
+        this.updatedAt = System.currentTimeMillis();
     }
 
-    // Constructor para registro inicial
-    public User(String uid, String name, String email, String role, String createdBy) {
-        this(uid, name, email, role);
-        this.createdBy = createdBy;
+    // Constructor para admin inicial (creado por el sistema)
+    public static User createInitialAdmin(String uid, String name, String email, String password) {
+        User admin = new User(uid, name, email, password, ROLE_ADMIN);
+        return admin;
     }
 
     // Getters y Setters
@@ -59,11 +64,17 @@ public class User {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public long getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(long updatedAt) { this.updatedAt = updatedAt; }
 
     @PropertyName("createdAt")
     public long getCreatedAt() { return createdAt; }
@@ -75,10 +86,8 @@ public class User {
     @PropertyName("lastLogin")
     public void setLastLogin(long lastLogin) { this.lastLogin = lastLogin; }
 
-    @PropertyName("createdBy")
-    public String getCreatedBy() { return createdBy; }
-    @PropertyName("createdBy")
-    public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
+
+
 
 
     // Métodos de utilidad
@@ -107,7 +116,20 @@ public class User {
         this.lastLogin = System.currentTimeMillis();
     }
 
-    // Convertir a Map para Firebase
+    // Validar si el usuario puede crear otros usuarios
+    public boolean canCreateUsers() {
+        return isAdmin() && isActive();
+    }
+
+    // Validar si el usuario puede crear un rol específico
+    public boolean canCreateRole(String targetRole) {
+        if (!canCreateUsers()) return false;
+
+        // Admin puede crear cualquier rol
+        return isAdmin();
+    }
+
+    // Método toMap mejorado para Firebase
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("uid", uid);
@@ -117,7 +139,29 @@ public class User {
         result.put("status", status);
         result.put("createdAt", createdAt);
         result.put("lastLogin", lastLogin);
-        result.put("createdBy", createdBy);
+        result.put("updatedAt", updatedAt);
+
+        // Solo incluir contraseña si no está vacía
+        if (password != null && !password.trim().isEmpty()) {
+            result.put("password", password);
+        }
+
+        return result;
+    }
+
+    // Método para crear mapa de actualización (sin campos sensibles)
+    public Map<String, Object> toUpdateMap() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("role", role);
+        result.put("status", status);
+        result.put("updatedAt", System.currentTimeMillis());
+
+        // Solo incluir contraseña si se va a actualizar
+        if (password != null && !password.trim().isEmpty()) {
+            result.put("password", password);
+        }
+
         return result;
     }
 
@@ -135,15 +179,41 @@ public class User {
                 STATUS_BLOCKED.equals(status);
     }
 
+    // Método para validar contraseña
+    public static boolean isValidPassword(String password) {
+        return password != null && password.length() >= 6;
+    }
+
+    // Método para validar datos antes de guardar
+    public boolean isValid() {
+        return uid != null && !uid.isEmpty() &&
+                name != null && !name.isEmpty() &&
+                email != null && !email.isEmpty() &&
+                password != null && !password.isEmpty() &&
+                isValidPassword(password) &&
+                isValidRole(role) &&
+                isValidStatus(status);
+    }
+
+    // Método para obtener contraseña censurada (para mostrar en UI)
+    public String getCensoredPassword() {
+        if (password == null || password.isEmpty()) {
+            return "";
+        }
+        return "*".repeat(password.length());
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "uid='" + uid + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='[PROTECTED]'" +
                 ", role='" + role + '\'' +
                 ", status='" + status + '\'' +
                 ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

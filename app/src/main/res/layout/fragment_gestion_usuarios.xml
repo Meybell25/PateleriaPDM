@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="36dp"
         android:backgroundTint="@color/rosa_acento"
-        android:text="AGREGAR CLIENTES"
+        android:text="AGREGAR USUARIOS"
         android:textColor="@color/white"
         app:icon="@drawable/ic_mas"
         app:iconTint="@color/white"
@@ -105,5 +105,5 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="86dp" />
+        tools:layout_editor_absoluteY="120dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -97,7 +97,41 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Contraseña -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPasswordUsuario"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#80FFFFFF"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxStrokeColor="@android:color/white"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilEmailUsuario"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@android:color/white"
+            app:startIconDrawable="@drawable/ic_password"
+            app:startIconTint="@android:color/white">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPasswordUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:inputType="textPassword"
+                android:paddingVertical="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="#80FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Rol del Usuario -->
         <LinearLayout
@@ -113,14 +147,14 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilEmailUsuario">
+            app:layout_constraintTop_toBottomOf="@id/tilPasswordUsuario">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
                 android:src="@drawable/ic_usuario"
-                android:tint="@color/rosa_acento" />
+                app:tint="@color/rosa_acento" />
 
             <TextView
                 android:layout_width="0dp"
@@ -159,7 +193,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
                 android:src="@drawable/ic_estado_usuario"
-                android:tint="@color/rosa_acento" />
+                app:tint="@color/rosa_acento" />
 
             <TextView
                 android:layout_width="0dp"
@@ -177,49 +211,13 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- Notas adicionales -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilNotasUsuario"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="#80FFFFFF"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@android:color/white"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutEstadoUsuario"
-            app:startIconDrawable="@drawable/ic_nota"
-            app:startIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtNotasUsuario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Notas adicionales (opcional)"
-                android:inputType="textMultiLine"
-                android:lines="2"
-                android:maxLines="4"
-                android:paddingVertical="16dp"
-                android:textColor="@color/blanco_hueso"
-                android:textColorHint="#80FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <!-- Botón de acción -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInsertarUsuario"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="32dp"
             android:backgroundTint="#EFE7E7"
             android:padding="15dp"
@@ -232,8 +230,9 @@
             app:cornerRadius="24dp"
             app:icon="@drawable/ic_mas"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilNotasUsuario" />
+            app:layout_constraintTop_toBottomOf="@+id/layoutEstadoUsuario" />
 
         <!-- Texto de salir -->
         <TextView
