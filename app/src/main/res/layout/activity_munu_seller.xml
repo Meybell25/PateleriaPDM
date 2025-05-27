@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:layout_margin="0dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MunuAdminActivity">
+    tools:context=".MunuSellerActivity">
 
 
     <androidx.cardview.widget.CardView
@@ -17,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomnavigation"
+            android:id="@+id/bottomnavigationSeller"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:itemIconSize="24dp"
@@ -25,7 +26,7 @@
             app:itemIconTint="@color/white"
             app:itemTextColor="@color/white"
             app:labelVisibilityMode="labeled"
-            app:menu="@menu/menu_admin"
+            app:menu="@menu/menu_seller"
             app:itemBackground="@drawable/selector_menu"
             app:itemPaddingTop="8dp"
             app:itemPaddingBottom="8dp" />
@@ -33,34 +34,32 @@
 
     <FrameLayout
         android:id="@+id/fragmnetContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="406dp"
+        android:layout_height="678dp"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="0dp"
         android:layout_marginEnd="1dp"
+        android:layout_marginBottom="0dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintHorizontal_bias="0.454"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.666">
+        tools:layout_editor_absoluteY="0dp">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            app:itemIconTint="@color/white"
-            app:iconTint="@color/rosa_pastel"
+        <TextView
+            android:id="@+id/lblTitulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/rosa_acento"
-            android:minHeight="?attr/actionBarSize"
-            app:itemTextColor="@color/rosa_acento"
-            app:menu="@menu/toolbar_menu_adamin"
-            app:title="Pasteleria PMD"
-            app:popupTheme="@style/toolbarDesplegable1"
-            android:layout_marginTop="0dp"
-            app:titleTextAppearance="@style/ToolbarTitleText"
-            app:titleTextColor="@color/crema_suave"/>
+            android:letterSpacing="0.15"
+            android:padding="20dp"
+            android:text="Pasteleria PDM"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
