@@ -38,6 +38,9 @@
     <color name="rojo_error">#A91D3A</color>
     <color name="gris_texto">#7F8CAA</color>
 
+    <color name="verde_activo">#4CAF50</color>
+    <color name="rojo_inactivo">#F44336</color>
+
 
 
 
