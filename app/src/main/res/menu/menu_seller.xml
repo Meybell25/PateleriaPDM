@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navGestionarClientes"
+        android:icon="@drawable/ic_usuario"
+        android:title="Clientes " />
+    <item
+        android:id="@+id/navReservas"
+        android:icon="@drawable/ic_reserva"
+        android:title="Reservas" />
+
+    <item
+        android:id="@+id/navSalir"
+        android:title="Salir de la App"
+        android:icon="@drawable/ic_exit" />
+
+    <item
+        android:id="@+id/navCerrarSesion"
+        android:title="Cerrar Sesión"
+        android:icon="@drawable/ic_logout" />
+
+</menu>
