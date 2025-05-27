@@ -35,6 +35,13 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
     private List<User> listaUsuarios;
     private DatabaseHelper databaseHelper;
     private SimpleDateFormat dateFormat;
+    private OnUsuarioActionListener listener;
+
+    // Interface para comunicación con el Fragment
+    public interface OnUsuarioActionListener {
+        void onUsuarioEliminado(String uid);
+        void onUsuarioActualizado(User usuario);
+    }
 
     public GestionarUsuariosAdapter(Context context, FragmentManager fragmentManager) {
         this.context = context;
@@ -44,38 +51,79 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         this.dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
     }
 
-    // Método para actualizar la lista de usuarios
+    // Setter para el listener
+    public void setOnUsuarioActionListener(OnUsuarioActionListener listener) {
+        this.listener = listener;
+    }
+
+    // Metodo para actualizar la lista de usuarios
     public void actualizarLista(List<User> nuevaLista) {
         this.listaUsuarios.clear();
         this.listaUsuarios.addAll(nuevaLista);
         notifyDataSetChanged();
+        Log.d(TAG, "Lista actualizada con " + nuevaLista.size() + " usuarios");
     }
 
-    // Método para agregar un usuario
+    // Metodo para agregar un usuario
     public void agregarUsuario(User usuario) {
         this.listaUsuarios.add(usuario);
         notifyItemInserted(listaUsuarios.size() - 1);
+        Log.d(TAG, "Usuario agregado: " + usuario.getName());
     }
 
-    // Método para actualizar un usuario específico
+    // Metodo para actualizar un usuario específico
     public void actualizarUsuario(User usuarioActualizado) {
         for (int i = 0; i < listaUsuarios.size(); i++) {
             if (listaUsuarios.get(i).getUid().equals(usuarioActualizado.getUid())) {
                 listaUsuarios.set(i, usuarioActualizado);
                 notifyItemChanged(i);
+                Log.d(TAG, "Usuario actualizado: " + usuarioActualizado.getName());
                 break;
             }
         }
     }
 
-    // Método para eliminar un usuario
+    // Metodo para eliminar un usuario
     public void eliminarUsuario(String uid) {
         for (int i = 0; i < listaUsuarios.size(); i++) {
             if (listaUsuarios.get(i).getUid().equals(uid)) {
                 listaUsuarios.remove(i);
                 notifyItemRemoved(i);
+                Log.d(TAG, "Usuario eliminado del adapter: " + uid);
                 break;
             }
+        }
+    }
+
+    // Metodo para filtrar usuarios por rol
+    public void filtrarPorRol(String rol) {
+        List<User> listaFiltrada = new ArrayList<>();
+
+        if ("TODOS".equals(rol)) {
+            listaFiltrada.addAll(listaUsuarios);
+        } else {
+            String rolFiltro = convertirFiltroARol(rol);
+            for (User usuario : listaUsuarios) {
+                if (rolFiltro.equals(usuario.getRole())) {
+                    listaFiltrada.add(usuario);
+                }
+            }
+        }
+
+        actualizarLista(listaFiltrada);
+        Log.d(TAG, "Filtro aplicado: " + rol + " - Usuarios encontrados: " + listaFiltrada.size());
+    }
+
+    private String convertirFiltroARol(String filtro) {
+        switch (filtro) {
+            case "ADMINISTRADOR":
+                return User.ROLE_ADMIN;
+            case "VENDEDOR":
+                return User.ROLE_SELLER;
+            case "PRODUCCIÓN":
+                return User.ROLE_PRODUCTION;
+            default:
+                return "";
         }
     }
 
@@ -93,13 +141,15 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         // Asignar datos del usuario
         holder.lblNombreCompleto.setText(usuario.getName());
 
-        // Formatear rol
+        // Formatear rol con color distintivo
         String rolFormateado = formatearRol(usuario.getRole());
         holder.lblRol.setText("Rol: " + rolFormateado);
+        configurarColorRol(holder, usuario.getRole());
 
-        // Mostrar contraseña (puede ser sensible, considera ocultarla o mostrar solo parte)
+        // Mostrar contraseña
         if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()) {
-            holder.lblOlvidePassword.setText("Contraseña: " + usuario.getPassword());
+            holder.lblOlvidePassword.setText("Contraseña: ****");
+            holder.lblOlvidePassword.setTag(false); // false = oculta, true = visible
         } else {
             holder.lblOlvidePassword.setText("Contraseña: No disponible");
         }
@@ -122,6 +172,28 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         // Configurar imagen según el rol
         configurarImagenUsuario(holder, usuario);
 
+        // Configurar eventos
+        configurarEventos(holder, usuario, position);
+    }
+
+    private void configurarColorRol(ViewHolderGestionarUsuariosAdapter holder, String rol) {
+        switch (rol) {
+            case User.ROLE_ADMIN:
+                holder.lblRol.setTextColor(Color.parseColor("#D32F2F")); // Rojo para admin
+                break;
+            case User.ROLE_SELLER:
+                holder.lblRol.setTextColor(Color.parseColor("#1976D2")); // Azul para vendedor
+                break;
+            case User.ROLE_PRODUCTION:
+                holder.lblRol.setTextColor(Color.parseColor("#388E3C")); // Verde para producción
+                break;
+            default:
+                holder.lblRol.setTextColor(Color.parseColor("#666666")); // Gris por defecto
+                break;
+        }
+    }
+
+    private void configurarEventos(ViewHolderGestionarUsuariosAdapter holder, User usuario, int position) {
         // Evento del botón editar
         holder.btnEditarUsuario.setOnClickListener(v -> {
             UsuariosDialog usuariosDialog = new UsuariosDialog(usuario);
@@ -134,6 +206,10 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                 @Override
                 public void onUsuarioActualizado(User usuarioActualizado) {
                     actualizarUsuario(usuarioActualizado);
+                    // Notificar al Fragment
+                    if (listener != null) {
+                        listener.onUsuarioActualizado(usuarioActualizado);
+                    }
                     Toast.makeText(context, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -145,15 +221,18 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
             mostrarDialogoEliminar(usuario, position);
         });
 
-        // Evento para mostrar/ocultar contraseña al hacer clic
+        // Evento para mostrar/ocultar contraseña
         holder.lblOlvidePassword.setOnClickListener(v -> {
             if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()) {
-                if (holder.lblOlvidePassword.getText().toString().contains("****")) {
-                    // Mostrar contraseña real
-                    holder.lblOlvidePassword.setText("Contraseña: " + usuario.getPassword());
-                } else {
+                boolean esVisible = (Boolean) holder.lblOlvidePassword.getTag();
+                if (esVisible) {
                     // Ocultar contraseña
                     holder.lblOlvidePassword.setText("Contraseña: ****");
+                    holder.lblOlvidePassword.setTag(false);
+                } else {
+                    // Mostrar contraseña real
+                    holder.lblOlvidePassword.setText("Contraseña: " + usuario.getPassword());
+                    holder.lblOlvidePassword.setTag(true);
                 }
             }
         });
@@ -162,38 +241,41 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
     private void configurarEstadoUsuario(ViewHolderGestionarUsuariosAdapter holder, User usuario) {
         switch (usuario.getStatus()) {
             case User.STATUS_ACTIVE:
-                holder.lblEstadoUsuario.setText("Activo");
+                holder.lblEstadoUsuario.setText("✓ Activo");
                 holder.lblEstadoUsuario.setTextColor(Color.parseColor("#388E3C")); // Verde
                 break;
             case User.STATUS_INACTIVE:
-                holder.lblEstadoUsuario.setText("Inactivo");
+                holder.lblEstadoUsuario.setText("⏸ Inactivo");
                 holder.lblEstadoUsuario.setTextColor(Color.parseColor("#FF9800")); // Naranja
                 break;
             case User.STATUS_BLOCKED:
-                holder.lblEstadoUsuario.setText("Bloqueado");
+                holder.lblEstadoUsuario.setText("🚫 Bloqueado");
                 holder.lblEstadoUsuario.setTextColor(Color.parseColor("#F44336")); // Rojo
                 break;
             default:
-                holder.lblEstadoUsuario.setText("Desconocido");
+                holder.lblEstadoUsuario.setText("? Desconocido");
                 holder.lblEstadoUsuario.setTextColor(Color.parseColor("#666666")); // Gris
                 break;
         }
     }
 
     private void configurarImagenUsuario(ViewHolderGestionarUsuariosAdapter holder, User usuario) {
-        // Puedes cambiar las imágenes según el rol
         switch (usuario.getRole()) {
             case User.ROLE_ADMIN:
                 holder.imgUsuario.setImageResource(R.drawable.ic_admin);
+                holder.imgUsuario.setColorFilter(Color.parseColor("#D32F2F")); // Rojo
                 break;
             case User.ROLE_SELLER:
                 holder.imgUsuario.setImageResource(R.drawable.ic_seller);
+                holder.imgUsuario.setColorFilter(Color.parseColor("#1976D2")); // Azul
                 break;
             case User.ROLE_PRODUCTION:
                 holder.imgUsuario.setImageResource(R.drawable.ic_production);
+                holder.imgUsuario.setColorFilter(Color.parseColor("#388E3C")); // Verde
                 break;
             default:
                 holder.imgUsuario.setImageResource(R.drawable.ic_usuario);
+                holder.imgUsuario.setColorFilter(Color.parseColor("#666666")); // Gris
                 break;
         }
     }
@@ -201,33 +283,58 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
     private String formatearRol(String rol) {
         switch (rol) {
             case User.ROLE_ADMIN:
-                return "Administrador";
+                return "👑 Administrador";
             case User.ROLE_SELLER:
-                return "Vendedor";
+                return "🛒 Vendedor";
             case User.ROLE_PRODUCTION:
-                return "Producción";
+                return "🏭 Producción";
             default:
                 return rol;
         }
     }
 
     private void mostrarDialogoEliminar(User usuario, int position) {
+        // Verificar si es el último administrador
+        if (User.ROLE_ADMIN.equals(usuario.getRole()) && esUltimoAdmin()) {
+            new AlertDialog.Builder(context)
+                    .setTitle("❌ No se puede eliminar")
+                    .setMessage("No puedes eliminar el último administrador del sistema.\n\nDebe existir al menos un administrador activo.")
+                    .setPositiveButton("Entendido", null)
+                    .setIcon(R.drawable.ic_warning)
+                    .show();
+            return;
+        }
+
+        String mensajeExtra = User.ROLE_ADMIN.equals(usuario.getRole())
+                ? "\n\n⚠️ Este es un usuario ADMINISTRADOR"
+                : "";
+
         new AlertDialog.Builder(context)
-                .setTitle("¿Eliminar Usuario?")
-                .setMessage("¿Estás seguro de que deseas eliminar al usuario " + usuario.getName() + "?\n\nEsta acción no se puede deshacer.")
-                .setPositiveButton("Sí, Eliminar", (dialog, which) -> {
-                    eliminarUsuarioFirebase(usuario, position);
+                .setTitle("🗑️ ¿Eliminar Usuario?")
+                .setMessage("¿Estás seguro de que deseas bloquear al usuario " + usuario.getName() + "?" + mensajeExtra + "\n\nEl usuario será bloqueado y no podrá acceder al sistema.")
+                .setPositiveButton("Sí, Bloquear", (dialog, which) -> {
+                    bloquearUsuario(usuario, position);
                 })
                 .setNegativeButton("Cancelar", null)
                 .setIcon(R.drawable.ic_warning)
                 .show();
     }
 
-    private void eliminarUsuarioFirebase(User usuario, int position) {
-        // Nota: En un sistema real, normalmente no se elimina completamente el usuario
-        // sino que se marca como "eliminado" o se desactiva para mantener la integridad referencial
+    private boolean esUltimoAdmin() {
+        int contadorAdmins = 0;
+        for (User user : listaUsuarios) {
+            if (User.ROLE_ADMIN.equals(user.getRole()) &&
+                    !User.STATUS_BLOCKED.equals(user.getStatus())) {
+                contadorAdmins++;
+            }
+        }
+        return contadorAdmins <= 1;
+    }
 
-        // Cambiar estado a bloqueado en lugar de eliminar
+    private void bloquearUsuario(User usuario, int position) {
+        Log.d(TAG, "Bloqueando usuario: " + usuario.getName());
+
+        // Cambiar estado a bloqueado
         usuario.setStatus(User.STATUS_BLOCKED);
 
         databaseHelper.updateUser(usuario, new DatabaseHelper.DatabaseCallback<User>() {
@@ -235,13 +342,19 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
             public void onSuccess(User usuarioActualizado) {
                 Log.d(TAG, "Usuario bloqueado exitosamente");
                 actualizarUsuario(usuarioActualizado);
-                Toast.makeText(context, "Usuario bloqueado correctamente", Toast.LENGTH_SHORT).show();
+
+                // Notificar al Fragment
+                if (listener != null) {
+                    listener.onUsuarioActualizado(usuarioActualizado);
+                }
+
+                Toast.makeText(context, "✅ Usuario " + usuarioActualizado.getName() + " ha sido bloqueado", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(String error) {
                 Log.e(TAG, "Error bloqueando usuario: " + error);
-                Toast.makeText(context, "Error: " + error, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "❌ Error: " + error, Toast.LENGTH_LONG).show();
             }
         });
     }

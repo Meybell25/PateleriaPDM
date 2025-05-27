@@ -71,6 +71,42 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
+            <!-- CreatedAt -->
+            <TextView
+                android:id="@+id/lblCreatedAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="fecha de creacion"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <!-- updatedAt -->
+            <TextView
+                android:id="@+id/lblupdatedAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="fecha de actualizacion"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <!-- updatedAt -->
+            <TextView
+                android:id="@+id/lblcreatedBy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="admin que lo creo"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
 
             <!-- Tamanioo y porciones -->
 
@@ -107,6 +143,18 @@
                 android:text="$150.00"
                 android:textColor="@color/rosa"
                 android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="6dp" />
+
+            <!-- Estado -->
+            <TextView
+                android:id="@+id/lblEstado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Activo o inactivo"
+                android:textColor="@color/rosa"
+                android:textSize="18sp"
+                android:paddingLeft="10dp"
                 android:textStyle="bold"
                 android:layout_marginTop="6dp" />
 

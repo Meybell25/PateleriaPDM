@@ -1,6 +1,9 @@
 package com.example.pasteleriapdm.Utils;
 
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+
 import com.example.pasteleriapdm.Models.*;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -251,6 +254,33 @@ public class DatabaseHelper {
                     }
                 });
     }
+    // ==================== MÉTODOS PARA OBTENER INFORMACIÓN DEL USUARIO ====================
+
+    /**
+     * Obtener usuario por ID
+     */
+    public void getUserById(String userId, DatabaseCallback<User> callback) {
+        databaseRef.child(USERS_NODE).child(userId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        User user = snapshot.getValue(User.class);
+                        if (user != null) {
+                            user.setUid(snapshot.getKey());
+                            callback.onSuccess(user);
+                        } else {
+                            callback.onError("Usuario no encontrado");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo usuario", error.toException());
+                        callback.onError("Error obteniendo usuario: " + error.getMessage());
+                    }
+                });
+    }
+
 
 
     // ==================== OPERACIONES DE PASTELES ====================
@@ -279,7 +309,7 @@ public class DatabaseHelper {
     }
 
     /**
-     * Obtener todos los pasteles activos
+     * Obtener solo pasteles activos (para usar en reservas)
      */
     public void getActiveCakes(DatabaseCallback<List<Cake>> callback) {
         databaseRef.child(CAKES_NODE)
@@ -287,22 +317,28 @@ public class DatabaseHelper {
                 .equalTo(Cake.STATUS_ACTIVE)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        List<Cake> cakes = new ArrayList<>();
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        List<Cake> activeCakes = new ArrayList<>();
                         for (DataSnapshot cakeSnapshot : snapshot.getChildren()) {
-                            Cake cake = cakeSnapshot.getValue(Cake.class);
-                            if (cake != null) {
-                                cake.setId(cakeSnapshot.getKey());
-                                cakes.add(cake);
+                            try {
+                                Cake cake = cakeSnapshot.getValue(Cake.class);
+                                if (cake != null) {
+                                    cake.setId(cakeSnapshot.getKey());
+                                    activeCakes.add(cake);
+                                }
+                            } catch (Exception e) {
+                                Log.e(TAG, "Error parsing cake data", e);
                             }
                         }
-                        callback.onSuccess(cakes);
+
+                        Log.d(TAG, "Pasteles activos obtenidos: " + activeCakes.size());
+                        callback.onSuccess(activeCakes);
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError error) {
-                        Log.e(TAG, "Error obteniendo pasteles", error.toException());
-                        callback.onError("Error obteniendo pasteles: " + error.getMessage());
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo pasteles activos", error.toException());
+                        callback.onError("Error obteniendo pasteles activos: " + error.getMessage());
                     }
                 });
     }
@@ -347,6 +383,22 @@ public class DatabaseHelper {
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Error actualizando pastel", e);
                     callback.onError("Error actualizando pastel: " + e.getMessage());
+                });
+    }
+
+    /**
+     * Eliminar pastel permanentemente (solo para casos extremos)
+     */
+    public void permanentDeleteCake(String cakeId, DatabaseCallback<Boolean> callback) {
+        databaseRef.child(CAKES_NODE).child(cakeId)
+                .removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    Log.d(TAG, "Pastel eliminado permanentemente: " + cakeId);
+                    callback.onSuccess(true);
+                })
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "Error eliminando pastel permanentemente", e);
+                    callback.onError("Error eliminando pastel: " + e.getMessage());
                 });
     }
 

@@ -5,7 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +24,7 @@ import com.example.pasteleriapdm.Models.User;
 import com.example.pasteleriapdm.R;
 import com.example.pasteleriapdm.Utils.DatabaseHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.UsuarioDialogListener {
@@ -27,10 +33,23 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
     private Button btnAbrirDialogoUsuarios;
     private RecyclerView rvcUsuarios;
     private TextView lblerrorClientes;
+    private TextView lblContadorUsuarios;
+    private Spinner spinnerFiltroRol;
+    private ImageButton btnLimpiarFiltro;
+    private LinearLayout layoutNoUsuarios;
+    private TextView txtMensajeNoUsuarios;
 
     private GestionarUsuariosAdapter gestionarUsuariosAdapter;
     private DatabaseHelper databaseHelper;
-    private boolean hayUsuarios = false; // Variable para controlar si existen usuarios
+    private boolean hayUsuarios = false;
+
+    // Listas para el filtrado
+    private List<User> listaUsuariosCompleta = new ArrayList<>();
+    private List<User> listaUsuariosFiltrada = new ArrayList<>();
+
+    // Variables para el filtro
+    private String filtroRolActual = "TODOS";
+    private ArrayAdapter<String> spinnerAdapter;
 
     public GestionUsuariosFragment() {
         // Required empty public constructor
@@ -52,6 +71,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         View view = inflater.inflate(R.layout.fragment_gestion_usuarios, container, false);
 
         AsociarElementoXML(view);
+        configurarSpinnerFiltro();
         configurarRecyclerView();
         configurarEventos();
         verificarYCargarUsuarios();
@@ -63,10 +83,67 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         btnAbrirDialogoUsuarios = view.findViewById(R.id.btnAbrirDialogoUsuarios);
         rvcUsuarios = view.findViewById(R.id.rvcUsuarios);
         lblerrorClientes = view.findViewById(R.id.lblerrorClientes);
+        lblContadorUsuarios = view.findViewById(R.id.lblContadorUsuarios);
+        spinnerFiltroRol = view.findViewById(R.id.spinnerFiltroRol);
+        btnLimpiarFiltro = view.findViewById(R.id.btnLimpiarFiltro);
+        layoutNoUsuarios = view.findViewById(R.id.layoutNoUsuarios);
+        txtMensajeNoUsuarios = view.findViewById(R.id.txtMensajeNoUsuarios);
+    }
+
+    private void configurarSpinnerFiltro() {
+        // Crear lista de opciones para el filtro
+        List<String> opcionesFiltro = new ArrayList<>();
+        opcionesFiltro.add("TODOS");
+        opcionesFiltro.add("ADMINISTRADOR");
+        opcionesFiltro.add("VENDEDOR");
+        opcionesFiltro.add("PRODUCCIÓN");
+
+        // Configurar adapter del spinner
+        spinnerAdapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, opcionesFiltro);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerFiltroRol.setAdapter(spinnerAdapter);
+
+        // Configurar listener del spinner
+        spinnerFiltroRol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String filtroSeleccionado = opcionesFiltro.get(position);
+                aplicarFiltroRol(filtroSeleccionado);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // No hacer nada
+            }
+        });
     }
 
     private void configurarRecyclerView() {
         gestionarUsuariosAdapter = new GestionarUsuariosAdapter(getContext(), getParentFragmentManager());
+
+        //  Configurar el listener para el adapter
+        gestionarUsuariosAdapter.setOnUsuarioActionListener(new GestionarUsuariosAdapter.OnUsuarioActionListener() {
+            @Override
+            public void onUsuarioEliminado(String uid) {
+                // Manejar eliminación desde el adapter
+                onUsuarioEliminado(uid);
+            }
+
+            @Override
+            public void onUsuarioActualizado(User usuario) {
+                // Actualizar la lista completa cuando se actualiza un usuario
+                for (int i = 0; i < listaUsuariosCompleta.size(); i++) {
+                    if (listaUsuariosCompleta.get(i).getUid().equals(usuario.getUid())) {
+                        listaUsuariosCompleta.set(i, usuario);
+                        break;
+                    }
+                }
+                // Reaplicar el filtro
+                aplicarFiltroRol(filtroRolActual);
+            }
+        });
+
         rvcUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
         rvcUsuarios.setAdapter(gestionarUsuariosAdapter);
     }
@@ -85,6 +162,91 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
                 Toast.makeText(getContext(), "No tienes permisos para crear usuarios", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Configurar botón limpiar filtro
+        btnLimpiarFiltro.setOnClickListener(v -> {
+            limpiarFiltro();
+        });
+    }
+
+    private void aplicarFiltroRol(String filtro) {
+        filtroRolActual = filtro;
+        Log.d(TAG, "Aplicando filtro: " + filtro);
+
+        // Mostrar/ocultar botón limpiar filtro
+        if ("TODOS".equals(filtro)) {
+            btnLimpiarFiltro.setVisibility(View.GONE);
+        } else {
+            btnLimpiarFiltro.setVisibility(View.VISIBLE);
+        }
+
+        // Aplicar filtro a la lista
+        listaUsuariosFiltrada.clear();
+
+        if ("TODOS".equals(filtro)) {
+            listaUsuariosFiltrada.addAll(listaUsuariosCompleta);
+        } else {
+            String rolFiltro = convertirFiltroARol(filtro);
+            for (User usuario : listaUsuariosCompleta) {
+                if (rolFiltro.equals(usuario.getRole())) {
+                    listaUsuariosFiltrada.add(usuario);
+                }
+            }
+        }
+
+        // Actualizar adapter y contador
+        gestionarUsuariosAdapter.actualizarLista(listaUsuariosFiltrada);
+        actualizarContadorUsuarios();
+        actualizarVisibilidadListas();
+
+        Log.d(TAG, "Filtro aplicado. Usuarios mostrados: " + listaUsuariosFiltrada.size());
+    }
+
+    private String convertirFiltroARol(String filtro) {
+        switch (filtro) {
+            case "ADMINISTRADOR":
+                return User.ROLE_ADMIN;
+            case "VENDEDOR":
+                return User.ROLE_SELLER;
+            case "PRODUCCIÓN":
+                return User.ROLE_PRODUCTION;
+            default:
+                return "";
+        }
+    }
+
+    private void limpiarFiltro() {
+        spinnerFiltroRol.setSelection(0); // Seleccionar "TODOS"
+        // El listener del spinner se encargará de aplicar el filtro
+    }
+
+    private void actualizarContadorUsuarios() {
+        int totalFiltrados = listaUsuariosFiltrada.size();
+        int totalCompletos = listaUsuariosCompleta.size();
+
+        if ("TODOS".equals(filtroRolActual)) {
+            lblContadorUsuarios.setText("Total: " + totalCompletos + " usuarios");
+        } else {
+            lblContadorUsuarios.setText("Filtrados: " + totalFiltrados + " de " + totalCompletos + " usuarios");
+        }
+    }
+
+    private void actualizarVisibilidadListas() {
+        if (listaUsuariosFiltrada.isEmpty()) {
+            // Mostrar mensaje de "no usuarios"
+            rvcUsuarios.setVisibility(View.GONE);
+            layoutNoUsuarios.setVisibility(View.VISIBLE);
+
+            if ("TODOS".equals(filtroRolActual)) {
+                txtMensajeNoUsuarios.setText("No hay usuarios registrados");
+            } else {
+                txtMensajeNoUsuarios.setText("No se encontraron usuarios con el rol: " + filtroRolActual.toLowerCase());
+            }
+        } else {
+            // Mostrar lista de usuarios
+            rvcUsuarios.setVisibility(View.VISIBLE);
+            layoutNoUsuarios.setVisibility(View.GONE);
+        }
     }
 
     private void crearPrimerAdmin() {
@@ -138,7 +300,14 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
                     mostrarMensajePrimerAdmin();
                 } else {
                     ocultarMensajeVacio();
-                    gestionarUsuariosAdapter.actualizarLista(usuarios);
+
+                    // Actualizar listas completas
+                    listaUsuariosCompleta.clear();
+                    listaUsuariosCompleta.addAll(usuarios);
+
+                    // Aplicar filtro actual
+                    aplicarFiltroRol(filtroRolActual);
+
                     actualizarBotonSegunEstado();
                 }
             }
@@ -165,11 +334,13 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         lblerrorClientes.setText("¡Bienvenido!\n\nNo hay usuarios registrados en el sistema.\nDebes crear el primer administrador para comenzar.");
         lblerrorClientes.setVisibility(View.VISIBLE);
         rvcUsuarios.setVisibility(View.GONE);
+        layoutNoUsuarios.setVisibility(View.GONE);
+        lblContadorUsuarios.setText("Total: 0 usuarios");
     }
 
     private void actualizarBotonSegunEstado() {
         if (hayUsuarios) {
-            btnAbrirDialogoUsuarios.setText("AGREGAR USUARIOS");
+            btnAbrirDialogoUsuarios.setText("AGREGAR USUARIO");
         } else {
             btnAbrirDialogoUsuarios.setText("CREAR PRIMER ADMINISTRADOR");
         }
@@ -193,6 +364,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
             lblerrorClientes.setText("Verificando usuarios...");
             lblerrorClientes.setVisibility(View.VISIBLE);
             rvcUsuarios.setVisibility(View.GONE);
+            layoutNoUsuarios.setVisibility(View.GONE);
         } else {
             btnAbrirDialogoUsuarios.setEnabled(true);
             actualizarBotonSegunEstado();
@@ -203,17 +375,18 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         lblerrorClientes.setText(mensaje);
         lblerrorClientes.setVisibility(View.VISIBLE);
         rvcUsuarios.setVisibility(View.GONE);
+        layoutNoUsuarios.setVisibility(View.GONE);
     }
 
     private void mostrarMensajeError(String mensaje) {
         lblerrorClientes.setText(mensaje);
         lblerrorClientes.setVisibility(View.VISIBLE);
         rvcUsuarios.setVisibility(View.GONE);
+        layoutNoUsuarios.setVisibility(View.GONE);
     }
 
     private void ocultarMensajeVacio() {
         lblerrorClientes.setVisibility(View.GONE);
-        rvcUsuarios.setVisibility(View.VISIBLE);
     }
 
     // Implementación de UsuarioDialogListener
@@ -224,32 +397,55 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         // Actualizar estado
         hayUsuarios = true;
 
-        // Agregar el usuario al adapter
-        gestionarUsuariosAdapter.agregarUsuario(usuario);
+        // Agregar el usuario a la lista completa
+        listaUsuariosCompleta.add(usuario);
+
+        // Verificar si el usuario cumple con el filtro actual
+        boolean cumpleFiltro = false;
+        if ("TODOS".equals(filtroRolActual)) {
+            cumpleFiltro = true;
+        } else {
+            String rolFiltro = convertirFiltroARol(filtroRolActual);
+            cumpleFiltro = rolFiltro.equals(usuario.getRole());
+        }
+
+        if (cumpleFiltro) {
+            listaUsuariosFiltrada.add(usuario);
+            gestionarUsuariosAdapter.agregarUsuario(usuario);
+            // Scroll al final para mostrar el nuevo usuario
+            rvcUsuarios.smoothScrollToPosition(gestionarUsuariosAdapter.getItemCount() - 1);
+        }
 
         // Ocultar mensaje de vacío si estaba visible
         ocultarMensajeVacio();
 
-        // Actualizar botón
+        // Actualizar contador y visibilidad
+        actualizarContadorUsuarios();
+        actualizarVisibilidadListas();
         actualizarBotonSegunEstado();
 
         // Mostrar mensaje de éxito
-        String mensaje = usuario.isAdmin() && gestionarUsuariosAdapter.getItemCount() == 1
+        String mensaje = usuario.isAdmin() && listaUsuariosCompleta.size() == 1
                 ? "¡Primer administrador creado exitosamente!\nYa puedes gestionar el sistema."
                 : "Usuario " + usuario.getName() + " creado exitosamente";
 
         Toast.makeText(getContext(), mensaje, Toast.LENGTH_LONG).show();
-
-        // Scroll al final para mostrar el nuevo usuario
-        rvcUsuarios.smoothScrollToPosition(gestionarUsuariosAdapter.getItemCount() - 1);
     }
 
     @Override
     public void onUsuarioActualizado(User usuario) {
         Log.d(TAG, "Usuario actualizado: " + usuario.getName());
 
-        // Actualizar el usuario en el adapter
-        gestionarUsuariosAdapter.actualizarUsuario(usuario);
+        // Actualizar el usuario en la lista completa
+        for (int i = 0; i < listaUsuariosCompleta.size(); i++) {
+            if (listaUsuariosCompleta.get(i).getUid().equals(usuario.getUid())) {
+                listaUsuariosCompleta.set(i, usuario);
+                break;
+            }
+        }
+
+        // Reaplicar el filtro para reflejar los cambios
+        aplicarFiltroRol(filtroRolActual);
 
         // Mostrar mensaje de éxito
         Toast.makeText(getContext(), "Usuario " + usuario.getName() + " actualizado exitosamente", Toast.LENGTH_SHORT).show();
@@ -263,10 +459,22 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
     // Método para manejar la eliminación de usuarios (llamado desde el adapter)
     public void onUsuarioEliminado(String uid) {
         Log.d(TAG, "Usuario eliminado: " + uid);
+
+        // Eliminar de la lista completa
+        listaUsuariosCompleta.removeIf(user -> user.getUid().equals(uid));
+
+        // Eliminar de la lista filtrada
+        listaUsuariosFiltrada.removeIf(user -> user.getUid().equals(uid));
+
+        // Actualizar adapter
         gestionarUsuariosAdapter.eliminarUsuario(uid);
 
+        // Actualizar contador y visibilidad
+        actualizarContadorUsuarios();
+        actualizarVisibilidadListas();
+
         // Si no quedan usuarios, actualizar estado
-        if (gestionarUsuariosAdapter.getItemCount() == 0) {
+        if (listaUsuariosCompleta.isEmpty()) {
             hayUsuarios = false;
             mostrarMensajePrimerAdmin();
         }
@@ -285,5 +493,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         super.onDestroyView();
         // Limpiar referencias para evitar memory leaks
         gestionarUsuariosAdapter = null;
+        listaUsuariosCompleta.clear();
+        listaUsuariosFiltrada.clear();
     }
 }

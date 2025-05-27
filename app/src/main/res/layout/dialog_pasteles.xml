@@ -99,7 +99,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Categoroa con Spinner -->
+        <!-- Categoría con Spinner -->
         <LinearLayout
             android:id="@+id/layoutCategoria"
             android:layout_width="0dp"
@@ -130,7 +130,38 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- Tamanioo y Porciones en una fila -->
+        <!-- Status del Pastel -->
+        <LinearLayout
+            android:id="@+id/layoutStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/spinner_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutCategoria">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_status"
+                android:tint="@color/rosa_acento" />
+
+            <Spinner
+                android:id="@+id/spinnerStatus"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/spinner_background" />
+        </LinearLayout>
+
+        <!-- Tamaño y Porciones en una fila -->
         <LinearLayout
             android:id="@+id/layoutTamano"
             android:layout_width="0dp"
@@ -144,7 +175,7 @@
             android:padding="16dp"
             app:layout_constraintEnd_toStartOf="@id/tilPorciones"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutCategoria">
+            app:layout_constraintTop_toBottomOf="@id/layoutStatus">
 
             <ImageView
                 android:layout_width="24dp"
@@ -179,7 +210,7 @@
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/layoutTamano"
-            app:layout_constraintTop_toBottomOf="@id/layoutCategoria"
+            app:layout_constraintTop_toBottomOf="@id/layoutStatus"
             app:startIconDrawable="@drawable/ic_porcion_pastel"
             app:startIconTint="@android:color/white">
 
@@ -232,6 +263,67 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Información de creación (solo visible en modo edición) -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardInfoCreacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#33FFFFFF"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilPrecio"
+            app:strokeColor="@android:color/white"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Información de Creación"
+                    android:textColor="#F6F3F3"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblFechaCreacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Creado: --"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/lblUltimaActualizacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Actualizado: --"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/lblCreadoPor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Creado por: --"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Seccion para imagen -->
         <TextView
             android:id="@+id/lblImagenTitulo"
@@ -244,12 +336,12 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPrecio" />
+            app:layout_constraintTop_toBottomOf="@id/cardInfoCreacion" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardImagenPastel"
             android:layout_width="0dp"
-            android:layout_height="120dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
@@ -263,28 +355,38 @@
             app:strokeWidth="1dp">
 
             <LinearLayout
-                android:id="@+id/layoutSeleccionarImagen"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
+                <!-- Input para URL -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="URL de la imagen"
+                    app:startIconDrawable="@drawable/ic_link"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txtUrlImagen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- ImageView para mostrar la vista previa -->
                 <ImageView
                     android:id="@+id/imgPreview"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="12dp"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_imagen1"
-                    android:visibility="visible" />
+                    android:background="@drawable/spinner_background"
+                    android:padding="8dp" />
 
-                <TextView
-                    android:id="@+id/lblSeleccionarImagen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Toca para agregar imagen"
-                    android:textColor="#83C541"
-                    android:textSize="12sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

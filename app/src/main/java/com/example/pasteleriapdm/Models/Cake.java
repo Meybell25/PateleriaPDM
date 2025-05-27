@@ -1,6 +1,8 @@
 package com.example.pasteleriapdm.Models;
 
 import com.google.firebase.database.PropertyName;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +10,7 @@ import java.util.Map;
  * Modelo para representar un Pastel del catálogo
  * Corresponde al nodo cakes/ en Firebase Realtime Database
  */
-public class Cake {
+public class Cake implements Serializable {
 
     // Constantes para categorías
     public static final String CATEGORY_CHOCOLATE = "chocolate";
@@ -34,7 +36,7 @@ public class Cake {
     private String description;      // Descripción detallada
     private double price;            // Precio en COP
     private String category;         // Categoría del pastel
-    private String imageUrl;         // URL de la imagen
+    private String imageUrl;
     private String status;           // Estado: active, inactive
     private String size;             // Tamaño del pastel
     private long createdAt;          // Timestamp de creación
