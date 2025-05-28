@@ -23,8 +23,6 @@ public class PanelAdministrativoFragment extends Fragment {
     private RecyclerView rvcItemUsauriosPanel;
     private RecyclerView rvcItemReservaPanel;
 
-
-
     public PanelAdministrativoFragment() {
         // Required empty public constructor
     }

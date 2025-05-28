@@ -9,7 +9,6 @@
     tools:context=".MainActivity">
 
     <!-- Elementos decorativos flotantes -->
-
     <ImageView
         android:id="@+id/iv_cupcake_top_left"
         android:layout_width="40dp"
@@ -22,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- IMAGEN DE DECORACION-->
     <ImageView
         android:id="@+id/iv_donut_top_right"
         android:layout_width="63dp"
@@ -34,8 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Contenedor principal del logo -->
-
+    <!-- CONTENEDOR PRINCIPAL DEL LOGO -->
     <ImageView
         android:id="@+id/iv_cake_slice_left"
         android:layout_width="76dp"
@@ -48,6 +47,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/tv_app_name"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- IMAGEN DE DECORACION-->
     <ImageView
         android:id="@+id/iv_cookie_right"
         android:layout_width="38dp"
@@ -60,6 +60,7 @@
         app:layout_constraintStart_toEndOf="@+id/cv_logo_container"
         app:layout_constraintTop_toBottomOf="@+id/iv_donut_top_right" />
 
+    <!-- CONTENEDOR DEL LOGO-->
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_logo_container"
         android:layout_width="180dp"
@@ -89,10 +90,9 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.cardview.widget.CardView>
 
-    <!-- Nombre de la aplicación -->
+    <!-- NOMBRE DE LA APP -->
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_logo_container" />
 
-    <!-- Subtítulo -->
+    <!-- SUNTITULO -->
     <TextView
         android:id="@+id/tv_subtitle"
         android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_app_name" />
 
-    <!-- Contenedor de la barra de progreso -->
+    <!-- CONTENEDOR PARA LA BARRA DE [ROGRESO-->
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_progress_container"
         android:layout_width="200dp"
@@ -138,6 +138,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!--BARRA DE PROGRESO -->
         <ProgressBar
             android:id="@+id/progress_bar"
             style="?android:attr/progressBarStyleHorizontal"
@@ -147,10 +148,9 @@
             android:indeterminate="false"
             android:max="100"
             android:progress="0" />
-
     </androidx.cardview.widget.CardView>
 
-    <!-- Texto de carga -->
+    <!-- TEXTOS PARA CARGAR -->
     <TextView
         android:id="@+id/tv_loading"
         android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cv_progress_container" />
 
-    <!-- Elementos decorativos inferiores -->
+    <!-- ELEMENTOS DECORATIVOS -->
     <ImageView
         android:id="@+id/iv_muffin_bottom_left"
         android:layout_width="42dp"
@@ -177,6 +177,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="Decoración muffin" />
 
+    <!--IMAGEN DECORATIVA -->
     <ImageView
         android:id="@+id/iv_pretzel_bottom_right"
         android:layout_width="40dp"
@@ -189,7 +190,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="Decoración pretzel" />
 
-    <!-- Mascota kawaii (opcional) -->
+    <!-- IMAGEN DE GATITO -->
     <ImageView
         android:id="@+id/iv_kawaii_mascot"
         android:layout_width="175dp"
@@ -201,7 +202,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

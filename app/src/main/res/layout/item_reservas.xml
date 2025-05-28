@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp">
 
-        <!-- Header con ID y Estado -->
+        <!-- LL PARA ECABESADO DE LASECCION -->
         <LinearLayout
             android:id="@+id/llHeaderReserva"
             android:layout_width="0dp"
@@ -47,7 +47,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Informacion del cliente -->
+        <!-- INFO CLIENTE -->
         <LinearLayout
             android:id="@+id/llInfoCliente"
             android:layout_width="0dp"
@@ -76,7 +76,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Informacion del vendedor/admin -->
+        <!-- INFO VENDEDOR O ADMIN -->
         <LinearLayout
             android:id="@+id/llInfoVendedor"
             android:layout_width="0dp"
@@ -105,7 +105,7 @@
                 android:textSize="13sp" />
         </LinearLayout>
 
-        <!-- Fecha de entrega -->
+        <!-- FECHA PARA ENTREGA -->
         <LinearLayout
             android:id="@+id/llInfoEntrega"
             android:layout_width="0dp"
@@ -134,7 +134,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Hora de entrega -->
+        <!-- HORA DE ENTRAGA -->
         <LinearLayout
             android:id="@+id/llInfoHoraEntrega"
             android:layout_width="0dp"
@@ -242,7 +242,7 @@
                 android:lineSpacingExtra="2dp" />
         </LinearLayout>
 
-        <!-- Prioridad y Total -->
+        <!-- LL PARA PIUORIDAD-->
         <LinearLayout
             android:id="@+id/llPrioridadTotal"
             android:layout_width="0dp"
@@ -277,7 +277,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Notas especiales (si existen) -->
+        <!--NOTITAS  -->
         <TextView
             android:id="@+id/lblNotasReserva"
             android:layout_width="0dp"
@@ -307,7 +307,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- btn Ver/Detalles -->
+            <!-- btn Ver O Detalles -->
             <ImageButton
                 android:id="@+id/btnVerReserva"
                 android:layout_width="42dp"
@@ -339,9 +339,6 @@
                 android:src="@drawable/ic_eliminar"
                 android:tint="@color/white"
                 android:contentDescription="Eliminar reserva" />
-
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.cardview.widget.CardView>

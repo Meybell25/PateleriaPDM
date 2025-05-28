@@ -12,7 +12,7 @@
         </shape>
     </item>
 
-    <!-- Flecha dropdown -->
+    <!-- Flecha flechita -->
     <item
         android:gravity="end|center_vertical"
         android:right="16dp">

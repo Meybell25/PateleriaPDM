@@ -28,8 +28,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsuariosAdapter.ViewHolderGestionarUsuariosAdapter> {
+    //VARIBALES ESTAICAS
     private static final String TAG = "GestionarUsuariosAdapter";
-
+    //VARIBALES NORMALES
     private Context context;
     private FragmentManager fragmentManager;
     private List<User> listaUsuarios;
@@ -37,12 +38,11 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
     private SimpleDateFormat dateFormat;
     private OnUsuarioActionListener listener;
 
-    // Interface para comunicación con el Fragment
+    // Interface para comunicacion con el Fragment
     public interface OnUsuarioActionListener {
         void onUsuarioEliminado(String uid);
         void onUsuarioActualizado(User usuario);
     }
-
     public GestionarUsuariosAdapter(Context context, FragmentManager fragmentManager) {
         this.context = context;
         this.fragmentManager = fragmentManager;
@@ -56,7 +56,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         this.listener = listener;
     }
 
-    // Método para actualizar la lista de usuarios
+    // Metodo para actualizar la lista de usuarios
     public void actualizarLista(List<User> nuevaLista) {
         this.listaUsuarios.clear();
         if (nuevaLista != null) {
@@ -66,7 +66,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         Log.d(TAG, "Lista actualizada con " + this.listaUsuarios.size() + " usuarios");
     }
 
-    // Método para agregar un usuario
+    // Metodo para agregar un usuario
     public void agregarUsuario(User usuario) {
         if (usuario != null) {
             this.listaUsuarios.add(usuario);
@@ -75,7 +75,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
     }
 
-    // Método para actualizar un usuario específico
+    // Metodo para actualizar un usuario específico
     public void actualizarUsuario(User usuarioActualizado) {
         if (usuarioActualizado == null) return;
 
@@ -89,7 +89,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
     }
 
-    // Método para eliminar un usuario - CORREGIDO
+    // Metodo para eliminar  usuario
     public void eliminarUsuario(String uid) {
         if (uid == null || uid.trim().isEmpty()) {
             Log.w(TAG, "UID nulo o vacío para eliminar");
@@ -147,7 +147,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
             holder.lblOlvidePassword.setText("Contraseña: No disponible");
         }
 
-        // Formatear fecha de creación
+        // Formatear fecha de creacion
         if (usuario.getCreatedAt() > 0) {
             String fechaCreacion = dateFormat.format(new Date(usuario.getCreatedAt()));
             holder.lblCreatedAt.setText("Creado: " + fechaCreacion);
@@ -155,7 +155,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
             holder.lblCreatedAt.setText("Creado: Fecha no disponible");
         }
 
-        // Formatear último login
+        // Formatear ultimo login
         if (usuario.getLastLogin() > 0) {
             String ultimoLogin = dateFormat.format(new Date(usuario.getLastLogin()));
             holder.lblLastLogin.setText("Último acceso: " + ultimoLogin);
@@ -166,13 +166,14 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         // Configurar estado del usuario
         configurarEstadoUsuario(holder, usuario);
 
-        // Configurar imagen según el rol
+        // Configurar imagen segun el rol
         configurarImagenUsuario(holder, usuario);
 
         // Configurar eventos
         configurarEventos(holder, usuario, position);
     }
 
+    //Metodo para configurar el Rol
     private void configurarColorRol(ViewHolderGestionarUsuariosAdapter holder, String rol) {
         switch (rol) {
             case User.ROLE_ADMIN:
@@ -190,19 +191,20 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
     }
 
+    //Metodo para configurar el evento
     private void configurarEventos(ViewHolderGestionarUsuariosAdapter holder, User usuario, int position) {
         // Limpiar listeners anteriores
         holder.btnEditarUsuario.setOnClickListener(null);
         holder.btnEliminarUsuario.setOnClickListener(null);
         holder.lblOlvidePassword.setOnClickListener(null);
 
-        // Evento del botón editar
+        // Evento del boton editar
         holder.btnEditarUsuario.setOnClickListener(v -> {
             UsuariosDialog usuariosDialog = new UsuariosDialog(usuario);
             usuariosDialog.setUsuarioDialogListener(new UsuariosDialog.UsuarioDialogListener() {
                 @Override
                 public void onUsuarioCreado(User usuario) {
-                    // No se usa en edición
+                    // No se usa en edicion
                 }
 
                 @Override
@@ -218,7 +220,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
             usuariosDialog.show(fragmentManager, "editarUsuario");
         });
 
-        // CONFIGURAR BOTÓN ELIMINAR - CORREGIDO
+        // CONFIGURAR BOTON ELIMINAR
         String status = usuario.getStatus();
         boolean esInactivo = User.STATUS_INACTIVE.equals(status);
 
@@ -227,7 +229,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
             holder.btnEliminarUsuario.setEnabled(true);
             holder.btnEliminarUsuario.setAlpha(1.0f);
             holder.btnEliminarUsuario.setOnClickListener(v -> {
-                // Obtener posición actual para evitar problemas de posición
+                // Obtener posicion actual
                 int posicionActual = holder.getAdapterPosition();
                 if (posicionActual != RecyclerView.NO_POSITION && posicionActual < listaUsuarios.size()) {
                     User usuarioActual = listaUsuarios.get(posicionActual);
@@ -235,7 +237,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                 }
             });
         } else {
-            // Usuario activo o bloqueado - no permitir eliminación
+            // Usuario activo o bloqueado no permitir eliminación
             holder.btnEliminarUsuario.setEnabled(false);
             holder.btnEliminarUsuario.setAlpha(0.5f);
             holder.btnEliminarUsuario.setOnClickListener(v -> mostrarMensajeNoSePuedeEliminar(usuario));
@@ -272,9 +274,8 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                     usuariosDialog.setUsuarioDialogListener(new UsuariosDialog.UsuarioDialogListener() {
                         @Override
                         public void onUsuarioCreado(User usuario) {
-                            // No se usa en edición
+                            // No se usa en edicion
                         }
-
                         @Override
                         public void onUsuarioActualizado(User usuarioActualizado) {
                             actualizarUsuario(usuarioActualizado);
@@ -288,7 +289,6 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                 })
                 .show();
     }
-
     private void configurarEstadoUsuario(ViewHolderGestionarUsuariosAdapter holder, User usuario) {
         switch (usuario.getStatus()) {
             case User.STATUS_ACTIVE:
@@ -310,6 +310,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
     }
 
+    //Metodo para configurar la imagen de usuario la q le corresponde segun su rol
     private void configurarImagenUsuario(ViewHolderGestionarUsuariosAdapter holder, User usuario) {
         switch (usuario.getRole()) {
             case User.ROLE_ADMIN:
@@ -331,6 +332,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
     }
 
+    //Metodo para formatear el rol
     private String formatearRol(String rol) {
         switch (rol) {
             case User.ROLE_ADMIN:
@@ -344,6 +346,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
     }
 
+    //Metodo para mostar el dialogo Eliminar
     private void mostrarDialogoEliminar(User usuario, int position) {
         String mensajeExtra = User.ROLE_ADMIN.equals(usuario.getRole())
                 ? "\n\n⚠️ Este es un usuario ADMINISTRADOR INACTIVO"
@@ -360,22 +363,20 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                 .show();
     }
 
+    //Metodo para eliminar usuario permanetemente
     private void eliminarUsuarioPermanentemente(User usuario, int position) {
         Log.d(TAG, "Eliminando usuario permanentemente: " + usuario.getName() + " (UID: " + usuario.getUid() + ")");
 
         // Validaciones previas
         if (usuario.getUid() == null || usuario.getUid().trim().isEmpty()) {
-            Toast.makeText(context, "❌ Error: UID del usuario no válido", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Error: UID del usuario no valido", Toast.LENGTH_LONG).show();
             return;
         }
 
         if (!User.STATUS_INACTIVE.equals(usuario.getStatus())) {
-            Toast.makeText(context, "❌ Error: Solo se pueden eliminar usuarios inactivos", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Error: Solo se pueden eliminar usuarios inactivos", Toast.LENGTH_LONG).show();
             return;
         }
-
-        // Mostrar indicador de carga (opcional)
-        // Aquí podrías mostrar un progress dialog
 
         databaseHelper.deleteUser(usuario.getUid(), new DatabaseHelper.DatabaseCallback<Boolean>() {
             @Override
@@ -383,26 +384,23 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                 if (eliminado) {
                     Log.d(TAG, "Usuario eliminado exitosamente de la base de datos");
 
-                    // Notificar al Fragment PRIMERO
+                    // Notificar al Fragment primero
                     if (listener != null) {
                         listener.onUsuarioEliminado(usuario.getUid());
                     }
-
-                    Toast.makeText(context, "✅ Usuario " + usuario.getName() + " eliminado permanentemente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Usuario " + usuario.getName() + " eliminado permanentemente", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.w(TAG, "La eliminación devolvió false");
-                    Toast.makeText(context, "❌ Error: No se pudo eliminar el usuario", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, " Error: No se pudo eliminar el usuario", Toast.LENGTH_LONG).show();
                 }
             }
-
             @Override
             public void onError(String error) {
                 Log.e(TAG, "Error eliminando usuario: " + error);
-                Toast.makeText(context, "❌ Error eliminando usuario: " + error, Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Error eliminando usuario: " + error, Toast.LENGTH_LONG).show();
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return listaUsuarios != null ? listaUsuarios.size() : 0;

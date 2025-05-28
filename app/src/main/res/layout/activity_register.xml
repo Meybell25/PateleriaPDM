@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
+    <!--TITULO -->
     <TextView
         android:id="@+id/lblSignUpTitle"
         android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--SUB TITULO-->
     <TextView
         android:id="@+id/lblSignUpSubtitle"
         android:layout_width="wrap_content"
@@ -36,6 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblSignUpTitle" />
 
+    <!--CAMPO PARA NOMBRE -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilNombreUsuario"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -58,6 +61,7 @@
         app:startIconDrawable="@drawable/ic_usuario"
         app:startIconTint="@android:color/white">
 
+        <!--IMPUT PARA NOMBRE -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtNombreUsuario"
             android:layout_width="match_parent"
@@ -69,6 +73,7 @@
             android:textColorHint="#80FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- CAMPO PARA CORREP-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -91,6 +96,7 @@
         app:startIconDrawable="@drawable/ic_correo"
         app:startIconTint="@android:color/white">
 
+        <!--IMPUT CORREO -->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtCorreo"
             android:layout_width="match_parent"
@@ -103,6 +109,7 @@
             android:textColorHint="#80FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!--CAMPO PARA  CONTRASENIA -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilContrasena"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -127,6 +134,7 @@
         app:startIconDrawable="@drawable/ic_candado"
         app:startIconTint="@android:color/white">
 
+        <!-- INPUT CONTRASENIA-->
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtContrasena"
             android:layout_width="match_parent"
@@ -159,6 +167,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spRol" />
 
+    <!--BTN INICIAR SECION CON GOOGLI -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnIniciarSesionGoogle"
         android:layout_width="0dp"

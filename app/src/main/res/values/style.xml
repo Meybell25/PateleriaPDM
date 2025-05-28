@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    esources>
     <style name="BotonPrimario" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxCornerRadiusTopStart">24dp</item>
         <item name="boxCornerRadiusTopEnd">24dp</item>
@@ -39,8 +38,6 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-
-
     <style name="TextoSpinnerItemEstilo" parent="Widget.AppCompat.Spinner">
         <item name="android:textColor">@color/rosa_fucsia_suave</item>
         <item name="android:textColorPrimary">@color/black</item>
@@ -70,20 +67,17 @@
 
     <!-- Tema para el Toolbar -->
     <style name="ToolbarTema" parent="ThemeOverlay.AppCompat.ActionBar">
-        <!-- Color de los íconos del toolbar (rosa pastel) -->
         <item name="colorControlNormal">@color/rosa_pastel</item>
         <!-- Color cuando se presiona -->
         <item name="colorControlHighlight">@color/rosa_acento</item>
     </style>
 
-    <!-- Estilo para el popup/menú desplegable -->
+    <!-- Estilo para el muni desplegable -->
     <style name="toolbarDesplegable1" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:colorBackground">@color/morado_lila</item>
         <item name="android:textColorPrimary">@color/rosa_acento</item>
         <item name="colorControlNormal">@color/rosa_pastel</item>
         <item name="android:textStyle">bold</item>
-
-
     </style>
 
     <style name="AppTheme.FullScreen" parent="Theme.AppCompat.Light.NoActionBar">
@@ -96,11 +90,4 @@
     <style name="spacioSolucion" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
-
-
-
-
-
-
-
 </resources>

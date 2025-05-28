@@ -16,7 +16,7 @@
     <color name="blanco_20">#33FFFFFF</color>
     <color name="blanco_80">#CCFFFFFF</color>
 
-    <!-- Colores adicionales para pastelería -->
+    <!-- Colores adicionales para pasteleria -->
     <color name="rosa_pastel">#F8BBD9</color>
     <color name="crema_suave">#FFF8E7</color>
     <color name="marron_chocolate">#8B4513</color>
@@ -42,8 +42,5 @@
     <color name="verde_activo">#4CAF50</color>
     <color name="rojo_inactivo">#F44336</color>
     <color name="gold">#FFD700</color>
-
-
-
 
 </resources>

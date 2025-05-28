@@ -82,6 +82,7 @@ public class ClientesDialog extends DialogFragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_clientes, container, false);
 
+
         // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
         databaseHelper = DatabaseHelper.getInstance();

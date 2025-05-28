@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsAdmin.ReportesFragment">
 
-    <!-- Espacio reservado para el Toolbar -->
     <Space
         android:id="@+id/spaceForToolbar"
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Card de Bienvenida para REPORTES -->
+    <!-- CARD PARA EL TITULO EPORTES -->
     <androidx.cardview.widget.CardView
         android:id="@+id/CardTitulo"
         android:layout_width="0dp"
@@ -30,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Texto de titulo  -->
+        <!-- TITULO  -->
         <TextView
             android:id="@+id/lblTitle"
             android:layout_width="match_parent"
@@ -45,23 +44,244 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- RecyclerView  -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvcReportes"
+    <!--ScrollView para todo el contenido a mostrase-->
+    <ScrollView
+        android:id="@+id/scrollViewReportes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:clipToPadding="false"
-        android:paddingHorizontal="8dp"
-        android:paddingBottom="80dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/CardTitulo"
         app:layout_constraintBottom_toTopOf="@id/spaceForNavigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- LinearLayout para ESTADISTICA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
-    <!-- Espacio para button menu -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/lblTotalReservas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/rosa_claro" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Reservas"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_marginStart="8dp">
+
+                    <TextView
+                        android:id="@+id/lblVentasHoy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="45"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        android:textColor="#4CAF50" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ventas Hoy"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- CARD PARA GRAFICO DE PASTEL-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📈 Estados de Reservas"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- GRAFICO CIRCLAR -->
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/graficoCircular"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- CARD PARA GRAFICO DE BARRAR -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="380dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🍰 Ventas por Tipo de Pastel"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- GRADICO DE BARRAR-->
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/graficoBarras"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- SECION DE OPCIONES ADICIONALES -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                android:backgroundTint="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⚙️ Opciones de Reporte"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:layout_marginBottom="16dp" />
+
+                    <!-- BTN EXPORT PDF -->
+                    <Button
+                        android:id="@+id/btnExportarPdf"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:text="📄 EXPORTAR PDF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="12dp"
+                        android:elevation="2dp" />
+
+                    <!-- BTN PARA ACTUALIZAR DATOS -->
+                    <Button
+                        android:id="@+id/btnActualizarDatos"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:text="🔄 ACTUALIZAR DATOS"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:elevation="1dp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- RVC -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                android:backgroundTint="@color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📋 Lista de Reportes"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#333333"
+                        android:gravity="center"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- RVC ORGINAL -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvcReportes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:paddingHorizontal="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
@@ -70,12 +290,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto de error -->
+    <!-- LBL ERROR -->
     <TextView
         android:id="@+id/lblerror"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:text="Error al cargar datos"
+        android:textColor="#F44336"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="86dp" />
+        app:layout_constraintTop_toBottomOf="@id/CardTitulo"
+        app:layout_constraintBottom_toTopOf="@id/spaceForNavigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>

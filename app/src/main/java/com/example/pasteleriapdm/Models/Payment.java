@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class Payment {
 
-    // Constantes para métodos de pago
+    // Constantes para metodos de pago
     public static final String METHOD_CASH = "efectivo";
     public static final String METHOD_CARD = "tarjeta";
     public static final String METHOD_TRANSFER = "transferencia";
@@ -26,17 +26,17 @@ public class Payment {
     private String method;          // Metodo de pago
     private String status;          // Estado del pago
     private long timestamp;         // Timestamp del pago
-    private String reference;       // Referencia del pago (número de transacción)
+    private String reference;       // Referencia del pago (numero de transaccion)
     private String notes;           // Notas del pago
-    private String processedBy;     // UID del usuario que procesó el pago
+    private String processedBy;     // UID del usuario que proceso el pago
     private double discount;        // Descuento aplicado
     private double tax;             // Impuesto aplicado
-    private double finalAmount;     // Monto final después de descuentos e impuestos
+    private double finalAmount;     // Monto final despues de descuentos e impuestos
 
-    // Constructor vacío requerido por Firebase
+    // Constructor vacio requerido por Firebase
     public Payment() {}
 
-    // Constructor básico
+    // Constructor basico
     public Payment(double amount, String method) {
         this.amount = amount;
         this.method = method;
@@ -78,6 +78,7 @@ public class Payment {
 
     @PropertyName("processedBy")
     public String getProcessedBy() { return processedBy; }
+
     @PropertyName("processedBy")
     public void setProcessedBy(String processedBy) { this.processedBy = processedBy; }
 
@@ -95,10 +96,11 @@ public class Payment {
 
     @PropertyName("finalAmount")
     public double getFinalAmount() { return finalAmount; }
+
     @PropertyName("finalAmount")
     public void setFinalAmount(double finalAmount) { this.finalAmount = finalAmount; }
 
-    // Métodos de utilidad
+    // Metodos de utilidad
     public boolean isPending() {
         return STATUS_PENDING.equals(status);
     }
@@ -136,7 +138,7 @@ public class Payment {
         return String.format("$%,.0f COP", finalAmount);
     }
 
-    // Validar método de pago válido
+    // Validar metodo de pago valido
     public static boolean isValidMethod(String method) {
         return METHOD_CASH.equals(method) ||
                 METHOD_CARD.equals(method) ||
@@ -144,7 +146,7 @@ public class Payment {
                 METHOD_DEPOSIT.equals(method);
     }
 
-    // Validar estado válido
+    // Validar estado valido
     public static boolean isValidStatus(String status) {
         return STATUS_PENDING.equals(status) ||
                 STATUS_PAID.equals(status) ||

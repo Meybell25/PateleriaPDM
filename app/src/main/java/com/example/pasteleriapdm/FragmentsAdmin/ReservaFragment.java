@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.example.pasteleriapdm.Adapters.GestionarClientesAdapter;
 import com.example.pasteleriapdm.Adapters.ReservaAdapter;
@@ -20,14 +21,13 @@ import com.example.pasteleriapdm.R;
 
 public class ReservaFragment extends Fragment {
 
-
     private Button btnAbrirDialogoReserva;
     private RecyclerView rvcReserva;
+    private Spinner spinnerFiltroRservaEstado;
 
     public ReservaFragment() {
         // Required empty public constructor
     }
-
 
     public static ReservaFragment newInstance(String param1, String param2) {
         ReservaFragment fragment = new ReservaFragment();
@@ -51,6 +51,7 @@ public class ReservaFragment extends Fragment {
         AsociarElementoXML(view);
 
         ReservaAdapter reservaAdapter= new ReservaAdapter(getContext(), getParentFragmentManager());
+
         rvcReserva.setLayoutManager(new LinearLayoutManager(getContext()));
         rvcReserva.setAdapter(reservaAdapter);
         btnAbrirDialogoReserva.setOnClickListener(new View.OnClickListener() {
@@ -66,5 +67,6 @@ public class ReservaFragment extends Fragment {
     private  void AsociarElementoXML(View view){
         btnAbrirDialogoReserva = view.findViewById(R.id.btnAbrirDialogoReservas);
         rvcReserva = view.findViewById(R.id.rvcReservas);
+        spinnerFiltroRservaEstado = view.findViewById(R.id.spinnerFiltroRservaEstado);
     }
 }

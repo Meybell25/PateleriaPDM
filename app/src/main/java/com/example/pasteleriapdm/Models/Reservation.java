@@ -24,23 +24,23 @@ public class Reservation {
     public static final String PRIORITY_HIGH = "alta";
     public static final String PRIORITY_URGENT = "urgente";
 
-    private String id;                    // ID único de la reserva
+    private String id;                    // ID unico de la reserva
     private String clientId;              // ID del cliente
-    private String createdBy;             // UID del seller que la creó
-    private long createdAt;               // Timestamp de creación
+    private String createdBy;             // UID del seller que la creo
+    private long createdAt;               // Timestamp de creacion
     private long deliveryAt;              // Timestamp de entrega programada
-    private long updatedAt;               // Timestamp de última actualización
+    private long updatedAt;               // Timestamp de ultima actualizacion
     private String status;                // Estado actual de la reserva
     private Map<String, Integer> items;   // cakeId -> cantidad
     private Payment payment;              // Información del pago
     private String notes;                 // Notas especiales del pedido
-    private String deliveryAddress;       // Dirección de entrega
+    private String deliveryAddress;       // Direccion de entrega
     private String priority;              // Prioridad del pedido
     private double totalAmount;           // Monto total calculado
-    private String lastUpdatedBy;         // UID del último usuario que la modificó
+    private String lastUpdatedBy;         // UID del último usuario que la modifico
 
 
-    // Constructor vacío requerido por Firebase
+    // Constructor vacio requerido por Firebase
     public Reservation() {}
 
     // Constructor básico
@@ -71,6 +71,7 @@ public class Reservation {
 
     @PropertyName("clientId")
     public String getClientId() { return clientId; }
+
     @PropertyName("clientId")
     public void setClientId(String clientId) { this.clientId = clientId; }
 
@@ -81,6 +82,7 @@ public class Reservation {
 
     @PropertyName("createdAt")
     public long getCreatedAt() { return createdAt; }
+
     @PropertyName("createdAt")
     public void setCreatedAt(long createdAt) { this.createdAt = createdAt; }
 
@@ -152,7 +154,7 @@ public class Reservation {
     }
 
 
-    // Métodos de utilidad para estados
+    // Metodos de utilidad para estados
     public boolean isPending() {
         return STATUS_PENDING.equals(status);
     }
@@ -177,7 +179,7 @@ public class Reservation {
         return STATUS_CANCELLED.equals(status);
     }
 
-    // Métodos para cambiar estados
+    // Metodos para cambiar estados
     public void confirm(String updatedBy) {
         setStatus(STATUS_CONFIRMED);
         setLastUpdatedBy(updatedBy);
@@ -223,12 +225,12 @@ public class Reservation {
         return String.format("$%,.0f COP", totalAmount);
     }
 
-    // Verificar si está vencida
+    // Verificar si esta vencida
     public boolean isOverdue() {
         return deliveryAt < System.currentTimeMillis() && !isDelivered() && !isCancelled();
     }
 
-    // Validar estado válido
+    // Validar estado valido
     public static boolean isValidStatus(String status) {
         return STATUS_PENDING.equals(status) ||
                 STATUS_CONFIRMED.equals(status) ||
@@ -238,7 +240,7 @@ public class Reservation {
                 STATUS_CANCELLED.equals(status);
     }
 
-    // Validar prioridad válida
+    // Validar prioridad valida
     public static boolean isValidPriority(String priority) {
         return PRIORITY_LOW.equals(priority) ||
                 PRIORITY_NORMAL.equals(priority) ||

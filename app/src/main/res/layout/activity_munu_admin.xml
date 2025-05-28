@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MunuAdminActivity">
 
-
+    <!--CARD PARA EL BUTON NAVIGATION -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -16,6 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!--BUTON NAVIGATION -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomnavigation"
             android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             app:itemPaddingBottom="8dp" />
     </androidx.cardview.widget.CardView>
 
+    <!--FRAMELAYOUT PARA MOSTRAR EL CONTENIDO DE LOS FRAGMENTOS SEGUN EL ITEM SELECCIONADO -->
     <FrameLayout
         android:id="@+id/fragmnetContainer"
         android:layout_width="match_parent"
@@ -46,21 +48,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.666">
 
+        <!--TOOLBAR -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:itemIconTint="@color/white"
-            app:iconTint="@color/rosa_pastel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             android:background="@color/rosa_acento"
             android:minHeight="?attr/actionBarSize"
+            app:iconTint="@color/rosa_pastel"
+            app:itemIconTint="@color/white"
             app:itemTextColor="@color/rosa_acento"
             app:menu="@menu/toolbar_menu_adamin"
-            app:title="Pasteleria PMD"
             app:popupTheme="@style/toolbarDesplegable1"
-            android:layout_marginTop="0dp"
+            app:title="Pasteleria PDM"
             app:titleTextAppearance="@style/ToolbarTitleText"
-            app:titleTextColor="@color/crema_suave"/>
+            app:titleTextColor="@color/crema_suave" />
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

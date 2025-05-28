@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_LOGGED_USER_UID = "logged_user_uid";
     private static final String KEY_LOGGED_USER_EMAIL = "logged_user_email";
 
-    // Tiempo máximo de sesión (24 horas en milisegundos)
+    // Tiempo má]aximo de sesion (24 horas en milisegundos)
     private static final long MAX_SESSION_TIME = 24 * 60 * 60 * 1000;
 
     private TextInputEditText txtEmail, txtPassword;
@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // Flag para controlar si venimos de un login manual
     private boolean isManualLogin = false;
+
     // NUEVO: Flag para saber si venimos del splash
     private boolean fromSplash = false;
 
@@ -76,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         // MODIFICADO: Solo verificar usuario logueado si NO venimos del splash
         // Si venimos del splash, significa que ya se verificó la sesión allí
         if (!fromSplash) {
-            Log.d(TAG, "No venimos del splash, verificando sesión...");
+            Log.d(TAG, "No venimos del splash, verificando sesion...");
             verificarSesionExistente();
         } else {
             Log.d(TAG, "Venimos del splash, mostrando pantalla de login");
@@ -98,8 +99,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Verificar si existe una sesión válida y no expirada
-     * NOTA: Este método solo se ejecuta cuando NO venimos del splash
+     * Verificar si existe una sesion valida y no expirada
+     * NOTA: Este mrtodo solo se ejecuta cuando NO venimos del splash
      */
     private void verificarSesionExistente() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -116,17 +117,17 @@ public class LoginActivity extends AppCompatActivity {
 
             // Verificar si es el usuario correcto
             if (!currentUser.getUid().equals(expectedUID)) {
-                Log.d(TAG, "Usuario actual no coincide con el esperado, cerrando sesión");
+                Log.d(TAG, "Usuario actual no coincide con el esperado, cerrando sesion");
                 cerrarSesionCompleta();
                 return;
             }
 
-            // Verificar si la sesión es válida y no ha expirado
+            // Verificar si la sesion es válida y no ha expirado
             if (isSesionValida()) {
-                Log.d(TAG, "Sesión válida encontrada, verificando en BD...");
+                Log.d(TAG, "Sesión valida encontrada, verificando en BD...");
                 verificarUsuarioEnBD(currentUser.getUid());
             } else {
-                Log.d(TAG, "Sesión expirada o inválida, cerrando sesión de Firebase");
+                Log.d(TAG, "Sesion expirada o inválida, cerrando sesion de Firebase");
                 cerrarSesionCompleta();
             }
         } else {
@@ -138,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Verificar si la sesión actual es válida
+     * Verificar si la sesion actual es valida
      */
     private boolean isSesionValida() {
         boolean autoLoginEnabled = preferences.getBoolean(KEY_AUTO_LOGIN_ENABLED, false);
@@ -146,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
         long lastLoginTime = preferences.getLong(KEY_LAST_LOGIN_TIME, 0);
         long currentTime = System.currentTimeMillis();
 
-        Log.d(TAG, "Verificando sesión: autoLogin=" + autoLoginEnabled +
+        Log.d(TAG, "Verificando sesion: autoLogin=" + autoLoginEnabled +
                 ", sessionValid=" + sessionValid +
                 ", tiempoTranscurrido=" + (currentTime - lastLoginTime) + "ms");
 
@@ -197,14 +198,14 @@ public class LoginActivity extends AppCompatActivity {
                 databaseHelper.updateUser(user, new DatabaseHelper.DatabaseCallback<User>() {
                     @Override
                     public void onSuccess(User updatedUser) {
-                        Log.d(TAG, "Último login actualizado");
+                        Log.d(TAG, "Ultimo login actualizado");
                         redirigirSegunRol(updatedUser);
                     }
 
                     @Override
                     public void onError(String error) {
-                        Log.w(TAG, "Error actualizando último login: " + error);
-                        // Continuar aunque no se actualice el último login
+                        Log.w(TAG, "Error actualizando ultimo login: " + error);
+                        // Continuar aunque no se actualice el ultimo login
                         redirigirSegunRol(user);
                     }
                 });
@@ -265,7 +266,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Guardar sesión como válida después de login exitoso
+     * Guardar sesion como válida despues de login exitoso
      */
     private void guardarSesionValida(String uid, String email) {
         SharedPreferences.Editor editor = preferences.edit();
@@ -276,11 +277,11 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(KEY_LOGGED_USER_EMAIL, email);
         editor.apply();
 
-        Log.d(TAG, "Sesión guardada como válida para usuario: " + email + " (" + uid + ")");
+        Log.d(TAG, "Sesion guardada como valida para usuario: " + email + " (" + uid + ")");
     }
 
     /**
-     * Versión sobrecargada para mantener compatibilidad
+     * Version sobrecargada para mantener compatibilidad
      */
     private void guardarSesionValida() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -290,12 +291,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Cerrar sesión completamente y limpiar todo
+     * Cerrar sesion completamente y limpiar todo
      */
     private void cerrarSesionCompleta() {
         Log.d(TAG, "Cerrando sesión completa");
 
-        // Cerrar sesión de Firebase
+        // Cerrar sesion de Firebase
         firebaseAuth.signOut();
 
         // Limpiar preferencias
@@ -309,7 +310,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Limpiar preferencias de sesión
+     * Limpiar preferencias de sesion
      */
     private void limpiarPreferencias() {
         SharedPreferences.Editor editor = preferences.edit();
@@ -320,7 +321,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.remove(KEY_LOGGED_USER_EMAIL);
         editor.apply();
 
-        Log.d(TAG, "Preferencias de sesión limpiadas");
+        Log.d(TAG, "Preferencias de sesion limpiadas");
     }
 
     /**
@@ -344,7 +345,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            txtEmail.setError("Email inválido");
+            txtEmail.setError("Email invalido");
             txtEmail.requestFocus();
             return false;
         }
@@ -366,7 +367,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void mostrarCargando(boolean mostrar) {
         btnIniciarSesion.setEnabled(!mostrar);
-        btnIniciarSesion.setText(mostrar ? "Iniciando sesión..." : "Iniciar Sesión");
+        btnIniciarSesion.setText(mostrar ? "Iniciando sesion..." : "Iniciar Sesion");
         txtEmail.setEnabled(!mostrar);
         txtPassword.setEnabled(!mostrar);
     }
@@ -379,7 +380,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // NO hacer verificación automática en onStart()
-        Log.d(TAG, "onStart() - No realizando verificación automática");
+        Log.d(TAG, "onStart() - No realizando verificacion automatica");
     }
 
     @Override
@@ -389,10 +390,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Método público para cerrar sesión desde otras actividades
+     * Metodo publico para cerrar sesion desde otras actividades
      */
     public static void cerrarSesionYRedireccionar(AppCompatActivity fromActivity) {
-        Log.d("LoginActivity", "Cerrando sesión desde: " + fromActivity.getClass().getSimpleName());
+        Log.d("LoginActivity", "Cerrando sesion desde: " + fromActivity.getClass().getSimpleName());
 
         // Limpiar preferencias
         SharedPreferences prefs = fromActivity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -404,7 +405,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.remove(KEY_LOGGED_USER_EMAIL);
         editor.apply();
 
-        // Cerrar sesión de Firebase
+        // Cerrar sesion de Firebase
         FirebaseAuth.getInstance().signOut();
 
         // Redireccionar al login

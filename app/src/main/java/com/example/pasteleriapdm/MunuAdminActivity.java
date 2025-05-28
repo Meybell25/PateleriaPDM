@@ -54,16 +54,16 @@ public class MunuAdminActivity extends AppCompatActivity {
                     case R.id.navVerReportes:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragmnetContainer, new ReportesFragment()).commit();
                         break;
-                    case R.id.navCerrarSesion: //  caso para cerrar sesión
+                    case R.id.navCerrarSesion: //  caso para cerrar sesion
                         mostrarDialogoCerrarSesion();
                         break;
 
-                    case R.id.navSalir: // Opcional: salir de la app sin cerrar sesión
+                    case R.id.navSalir: // Opcional: salir de la app sin cerrar sesion
                         mostrarDialogoSalirApp();
                         break;
 
                     default:
-                        Log.w(TAG, "Opción de menú no reconocida: " + item.getItemId());
+                        Log.w(TAG, "Opcion de menu no reconocida: " + item.getItemId());
                         return false;
                 }
                 return true;
@@ -103,14 +103,14 @@ public class MunuAdminActivity extends AppCompatActivity {
 
 
     /**
-     * Mostrar diálogo de confirmación para cerrar sesión
+     * Mostrar dialogo de confirmacion para cerrar sesion
      */
     private void mostrarDialogoCerrarSesion() {
         new AlertDialog.Builder(this)
-                .setTitle("Cerrar Sesión")
-                .setMessage("¿Está seguro que desea cerrar sesión?")
+                .setTitle("Cerrar Sesion")
+                .setMessage("¿Está seguro que desea cerrar sesion?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Sí, cerrar sesión", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Sí, cerrar sesion", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         cerrarSesion();
@@ -127,31 +127,31 @@ public class MunuAdminActivity extends AppCompatActivity {
     }
 
     /**
-     * Método para cerrar sesión
+     * Metodo para cerrar sesion
      */
     private void cerrarSesion() {
         try {
-            Log.d(TAG, "Iniciando proceso de cierre de sesión");
+            Log.d(TAG, "Iniciando proceso de cierre de sesion");
 
             // Mostrar mensaje de despedida
-            Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Cerrando sesion...", Toast.LENGTH_SHORT).show();
 
             // Usar el metodo estático del LoginActivity para cerrar sesión completa
             LoginActivity.cerrarSesionYRedireccionar(this);
 
         } catch (Exception e) {
-            Log.e(TAG, "Error cerrando sesión", e);
-            Toast.makeText(this, "Error cerrando sesión: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Log.e(TAG, "Error cerrando sesion", e);
+            Toast.makeText(this, "Error cerrando sesion: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     /**
-     * Diálogo opcional para salir de la app (opcional)
+     * Dialogo opcional para salir de la app
      */
     private void mostrarDialogoSalirApp() {
         new AlertDialog.Builder(this)
-                .setTitle("Salir de la Aplicación")
-                .setMessage("¿Desea salir de la aplicación? Su sesión permanecerá activa.")
+                .setTitle("Salir de la Aplicacion")
+                .setMessage("¿Desea salir de la aplicacion? Su sesion permanecera activa.")
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .setPositiveButton("Salir", new DialogInterface.OnClickListener() {
                     @Override
@@ -173,23 +173,23 @@ public class MunuAdminActivity extends AppCompatActivity {
     }
 
     /**
-     * Manejar el botón físico de "atrás"
+     * Manejar el botón fisico de "atras"
      */
     @Override
     public void onBackPressed() {
-        // Mostrar diálogo para confirmar si quiere salir o cerrar sesión
+        // Mostrar dialogo para confirmar si quiere salir o cerrar sesion
         mostrarDialogoBackPressed();
     }
 
     /**
-     * Diálogo cuando se presiona el botón atrás
+     * Dialogo cuando se presiona el boton atras
      */
     private void mostrarDialogoBackPressed() {
         new AlertDialog.Builder(this)
                 .setTitle("¿Qué desea hacer?")
-                .setMessage("Seleccione una opción:")
+                .setMessage("Seleccione una opcion:")
                 .setIcon(android.R.drawable.ic_dialog_info)
-                .setPositiveButton("Cerrar Sesión", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Cerrar Sesion", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         cerrarSesion();
