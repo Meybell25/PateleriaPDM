@@ -283,7 +283,7 @@ public class UsuariosDialog extends DialogFragment {
                                 // Eliminar usuario de Auth si fallo en BD
                                 if (authResult.getUser() != null) {
                                     authResult.getUser().delete()
-                                            .addOnSuccessListener(aVoid -> Log.d(TAG, "Usuario eliminado de Auth después del error"))
+                                            .addOnSuccessListener(aVoid -> Log.d(TAG, "Usuario eliminado de Auth despues del error"))
                                             .addOnFailureListener(e -> Log.e(TAG, "Error eliminando usuario de Auth", e));
                                 }
                             }
@@ -295,12 +295,12 @@ public class UsuariosDialog extends DialogFragment {
                     mostrarCargando(false);
 
                     String mensajeError;
-                    if (e.getMessage().contains("email-already-in-use")) {
+                    if (e.getMessage().contains("correo electronico ya en uso")) {
                         mensajeError = "Este email ya esta registrado";
-                    } else if (e.getMessage().contains("weak-password")) {
+                    } else if (e.getMessage().contains("contraseña débil")) {
                         mensajeError = "La contraseña es muy debil";
-                    } else if (e.getMessage().contains("invalid-email")) {
-                        mensajeError = "Email invalido";
+                    } else if (e.getMessage().contains("correo invalido")) {
+                        mensajeError = "Correo invalido";
                     } else {
                         mensajeError = "Error creando usuario: " + e.getMessage();
                     }
@@ -333,7 +333,7 @@ public class UsuariosDialog extends DialogFragment {
         // Solo actualizar contraseña si se cambio
         if (!password.isEmpty()) {
             usuarioParaEditar.setPassword(password);
-            Log.d(TAG, "Contraseña será actualizada");
+            Log.d(TAG, "Contraseña sera actualizada");
         } else {
             Log.d(TAG, "Contraseña no se actualiza (campo vacío)");
         }
@@ -405,7 +405,7 @@ public class UsuariosDialog extends DialogFragment {
 
         // Validacion adicional de contraseña fuerte
         if (!esContrasenaSegura(password)) {
-            txtPasswordUsuario.setError("La contraseña debe contener al menos una letra y un número");
+            txtPasswordUsuario.setError("La contraseña debe contener al menos una letra y un numero");
             txtPasswordUsuario.requestFocus();
             return false;
         }
@@ -429,7 +429,7 @@ public class UsuariosDialog extends DialogFragment {
             return false;
         }
 
-        // En edición, la contrasenia es opcional, pero si se ingresa debe ser valida
+        // En edicion, la contrasenia es opcional, pero si se ingresa debe ser valida
         if (!password.isEmpty()) {
             if (password.length() < 6) {
                 txtPasswordUsuario.setError("La contraseña debe tener al menos 6 caracteres");
