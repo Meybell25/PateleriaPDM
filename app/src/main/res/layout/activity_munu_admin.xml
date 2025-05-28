@@ -48,19 +48,19 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:itemIconTint="@color/white"
-            app:iconTint="@color/rosa_pastel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             android:background="@color/rosa_acento"
             android:minHeight="?attr/actionBarSize"
+            app:iconTint="@color/rosa_pastel"
+            app:itemIconTint="@color/white"
             app:itemTextColor="@color/rosa_acento"
             app:menu="@menu/toolbar_menu_adamin"
-            app:title="Pasteleria PMD"
             app:popupTheme="@style/toolbarDesplegable1"
-            android:layout_marginTop="0dp"
+            app:title="Pasteleria PDM"
             app:titleTextAppearance="@style/ToolbarTitleText"
-            app:titleTextColor="@color/crema_suave"/>
+            app:titleTextColor="@color/crema_suave" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

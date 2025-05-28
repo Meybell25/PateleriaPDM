@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.pasteleriapdm.Adapters.GestionarClientesAdapter;
 import com.example.pasteleriapdm.Adapters.GestionarPastelesAdapter;
@@ -23,6 +24,7 @@ import com.example.pasteleriapdm.R;
 public class GestionClientesFragment extends Fragment {
     private Button btnAbrirDialogoClientes;
     private RecyclerView rvcClientes;
+    private EditText txtBuscarClientes;
 
 
 
@@ -67,5 +69,6 @@ public class GestionClientesFragment extends Fragment {
     private  void AsociarElementoXML(View view){
         btnAbrirDialogoClientes = view.findViewById(R.id.btnAbrirDialogoClientes);
         rvcClientes = view.findViewById(R.id.rvcClientes);
+        txtBuscarClientes = view.findViewById(R.id.txtBuscarClientes);
     }
 }
