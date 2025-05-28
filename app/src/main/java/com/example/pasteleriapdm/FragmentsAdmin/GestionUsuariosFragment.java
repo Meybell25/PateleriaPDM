@@ -122,12 +122,12 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
     private void configurarRecyclerView() {
         gestionarUsuariosAdapter = new GestionarUsuariosAdapter(getContext(), getParentFragmentManager());
 
-        //  Configurar el listener para el adapter
+        // Configurar el listener para el adapter
         gestionarUsuariosAdapter.setOnUsuarioActionListener(new GestionarUsuariosAdapter.OnUsuarioActionListener() {
             @Override
             public void onUsuarioEliminado(String uid) {
-                // Manejar eliminación desde el adapter
-                onUsuarioEliminado(uid);
+                // CORREGIDO: Llamar al método de instancia, no recursivo
+                GestionUsuariosFragment.this.onUsuarioEliminado(uid);
             }
 
             @Override
@@ -496,4 +496,6 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         listaUsuariosCompleta.clear();
         listaUsuariosFiltrada.clear();
     }
+
+
 }

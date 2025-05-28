@@ -254,6 +254,75 @@ public class DatabaseHelper {
                     }
                 });
     }
+
+    /**
+     * Eliminar usuario permanentemente (solo usuarios inactivos)
+     */
+    public void deleteUser(String uid, DatabaseCallback<Boolean> callback) {
+        if (uid == null || uid.trim().isEmpty()) {
+            callback.onError("UID del usuario no puede ser null o vacío");
+            return;
+        }
+
+        Log.d(TAG, "Iniciando eliminación del usuario: " + uid);
+
+        // Primero verificar que el usuario existe y está inactivo
+        databaseRef.child(USERS_NODE).child(uid)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (!snapshot.exists()) {
+                            callback.onError("Usuario no encontrado");
+                            return;
+                        }
+
+                        User user = snapshot.getValue(User.class);
+                        if (user == null) {
+                            callback.onError("Error obteniendo datos del usuario");
+                            return;
+                        }
+
+                        // Verificar que el usuario esté inactivo
+                        if (!User.STATUS_INACTIVE.equals(user.getStatus())) {
+                            String estadoActual = user.getStatus();
+                            String mensajeError;
+
+                            if (User.STATUS_ACTIVE.equals(estadoActual)) {
+                                mensajeError = "No se puede eliminar un usuario ACTIVO. Desactívalo primero.";
+                            } else if (User.STATUS_BLOCKED.equals(estadoActual)) {
+                                mensajeError = "No se puede eliminar un usuario BLOQUEADO. Solo usuarios INACTIVOS.";
+                            } else {
+                                mensajeError = "Solo se pueden eliminar usuarios con estado INACTIVO.";
+                            }
+
+                            Log.w(TAG, "Intento de eliminar usuario con estado: " + estadoActual);
+                            callback.onError(mensajeError);
+                            return;
+                        }
+
+                        // Si llegamos aquí, el usuario está inactivo y puede ser eliminado
+                        Log.d(TAG, "Usuario verificado como INACTIVO, procediendo con eliminación");
+
+                        // Proceder con la eliminación
+                        databaseRef.child(USERS_NODE).child(uid)
+                                .removeValue()
+                                .addOnSuccessListener(aVoid -> {
+                                    Log.d(TAG, "Usuario eliminado exitosamente de la base de datos: " + uid);
+                                    callback.onSuccess(true);
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e(TAG, "Error eliminando usuario de la base de datos", e);
+                                    callback.onError("Error eliminando usuario: " + e.getMessage());
+                                });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error verificando usuario para eliminación", error.toException());
+                        callback.onError("Error verificando usuario: " + error.getMessage());
+                    }
+                });
+    }
     // ==================== MÉTODOS PARA OBTENER INFORMACIÓN DEL USUARIO ====================
 
     /**

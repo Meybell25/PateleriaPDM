@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String KEY_AUTO_LOGIN_ENABLED = "auto_login_enabled";
     private static final String KEY_LAST_LOGIN_TIME = "last_login_time";
     private static final String KEY_SESSION_VALID = "session_valid";
+    private static final String KEY_LOGGED_USER_UID = "logged_user_uid";
+    private static final String KEY_LOGGED_USER_EMAIL = "logged_user_email";
 
     // Tiempo máximo de sesión (24 horas en milisegundos)
     private static final long MAX_SESSION_TIME = 24 * 60 * 60 * 1000;
@@ -41,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
 
     // Flag para controlar si venimos de un login manual
     private boolean isManualLogin = false;
+    // NUEVO: Flag para saber si venimos del splash
+    private boolean fromSplash = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,10 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Verificar si venimos del splash
+        fromSplash = getIntent().getBooleanExtra("FROM_SPLASH", false);
+        Log.d(TAG, "LoginActivity iniciada. From splash: " + fromSplash);
+
         // Inicializar Firebase y preferencias
         firebaseAuth = FirebaseAuth.getInstance();
         databaseHelper = DatabaseHelper.getInstance();
@@ -65,8 +73,15 @@ public class LoginActivity extends AppCompatActivity {
         // Configurar eventos
         configurarEventos();
 
-        // Solo verificar usuario logueado si la sesión es válida
-        verificarSesionExistente();
+        // MODIFICADO: Solo verificar usuario logueado si NO venimos del splash
+        // Si venimos del splash, significa que ya se verificó la sesión allí
+        if (!fromSplash) {
+            Log.d(TAG, "No venimos del splash, verificando sesión...");
+            verificarSesionExistente();
+        } else {
+            Log.d(TAG, "Venimos del splash, mostrando pantalla de login");
+            mostrarPantallaLogin();
+        }
     }
 
     private void AsociarElementoXML() {
@@ -84,12 +99,27 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Verificar si existe una sesión válida y no expirada
+     * NOTA: Este método solo se ejecuta cuando NO venimos del splash
      */
     private void verificarSesionExistente() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
         if (currentUser != null) {
             Log.d(TAG, "Usuario de Firebase encontrado: " + currentUser.getEmail());
+
+            // Verificar si es el usuario correcto que debería estar logueado
+            String expectedUID = preferences.getString(KEY_LOGGED_USER_UID, "");
+            String expectedEmail = preferences.getString(KEY_LOGGED_USER_EMAIL, "");
+
+            Log.d(TAG, "Usuario actual: " + currentUser.getUid() + " (" + currentUser.getEmail() + ")");
+            Log.d(TAG, "Usuario esperado: " + expectedUID + " (" + expectedEmail + ")");
+
+            // Verificar si es el usuario correcto
+            if (!currentUser.getUid().equals(expectedUID)) {
+                Log.d(TAG, "Usuario actual no coincide con el esperado, cerrando sesión");
+                cerrarSesionCompleta();
+                return;
+            }
 
             // Verificar si la sesión es válida y no ha expirado
             if (isSesionValida()) {
@@ -116,15 +146,10 @@ public class LoginActivity extends AppCompatActivity {
         long lastLoginTime = preferences.getLong(KEY_LAST_LOGIN_TIME, 0);
         long currentTime = System.currentTimeMillis();
 
-
         Log.d(TAG, "Verificando sesión: autoLogin=" + autoLoginEnabled +
                 ", sessionValid=" + sessionValid +
                 ", tiempoTranscurrido=" + (currentTime - lastLoginTime) + "ms");
 
-        // La sesión es válida si:
-        // 1. El auto-login está habilitado
-        // 2. La sesión está marcada como válida
-        // 3. No ha pasado el tiempo máximo de sesión
         return autoLoginEnabled && sessionValid && (currentTime - lastLoginTime) < MAX_SESSION_TIME;
     }
 
@@ -133,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
 
         String email = txtEmail.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
+
+        Log.d(TAG, "Iniciando sesión manual para: " + email);
 
         // Mostrar progreso
         mostrarCargando(true);
@@ -143,8 +170,8 @@ public class LoginActivity extends AppCompatActivity {
                     if (user != null) {
                         Log.d(TAG, "Login exitoso para: " + user.getEmail());
 
-                        // Marcar como login manual exitoso
-                        guardarSesionValida();
+                        // Guardar los datos del usuario que se logueó
+                        guardarSesionValida(user.getUid(), user.getEmail());
 
                         verificarUsuarioEnBD(user.getUid());
                     }
@@ -158,6 +185,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void verificarUsuarioEnBD(String uid) {
+        Log.d(TAG, "Verificando usuario en BD: " + uid);
+
         databaseHelper.getUser(uid, new DatabaseHelper.DatabaseCallback<User>() {
             @Override
             public void onSuccess(User user) {
@@ -238,14 +267,26 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Guardar sesión como válida después de login exitoso
      */
-    private void guardarSesionValida() {
+    private void guardarSesionValida(String uid, String email) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(KEY_AUTO_LOGIN_ENABLED, true);
         editor.putBoolean(KEY_SESSION_VALID, true);
         editor.putLong(KEY_LAST_LOGIN_TIME, System.currentTimeMillis());
+        editor.putString(KEY_LOGGED_USER_UID, uid);
+        editor.putString(KEY_LOGGED_USER_EMAIL, email);
         editor.apply();
 
-        Log.d(TAG, "Sesión guardada como válida");
+        Log.d(TAG, "Sesión guardada como válida para usuario: " + email + " (" + uid + ")");
+    }
+
+    /**
+     * Versión sobrecargada para mantener compatibilidad
+     */
+    private void guardarSesionValida() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            guardarSesionValida(currentUser.getUid(), currentUser.getEmail());
+        }
     }
 
     /**
@@ -275,6 +316,8 @@ public class LoginActivity extends AppCompatActivity {
         editor.putBoolean(KEY_AUTO_LOGIN_ENABLED, false);
         editor.putBoolean(KEY_SESSION_VALID, false);
         editor.putLong(KEY_LAST_LOGIN_TIME, 0);
+        editor.remove(KEY_LOGGED_USER_UID);
+        editor.remove(KEY_LOGGED_USER_EMAIL);
         editor.apply();
 
         Log.d(TAG, "Preferencias de sesión limpiadas");
@@ -336,7 +379,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         // NO hacer verificación automática en onStart()
-        // Solo log para debug
         Log.d(TAG, "onStart() - No realizando verificación automática");
     }
 
@@ -347,15 +389,19 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Metodo público para cerrar sesión desde otras actividades
+     * Método público para cerrar sesión desde otras actividades
      */
     public static void cerrarSesionYRedireccionar(AppCompatActivity fromActivity) {
+        Log.d("LoginActivity", "Cerrando sesión desde: " + fromActivity.getClass().getSimpleName());
+
         // Limpiar preferencias
         SharedPreferences prefs = fromActivity.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(KEY_AUTO_LOGIN_ENABLED, false);
         editor.putBoolean(KEY_SESSION_VALID, false);
         editor.putLong(KEY_LAST_LOGIN_TIME, 0);
+        editor.remove(KEY_LOGGED_USER_UID);
+        editor.remove(KEY_LOGGED_USER_EMAIL);
         editor.apply();
 
         // Cerrar sesión de Firebase

@@ -56,23 +56,29 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         this.listener = listener;
     }
 
-    // Metodo para actualizar la lista de usuarios
+    // Método para actualizar la lista de usuarios
     public void actualizarLista(List<User> nuevaLista) {
         this.listaUsuarios.clear();
-        this.listaUsuarios.addAll(nuevaLista);
+        if (nuevaLista != null) {
+            this.listaUsuarios.addAll(nuevaLista);
+        }
         notifyDataSetChanged();
-        Log.d(TAG, "Lista actualizada con " + nuevaLista.size() + " usuarios");
+        Log.d(TAG, "Lista actualizada con " + this.listaUsuarios.size() + " usuarios");
     }
 
-    // Metodo para agregar un usuario
+    // Método para agregar un usuario
     public void agregarUsuario(User usuario) {
-        this.listaUsuarios.add(usuario);
-        notifyItemInserted(listaUsuarios.size() - 1);
-        Log.d(TAG, "Usuario agregado: " + usuario.getName());
+        if (usuario != null) {
+            this.listaUsuarios.add(usuario);
+            notifyItemInserted(listaUsuarios.size() - 1);
+            Log.d(TAG, "Usuario agregado: " + usuario.getName());
+        }
     }
 
-    // Metodo para actualizar un usuario específico
+    // Método para actualizar un usuario específico
     public void actualizarUsuario(User usuarioActualizado) {
+        if (usuarioActualizado == null) return;
+
         for (int i = 0; i < listaUsuarios.size(); i++) {
             if (listaUsuarios.get(i).getUid().equals(usuarioActualizado.getUid())) {
                 listaUsuarios.set(i, usuarioActualizado);
@@ -83,47 +89,25 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
     }
 
-    // Metodo para eliminar un usuario
+    // Método para eliminar un usuario - CORREGIDO
     public void eliminarUsuario(String uid) {
+        if (uid == null || uid.trim().isEmpty()) {
+            Log.w(TAG, "UID nulo o vacío para eliminar");
+            return;
+        }
+
         for (int i = 0; i < listaUsuarios.size(); i++) {
             if (listaUsuarios.get(i).getUid().equals(uid)) {
+                User usuarioEliminado = listaUsuarios.get(i);
                 listaUsuarios.remove(i);
                 notifyItemRemoved(i);
-                Log.d(TAG, "Usuario eliminado del adapter: " + uid);
+                // Notificar cambios en los elementos posteriores
+                if (i < listaUsuarios.size()) {
+                    notifyItemRangeChanged(i, listaUsuarios.size() - i);
+                }
+                Log.d(TAG, "Usuario eliminado del adapter: " + usuarioEliminado.getName());
                 break;
             }
-        }
-    }
-
-    // Metodo para filtrar usuarios por rol
-    public void filtrarPorRol(String rol) {
-        List<User> listaFiltrada = new ArrayList<>();
-
-        if ("TODOS".equals(rol)) {
-            listaFiltrada.addAll(listaUsuarios);
-        } else {
-            String rolFiltro = convertirFiltroARol(rol);
-            for (User usuario : listaUsuarios) {
-                if (rolFiltro.equals(usuario.getRole())) {
-                    listaFiltrada.add(usuario);
-                }
-            }
-        }
-
-        actualizarLista(listaFiltrada);
-        Log.d(TAG, "Filtro aplicado: " + rol + " - Usuarios encontrados: " + listaFiltrada.size());
-    }
-
-    private String convertirFiltroARol(String filtro) {
-        switch (filtro) {
-            case "ADMINISTRADOR":
-                return User.ROLE_ADMIN;
-            case "VENDEDOR":
-                return User.ROLE_SELLER;
-            case "PRODUCCIÓN":
-                return User.ROLE_PRODUCTION;
-            default:
-                return "";
         }
     }
 
@@ -136,7 +120,16 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderGestionarUsuariosAdapter holder, int position) {
+        if (position >= listaUsuarios.size()) {
+            Log.w(TAG, "Posición inválida: " + position + ", tamaño lista: " + listaUsuarios.size());
+            return;
+        }
+
         User usuario = listaUsuarios.get(position);
+        if (usuario == null) {
+            Log.w(TAG, "Usuario nulo en posición: " + position);
+            return;
+        }
 
         // Asignar datos del usuario
         holder.lblNombreCompleto.setText(usuario.getName());
@@ -155,8 +148,12 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         }
 
         // Formatear fecha de creación
-        String fechaCreacion = dateFormat.format(new Date(usuario.getCreatedAt()));
-        holder.lblCreatedAt.setText("Creado: " + fechaCreacion);
+        if (usuario.getCreatedAt() > 0) {
+            String fechaCreacion = dateFormat.format(new Date(usuario.getCreatedAt()));
+            holder.lblCreatedAt.setText("Creado: " + fechaCreacion);
+        } else {
+            holder.lblCreatedAt.setText("Creado: Fecha no disponible");
+        }
 
         // Formatear último login
         if (usuario.getLastLogin() > 0) {
@@ -194,6 +191,11 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
     }
 
     private void configurarEventos(ViewHolderGestionarUsuariosAdapter holder, User usuario, int position) {
+        // Limpiar listeners anteriores
+        holder.btnEditarUsuario.setOnClickListener(null);
+        holder.btnEliminarUsuario.setOnClickListener(null);
+        holder.lblOlvidePassword.setOnClickListener(null);
+
         // Evento del botón editar
         holder.btnEditarUsuario.setOnClickListener(v -> {
             UsuariosDialog usuariosDialog = new UsuariosDialog(usuario);
@@ -216,15 +218,33 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
             usuariosDialog.show(fragmentManager, "editarUsuario");
         });
 
-        // Evento del botón eliminar
-        holder.btnEliminarUsuario.setOnClickListener(v -> {
-            mostrarDialogoEliminar(usuario, position);
-        });
+        // CONFIGURAR BOTÓN ELIMINAR - CORREGIDO
+        String status = usuario.getStatus();
+        boolean esInactivo = User.STATUS_INACTIVE.equals(status);
+
+        if (esInactivo) {
+            // Usuario inactivo - permitir eliminación
+            holder.btnEliminarUsuario.setEnabled(true);
+            holder.btnEliminarUsuario.setAlpha(1.0f);
+            holder.btnEliminarUsuario.setOnClickListener(v -> {
+                // Obtener posición actual para evitar problemas de posición
+                int posicionActual = holder.getAdapterPosition();
+                if (posicionActual != RecyclerView.NO_POSITION && posicionActual < listaUsuarios.size()) {
+                    User usuarioActual = listaUsuarios.get(posicionActual);
+                    mostrarDialogoEliminar(usuarioActual, posicionActual);
+                }
+            });
+        } else {
+            // Usuario activo o bloqueado - no permitir eliminación
+            holder.btnEliminarUsuario.setEnabled(false);
+            holder.btnEliminarUsuario.setAlpha(0.5f);
+            holder.btnEliminarUsuario.setOnClickListener(v -> mostrarMensajeNoSePuedeEliminar(usuario));
+        }
 
         // Evento para mostrar/ocultar contraseña
         holder.lblOlvidePassword.setOnClickListener(v -> {
             if (usuario.getPassword() != null && !usuario.getPassword().isEmpty()) {
-                boolean esVisible = (Boolean) holder.lblOlvidePassword.getTag();
+                boolean esVisible = holder.lblOlvidePassword.getTag() != null && (Boolean) holder.lblOlvidePassword.getTag();
                 if (esVisible) {
                     // Ocultar contraseña
                     holder.lblOlvidePassword.setText("Contraseña: ****");
@@ -236,6 +256,37 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                 }
             }
         });
+    }
+
+    private void mostrarMensajeNoSePuedeEliminar(User usuario) {
+        String estadoActual = usuario.getStatus().equals(User.STATUS_ACTIVE) ? "Activo" : "Bloqueado";
+
+        new AlertDialog.Builder(context)
+                .setTitle("No se puede eliminar")
+                .setMessage("El usuario '" + usuario.getName() + "' tiene estado '" + estadoActual + "'.\n\n" +
+                        "Para eliminarlo, primero debe cambiar su estado a 'Inactivo' " +
+                        "editando el usuario.")
+                .setPositiveButton("Entendido", null)
+                .setNeutralButton("Editar ahora", (dialog, which) -> {
+                    UsuariosDialog usuariosDialog = new UsuariosDialog(usuario);
+                    usuariosDialog.setUsuarioDialogListener(new UsuariosDialog.UsuarioDialogListener() {
+                        @Override
+                        public void onUsuarioCreado(User usuario) {
+                            // No se usa en edición
+                        }
+
+                        @Override
+                        public void onUsuarioActualizado(User usuarioActualizado) {
+                            actualizarUsuario(usuarioActualizado);
+                            if (listener != null) {
+                                listener.onUsuarioActualizado(usuarioActualizado);
+                            }
+                            Toast.makeText(context, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    usuariosDialog.show(fragmentManager, "editarUsuario");
+                })
+                .show();
     }
 
     private void configurarEstadoUsuario(ViewHolderGestionarUsuariosAdapter holder, User usuario) {
@@ -294,74 +345,67 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
     }
 
     private void mostrarDialogoEliminar(User usuario, int position) {
-        // Verificar si es el último administrador
-        if (User.ROLE_ADMIN.equals(usuario.getRole()) && esUltimoAdmin()) {
-            new AlertDialog.Builder(context)
-                    .setTitle("❌ No se puede eliminar")
-                    .setMessage("No puedes eliminar el último administrador del sistema.\n\nDebe existir al menos un administrador activo.")
-                    .setPositiveButton("Entendido", null)
-                    .setIcon(R.drawable.ic_warning)
-                    .show();
-            return;
-        }
-
         String mensajeExtra = User.ROLE_ADMIN.equals(usuario.getRole())
-                ? "\n\n⚠️ Este es un usuario ADMINISTRADOR"
+                ? "\n\n⚠️ Este es un usuario ADMINISTRADOR INACTIVO"
                 : "";
 
         new AlertDialog.Builder(context)
-                .setTitle("🗑️ ¿Eliminar Usuario?")
-                .setMessage("¿Estás seguro de que deseas bloquear al usuario " + usuario.getName() + "?" + mensajeExtra + "\n\nEl usuario será bloqueado y no podrá acceder al sistema.")
-                .setPositiveButton("Sí, Bloquear", (dialog, which) -> {
-                    bloquearUsuario(usuario, position);
+                .setTitle("🗑️ ¿Eliminar Usuario Permanentemente?")
+                .setMessage("¿Estás seguro de que deseas ELIMINAR PERMANENTEMENTE al usuario " + usuario.getName() + "?" + mensajeExtra + "\n\n⚠️ ESTA ACCIÓN NO SE PUEDE DESHACER\n\nEl usuario será eliminado completamente del sistema.")
+                .setPositiveButton("Sí, Eliminar", (dialog, which) -> {
+                    eliminarUsuarioPermanentemente(usuario, position);
                 })
                 .setNegativeButton("Cancelar", null)
                 .setIcon(R.drawable.ic_warning)
                 .show();
     }
 
-    private boolean esUltimoAdmin() {
-        int contadorAdmins = 0;
-        for (User user : listaUsuarios) {
-            if (User.ROLE_ADMIN.equals(user.getRole()) &&
-                    !User.STATUS_BLOCKED.equals(user.getStatus())) {
-                contadorAdmins++;
-            }
+    private void eliminarUsuarioPermanentemente(User usuario, int position) {
+        Log.d(TAG, "Eliminando usuario permanentemente: " + usuario.getName() + " (UID: " + usuario.getUid() + ")");
+
+        // Validaciones previas
+        if (usuario.getUid() == null || usuario.getUid().trim().isEmpty()) {
+            Toast.makeText(context, "❌ Error: UID del usuario no válido", Toast.LENGTH_LONG).show();
+            return;
         }
-        return contadorAdmins <= 1;
-    }
 
-    private void bloquearUsuario(User usuario, int position) {
-        Log.d(TAG, "Bloqueando usuario: " + usuario.getName());
+        if (!User.STATUS_INACTIVE.equals(usuario.getStatus())) {
+            Toast.makeText(context, "❌ Error: Solo se pueden eliminar usuarios inactivos", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-        // Cambiar estado a bloqueado
-        usuario.setStatus(User.STATUS_BLOCKED);
+        // Mostrar indicador de carga (opcional)
+        // Aquí podrías mostrar un progress dialog
 
-        databaseHelper.updateUser(usuario, new DatabaseHelper.DatabaseCallback<User>() {
+        databaseHelper.deleteUser(usuario.getUid(), new DatabaseHelper.DatabaseCallback<Boolean>() {
             @Override
-            public void onSuccess(User usuarioActualizado) {
-                Log.d(TAG, "Usuario bloqueado exitosamente");
-                actualizarUsuario(usuarioActualizado);
+            public void onSuccess(Boolean eliminado) {
+                if (eliminado) {
+                    Log.d(TAG, "Usuario eliminado exitosamente de la base de datos");
 
-                // Notificar al Fragment
-                if (listener != null) {
-                    listener.onUsuarioActualizado(usuarioActualizado);
+                    // Notificar al Fragment PRIMERO
+                    if (listener != null) {
+                        listener.onUsuarioEliminado(usuario.getUid());
+                    }
+
+                    Toast.makeText(context, "✅ Usuario " + usuario.getName() + " eliminado permanentemente", Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.w(TAG, "La eliminación devolvió false");
+                    Toast.makeText(context, "❌ Error: No se pudo eliminar el usuario", Toast.LENGTH_LONG).show();
                 }
-
-                Toast.makeText(context, "✅ Usuario " + usuarioActualizado.getName() + " ha sido bloqueado", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onError(String error) {
-                Log.e(TAG, "Error bloqueando usuario: " + error);
-                Toast.makeText(context, "❌ Error: " + error, Toast.LENGTH_LONG).show();
+                Log.e(TAG, "Error eliminando usuario: " + error);
+                Toast.makeText(context, "❌ Error eliminando usuario: " + error, Toast.LENGTH_LONG).show();
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return listaUsuarios.size();
+        return listaUsuarios != null ? listaUsuarios.size() : 0;
     }
 
     public class ViewHolderGestionarUsuariosAdapter extends RecyclerView.ViewHolder {
