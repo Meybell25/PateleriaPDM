@@ -895,4 +895,34 @@ public class DatabaseHelper {
             public void onCancelled(DatabaseError error) {}
         });
     }
+
+    //  metodo para el totala de usario
+
+    /**
+     * Obtiene el total de usuarios en la base de datos
+     * @param callback Callback para recibir el resultado
+     */
+    /**
+     * Obtiene el total de usuarios en la base de datos
+     * @param callback Callback para recibir el resultado
+     */
+    public void obtenerTotalUsuarios(DatabaseCallback<Integer> callback) {
+        Log.d(TAG, "Obteniendo total de usuarios...");
+
+        databaseRef.child(USERS_NODE)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        int total = (int) snapshot.getChildrenCount();
+                        Log.d(TAG, "Total de usuarios: " + total);
+                        callback.onSuccess(total);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo total de usuarios", error.toException());
+                        callback.onError("Error: " + error.getMessage());
+                    }
+                });
+    }
 }
