@@ -499,10 +499,10 @@ public class DatabaseHelper {
     /**
      * Obtener clientes por vendedor
      */
-    public void getClientsBySeller(String sellerUid, DatabaseCallback<List<Client>> callback) {
+    public void getClientsBySeller(String sellerId, DatabaseCallback<List<Client>> callback) {
         databaseRef.child(CLIENTS_NODE)
                 .orderByChild("createdBy")
-                .equalTo(sellerUid)
+                .equalTo(sellerId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -511,6 +511,10 @@ public class DatabaseHelper {
                             Client client = clientSnapshot.getValue(Client.class);
                             if (client != null) {
                                 client.setId(clientSnapshot.getKey());
+                                // Asegurarse que createdBy no sea null
+                                if (client.getCreatedBy() == null) {
+                                    client.setCreatedBy(sellerId); // Forzar el valor si es null
+                                }
                                 clients.add(client);
                             }
                         }
@@ -519,8 +523,7 @@ public class DatabaseHelper {
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        Log.e(TAG, "Error obteniendo clientes", error.toException());
-                        callback.onError("Error obteniendo clientes: " + error.getMessage());
+                        callback.onError(error.getMessage());
                     }
                 });
     }
@@ -553,18 +556,119 @@ public class DatabaseHelper {
     }
 
     /**
-     * Actualizar cliente
+     * Actualizar cliente - Versión CORREGIDA para permisos
      */
     public void updateClient(Client client, DatabaseCallback<Client> callback) {
+        String currentUserId = getCurrentUserId();
+        if (currentUserId == null) {
+            callback.onError("Usuario no autenticado");
+            return;
+        }
+
+        // Obtener información del usuario actual
+        getUser(currentUserId, new DatabaseCallback<User>() {
+            @Override
+            public void onSuccess(User currentUser) {
+                if (currentUser == null) {
+                    callback.onError("Usuario no encontrado");
+                    return;
+                }
+
+                Log.d(TAG, "Usuario actual: " + currentUser.getName() + " - Rol: " + currentUser.getRole() + " - Es Admin: " + currentUser.isAdmin());
+                Log.d(TAG, "Cliente a editar: " + client.getName() + " - Creado por: " + client.getCreatedBy());
+
+                // Si es admin, puede editar cualquier cliente
+                if (currentUser.isAdmin()) {
+                    Log.d(TAG, "Admin detectado, procediendo con actualización");
+                    procederConActualizacion(client, callback);
+                    return;
+                }
+
+                // Si es seller, verificar que sea el creador del cliente
+                if ("seller".equals(currentUser.getRole())) {
+                    if (client.getCreatedBy() != null && client.getCreatedBy().equals(currentUserId)) {
+                        Log.d(TAG, "Seller autorizado (es el creador), procediendo con actualización");
+                        procederConActualizacion(client, callback);
+                    } else {
+                        Log.e(TAG, "Seller NO autorizado - Cliente creado por: " + client.getCreatedBy() + " - Usuario actual: " + currentUserId);
+                        callback.onError("No tienes permisos para editar este cliente");
+                    }
+                } else {
+                    callback.onError("No tienes permisos para editar clientes");
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "Error verificando usuario: " + error);
+                callback.onError("Error verificando usuario: " + error);
+            }
+        });
+    }
+
+    private void procederConActualizacion(Client client, DatabaseCallback<Client> callback) {
+        // CRUCIAL: Preservar el createdBy original y otros campos inmutables
+        Map<String, Object> updates = new HashMap<>();
+
+        // Solo actualizar campos que pueden cambiar
+        updates.put("name", client.getName());
+        updates.put("phone", client.getPhone());
+        updates.put("address", client.getAddress());
+        updates.put("status", client.getStatus());
+        updates.put("updatedAt", System.currentTimeMillis());
+
+
+        Log.d(TAG, "Actualizando cliente: " + client.getId() + " con datos: " + updates.toString());
+
         databaseRef.child(CLIENTS_NODE).child(client.getId())
-                .updateChildren(client.toMap())
+                .updateChildren(updates)
                 .addOnSuccessListener(aVoid -> {
-                    Log.d(TAG, "Cliente actualizado exitosamente");
+                    Log.d(TAG, "Cliente actualizado exitosamente: " + client.getId());
                     callback.onSuccess(client);
                 })
                 .addOnFailureListener(e -> {
-                    Log.e(TAG, "Error actualizando cliente", e);
+                    Log.e(TAG, "Error actualizando cliente: " + e.getMessage(), e);
                     callback.onError("Error actualizando cliente: " + e.getMessage());
+                });
+    }
+    /**
+     * * Eliminar cliente (solo clientes inactivos)
+     * */
+    public void deleteClient(String clientId, DatabaseCallback<Void> callback) {
+        // Primero verificar que el cliente esté inactivo
+        databaseRef.child(CLIENTS_NODE).child(clientId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        Client client = snapshot.getValue(Client.class);
+                        if (client == null) {
+                            callback.onError("Cliente no encontrado");
+                            return;
+                        }
+
+                        if (!Client.STATUS_INACTIVE.equals(client.getStatus())) {
+                            callback.onError("Solo se pueden eliminar clientes inactivos");
+                            return;
+                        }
+
+                        // Proceder con la eliminación
+                        databaseRef.child(CLIENTS_NODE).child(clientId)
+                                .removeValue()
+                                .addOnSuccessListener(aVoid -> {
+                                    Log.d(TAG, "Cliente eliminado exitosamente: " + clientId);
+                                    callback.onSuccess(null);
+                                })
+                                .addOnFailureListener(e -> {
+                                    Log.e(TAG, "Error eliminando cliente", e);
+                                    callback.onError("Error eliminando cliente: " + e.getMessage());
+                                });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error verificando cliente", error.toException());
+                        callback.onError("Error verificando cliente: " + error.getMessage());
+                    }
                 });
     }
 

@@ -241,11 +241,11 @@ public class LoginActivity extends AppCompatActivity {
                 mensaje += " (Administrador)";
                 break;
             case User.ROLE_SELLER:
-                intent = new Intent(this, MunuAdminActivity.class);
+                intent = new Intent(this, MunuSellerActivity.class);
                 mensaje += " (Vendedor)";
                 break;
             case User.ROLE_PRODUCTION:
-                intent = new Intent(this, MunuAdminActivity.class);
+                intent = new Intent(this, MunuProductionActivity.class);
                 mensaje += " (Producción)";
                 break;
             default:

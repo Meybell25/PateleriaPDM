@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".ClientRegisterActivity">
 
-        <!-- TITULO -->
+        <!-- titulo -->
         <TextView
             android:id="@+id/lblTituloDialogoCliente"
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- CAMPO PARA NOMBRE -->
+        <!-- Nombre Completo -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNombreCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -52,7 +52,6 @@
             app:startIconDrawable="@drawable/ic_usuario"
             app:startIconTint="@android:color/white">
 
-            <!-- IMPUT NOMBRE-->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtNombreCliente"
                 android:layout_width="match_parent"
@@ -64,9 +63,9 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- CAMPO PARA CORREOO -->
+        <!-- tel -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilEmailCliente"
+            android:id="@+id/tilTelefonoCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,49 +83,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilNombreCliente"
-            app:startIconDrawable="@drawable/ic_correo"
-            app:startIconTint="@android:color/white">
-
-            <!-- IMPUT CORREO-->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEmailCliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Correo electrónico"
-                android:inputType="textEmailAddress"
-                android:paddingVertical="16dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="#80FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- TELEFONO -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTelefonoCliente"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#80FFFFFF"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@android:color/white"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toStartOf="@id/tilTelefonoAlternativo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilEmailCliente"
             app:startIconDrawable="@drawable/ic_telefono"
             app:startIconTint="@android:color/white">
 
-            <!--IMPUT PARA TELEFONOO -->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtTelefonoCliente"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="Teléfono"
                 android:inputType="phone"
                 android:paddingVertical="16dp"
@@ -134,40 +97,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilTelefonoAlternativo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="#80FFFFFF"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@android:color/white"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tilTelefonoCliente"
-            app:layout_constraintTop_toBottomOf="@id/tilEmailCliente"
-            app:startIconDrawable="@drawable/ic_telefono"
-            app:startIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtTelefonoAlternativoCliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Tel. alternativo"
-                android:inputType="phone"
-                android:paddingVertical="16dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="#80FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- CAMPO PARA DIRECCION -->
+        <!-- Direccion -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDireccionCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -191,10 +121,10 @@
             app:startIconTint="@android:color/white">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtDireccionClienteCliente"
+                android:id="@+id/txtDireccionCliente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Dirección completa"
+                android:hint="Dirección completa (opcional)"
                 android:inputType="textMultiLine"
                 android:lines="2"
                 android:maxLines="3"
@@ -203,110 +133,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- FILA PARA BARRIO Y CIUDAD -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilBarrioCliente"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#80FFFFFF"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@android:color/white"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toStartOf="@id/tilCiudadCliente"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilDireccionCliente"
-            app:startIconDrawable="@drawable/ic_barrio"
-            app:startIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtBarrioCliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Barrio"
-                android:inputType="textCapWords"
-                android:paddingVertical="16dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="#80FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilCiudadCliente"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="#80FFFFFF"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@android:color/white"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tilBarrioCliente"
-            app:layout_constraintTop_toBottomOf="@id/tilDireccionCliente"
-            app:startIconDrawable="@drawable/ic_ciudad"
-            app:startIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtCiudadCliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Ciudad"
-                android:inputType="textCapWords"
-                android:paddingVertical="16dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="#80FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- CAMPO PARA NOTAS -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilNotasCliente"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="#80FFFFFF"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@android:color/white"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilBarrioCliente"
-            app:startIconDrawable="@drawable/ic_nota"
-            app:startIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtNotasCliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Notas adicionales (opcional)"
-                android:inputType="textMultiLine"
-                android:lines="2"
-                android:maxLines="4"
-                android:paddingVertical="16dp"
-                android:textColor="@color/blanco_hueso"
-                android:textColorHint="#80FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- LINEARLAYOUY PARA EL ESTADO DEL CLINETE -->
+        <!-- Estado del Cliente -->
         <LinearLayout
             android:id="@+id/layoutEstadoCliente"
             android:layout_width="0dp"
@@ -320,7 +147,7 @@
             android:padding="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilNotasCliente">
+            app:layout_constraintTop_toBottomOf="@id/tilDireccionCliente">
 
             <ImageView
                 android:layout_width="24dp"
@@ -345,47 +172,7 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- LINEARLAYOUT PARA SI EL CLIENTE ES PREFERINO O NEL-->
-        <LinearLayout
-            android:id="@+id/layoutClientePreferente"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/spinner_background"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutEstadoCliente">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="12dp"
-                android:tint="@color/rosa_acento"
-                android:src="@drawable/ic_estado_usuario" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Cliente preferente"
-                android:textColor="@color/rosa_acento"
-                android:textSize="16sp" />
-
-            <!--SWICH PARA SELECIONAR SI SI O NO -->
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switchClientePreferente"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:thumbTint="#EFE7E7"
-                android:trackTint="@color/rosa_acento" />
-        </LinearLayout>
-
-        <!-- BTN INSERTAR -->
+        <!-- btn de accion -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInsertarCliente"
             android:layout_width="0dp"
@@ -405,9 +192,9 @@
             app:icon="@drawable/ic_mas"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutClientePreferente" />
+            app:layout_constraintTop_toBottomOf="@id/layoutEstadoCliente" />
 
-        <!-- LBL PARA SALIR CAPAZ SE ARREPINTIO DE INSETAR CLIENTES O SOLO QUIERE SALIR -->
+        <!-- Texto de salir -->
         <TextView
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
@@ -422,5 +209,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnInsertarCliente" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

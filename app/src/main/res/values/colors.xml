@@ -41,4 +41,6 @@
 
     <color name="verde_activo">#4CAF50</color>
     <color name="rojo_inactivo">#F44336</color>
+    <color name="gold">#FFD700</color>
+
 </resources>
