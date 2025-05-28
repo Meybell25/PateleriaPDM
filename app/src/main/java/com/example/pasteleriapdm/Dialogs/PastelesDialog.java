@@ -169,10 +169,10 @@ public class PastelesDialog extends DialogFragment {
 
         // Configurar spinner de tamaños
         List<String> tamanos = Arrays.asList(
-                "Pequeño (6-8 personas)",
-                "Mediano (10-12 personas)",
-                "Grande (15-20 personas)",
-                "Extra Grande (25+ personas)"
+                "Pequeño",
+                "Mediano ",
+                "Grande ",
+                "Extra Grande "
         );
         ArrayAdapter<String> tamanosAdapter = new ArrayAdapter<>(
                 requireContext(), R.layout.spinner_personalizado, tamanos);

@@ -15,15 +15,11 @@ public class Client {
     public static final String STATUS_INACTIVE = "inactive";
     public static final String STATUS_BLOCKED = "blocked";
 
-
-
     private String id;                  // ID único del cliente
     private String name;                // Nombre completo
-    private String email;               // Email de contacto
     private String phone;               // Teléfono principal
     private String address;             // Dirección completa
-    private String neighborhood;        // Barrio
-    private String city;                // Ciudad
+
     private String status;              // Estado: active, inactive, blocked
     private long createdAt;             // Timestamp de creación
     private long updatedAt;             // Timestamp de última actualización
@@ -37,10 +33,9 @@ public class Client {
     public Client() {}
 
     // Constructor básico
-    public Client(String name, String phone, String email, String createdBy) {
+    public Client(String name, String phone, String createdBy) {
         this.name = name;
         this.phone = phone;
-        this.email = email;
         this.createdBy = createdBy;
         this.status = STATUS_ACTIVE;
         this.createdAt = System.currentTimeMillis();
@@ -49,13 +44,12 @@ public class Client {
         this.totalSpent = 0.0;
         this.lastOrderDate = 0;
         this.preferredClient = false;
-        this.city = "Usulutan"; // Ciudad por defecto
     }
 
     // Constructor completo
-    public Client(String name, String phone, String email, String address,
-                   String createdBy) {
-        this(name, phone, email, createdBy);
+    public Client(String name, String phone, String address,
+                  String createdBy) {
+        this(name, phone, createdBy);
         this.address = address;
     }
 
@@ -69,11 +63,6 @@ public class Client {
         updateTimestamp();
     }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) {
-        this.email = email;
-        updateTimestamp();
-    }
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) {
@@ -87,19 +76,6 @@ public class Client {
         this.address = address;
         updateTimestamp();
     }
-
-    public String getNeighborhood() { return neighborhood; }
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood;
-        updateTimestamp();
-    }
-
-    public String getCity() { return city; }
-    public void setCity(String city) {
-        this.city = city;
-        updateTimestamp();
-    }
-
 
 
     public String getStatus() { return status; }
@@ -189,27 +165,12 @@ public class Client {
         this.lastOrderDate = System.currentTimeMillis();
         updateTimestamp();
 
-        // Marcar como cliente preferente si ha gastado más de $500,000
-        if (this.totalSpent >= 500000) {
+        // Marcar como cliente preferente si ha gastado más de 100
+        if (this.totalSpent >= 100) {
             this.preferredClient = true;
         }
     }
 
-
-    // Obtener dirección completa
-    public String getFullAddress() {
-        StringBuilder fullAddress = new StringBuilder();
-        if (address != null) fullAddress.append(address);
-        if (neighborhood != null) {
-            if (fullAddress.length() > 0) fullAddress.append(", ");
-            fullAddress.append(neighborhood);
-        }
-        if (city != null) {
-            if (fullAddress.length() > 0) fullAddress.append(", ");
-            fullAddress.append(city);
-        }
-        return fullAddress.toString();
-    }
 
     // Verificar si tiene información completa
     public boolean hasCompleteInfo() {
@@ -223,25 +184,55 @@ public class Client {
         return String.format("$%,.0f COP", totalSpent);
     }
 
-    // Convertir a Map para Firebase
+    /**
+     * Método toMap() completo - solo para creación
+     */
     public Map<String, Object> toMap() {
-        Map<String, Object> result = new HashMap<>();
-        result.put("id", id);
-        result.put("name", name);
-        result.put("email", email);
-        result.put("phone", phone);
-        result.put("address", address);
-        result.put("neighborhood", neighborhood);
-        result.put("city", city);
-        result.put("status", status);
-        result.put("createdAt", createdAt);
-        result.put("updatedAt", updatedAt);
-        result.put("createdBy", createdBy);
-        result.put("totalOrders", totalOrders);
-        result.put("totalSpent", totalSpent);
-        result.put("lastOrderDate", lastOrderDate);
-        result.put("preferredClient", preferredClient);
-        return result;
+        Map<String, Object> map = new HashMap<>();
+        // Todos los campos para creación
+        if (this.id != null) map.put("id", this.id);
+        map.put("name", this.name);
+        map.put("phone", this.phone);
+        map.put("address", this.address != null ? this.address : "");
+        map.put("status", this.status);
+        map.put("createdBy", this.createdBy);
+        map.put("createdAt", this.createdAt);
+        map.put("updatedAt", this.updatedAt);
+        map.put("totalOrders", this.totalOrders);
+        map.put("totalSpent", this.totalSpent);
+        map.put("lastOrderDate", this.lastOrderDate);
+        map.put("isPreferredClient", this.isPreferredClient());
+
+        return map;
+    }
+
+    /**
+     * Metodo toMap() para actualizaciones
+     * Evita incluir campos inmutables que pueden causar problemas con Firebase
+     */
+    public Map<String, Object> toMapForUpdate() {
+        Map<String, Object> map = new HashMap<>();
+
+        // Solo campos que pueden ser actualizados
+        map.put("name", this.name);
+        map.put("phone", this.phone);
+        map.put("address", this.address != null ? this.address : "");
+        map.put("status", this.status);
+        map.put("updatedAt", System.currentTimeMillis());
+
+        // Campos opcionales que pueden cambiar
+        if (this.totalOrders > 0) {
+            map.put("totalOrders", this.totalOrders);
+        }
+        if (this.totalSpent > 0) {
+            map.put("totalSpent", this.totalSpent);
+        }
+        if (this.lastOrderDate > 0) {
+            map.put("lastOrderDate", this.lastOrderDate);
+        }
+        map.put("isPreferredClient", this.preferredClient);
+
+        return map;
     }
 
 

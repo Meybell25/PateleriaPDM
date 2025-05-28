@@ -210,10 +210,10 @@ public class Cake implements Serializable {
     // Obtener descripción del tamaño
     public String getSizeDescription() {
         switch (size) {
-            case SIZE_SMALL: return "Pequeño (6-8 personas)";
-            case SIZE_MEDIUM: return "Mediano (10-12 personas)";
-            case SIZE_LARGE: return "Grande (15-20 personas)";
-            case SIZE_XLARGE: return "Extra Grande (25+ personas)";
+            case SIZE_SMALL: return "Pequeño";
+            case SIZE_MEDIUM: return "Mediano";
+            case SIZE_LARGE: return "Grande";
+            case SIZE_XLARGE: return "Extra Grande";
             default: return "Tamaño no especificado";
         }
     }
