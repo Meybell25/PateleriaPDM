@@ -241,64 +241,37 @@ public class ClientesSellerAdapter extends RecyclerView.Adapter<ClientesSellerAd
         }
     }
 
+    // CORRECCIÓN EN EL MÉTODO configurarEventos del ClientesSellerAdapter
     private void configurarEventos(ViewHolderClientesSeller holder, Client cliente, int position) {
         try {
-            // Botón Editar - Solo habilitar si el cliente tiene createdBy
+            // Botón Editar - Siempre habilitado para los clientes del seller
             if (holder.btnEditarCliente != null) {
-                // CORRECCIÓN: Usar validación completa
-                boolean puedeEditar = validarClienteParaEdicion(cliente);
-                holder.btnEditarCliente.setEnabled(puedeEditar);
-                holder.btnEditarCliente.setAlpha(puedeEditar ? 1.0f : 0.5f);
+                holder.btnEditarCliente.setEnabled(true);
+                holder.btnEditarCliente.setAlpha(1.0f);
 
-                if (puedeEditar) {
-                    holder.btnEditarCliente.setOnClickListener(v -> {
-                        try {
-                            Log.d(TAG, "Editando cliente - ID: " + cliente.getId() + ", Creado por: " + cliente.getCreatedBy());
+                holder.btnEditarCliente.setOnClickListener(v -> {
+                    try {
+                        // CORRECCIÓN: Pasar TODOS los campos necesarios incluyendo createdBy
+                        ClientesDialog dialog = ClientesDialog.newInstanceForEdit(cliente);
+                        dialog.setClienteDialogListener(new ClientesDialog.ClienteDialogListener() {
+                            @Override
+                            public void onClienteCreado() {}
 
-                            // CORRECCIÓN: Doble verificación antes de abrir el diálogo
-                            if (!validarClienteParaEdicion(cliente)) {
-                                Toast.makeText(context, "Error: Datos del cliente incompletos para edición", Toast.LENGTH_LONG).show();
-                                return;
-                            }
-
-                            // CORRECCIÓN: Crear una copia completa del cliente para edición
-                            Client clienteParaEditar = crearCopiaCompletaCliente(cliente);
-
-                            // Verificación final de la copia
-                            if (!validarClienteParaEdicion(clienteParaEditar)) {
-                                Toast.makeText(context, "Error: No se pudo preparar los datos para edición", Toast.LENGTH_LONG).show();
-                                return;
-                            }
-
-                            ClientesDialog dialog = ClientesDialog.newInstanceForEdit(clienteParaEditar);
-                            dialog.setClienteDialogListener(new ClientesDialog.ClienteDialogListener() {
-                                @Override
-                                public void onClienteCreado() {}
-
-                                @Override
-                                public void onClienteEditado() {
-                                    if (listener != null) {
-                                        listener.onClienteEliminado(); // Este nombre del método es confuso, pero funciona para recargar
-                                    }
+                            @Override
+                            public void onClienteEditado() {
+                                if (listener != null) {
+                                    listener.onClienteEliminado(); // Recargar lista
                                 }
-                            });
-                            dialog.show(fragmentManager, "editarCliente");
-
-                        } catch (Exception e) {
-                            Log.e(TAG, "Error al editar: " + e.getMessage(), e);
-                            Toast.makeText(context, "Error abriendo editor: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    // Mostrar mensaje explicativo cuando no se puede editar
-                    holder.btnEditarCliente.setOnClickListener(v -> {
-                        String mensaje = "No se puede editar este cliente.\nDatos incompletos o inválidos.";
-                        Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
-                    });
-                }
+                            }
+                        });
+                        dialog.show(fragmentManager, "editarCliente");
+                    } catch (Exception e) {
+                        Toast.makeText(context, "Error al editar: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
-            configurarBotonEliminar(holder, cliente, position);
 
+            configurarBotonEliminar(holder, cliente, position);
         } catch (Exception e) {
             Log.e(TAG, "Error configurando eventos: " + e.getMessage(), e);
         }

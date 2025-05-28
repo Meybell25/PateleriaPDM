@@ -2,6 +2,7 @@ package com.example.pasteleriapdm.Dialogs;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +57,18 @@ public class ClientesDialog extends DialogFragment {
         args.putString("clienteTelefono", cliente.getPhone());
         args.putString("clienteDireccion", cliente.getAddress());
         args.putString("clienteEstado", cliente.getStatus());
+
+        // CRÍTICO: Pasar los campos de auditoría
+        args.putString("clienteCreatedBy", cliente.getCreatedBy());
+        args.putLong("clienteCreatedAt", cliente.getCreatedAt());
+        args.putLong("clienteUpdatedAt", cliente.getUpdatedAt());
+
+        // Campos opcionales de estadísticas
+        args.putInt("clienteTotalOrders", cliente.getTotalOrders());
+        args.putDouble("clienteTotalSpent", cliente.getTotalSpent());
+        args.putLong("clienteLastOrderDate", cliente.getLastOrderDate());
+        args.putBoolean("clienteIsPreferred", cliente.isPreferredClient());
+
         args.putBoolean("isEditMode", true);
         dialog.setArguments(args);
         return dialog;
@@ -122,13 +135,29 @@ public class ClientesDialog extends DialogFragment {
                 lblTituloDialogoCliente.setText("EDITAR CLIENTE");
                 btnInsertarCliente.setText("Actualizar Cliente");
 
-                // Crear objeto cliente con los datos
+                // Crear objeto cliente con TODOS los datos
                 clienteAEditar = new Client();
                 clienteAEditar.setId(getArguments().getString("clienteId"));
                 clienteAEditar.setName(getArguments().getString("clienteNombre"));
                 clienteAEditar.setPhone(getArguments().getString("clienteTelefono"));
                 clienteAEditar.setAddress(getArguments().getString("clienteDireccion"));
                 clienteAEditar.setStatus(getArguments().getString("clienteEstado"));
+
+                // CRÍTICO: Asignar los campos de auditoría
+                clienteAEditar.setCreatedBy(getArguments().getString("clienteCreatedBy"));
+                clienteAEditar.setCreatedAt(getArguments().getLong("clienteCreatedAt", 0));
+                clienteAEditar.setUpdatedAt(getArguments().getLong("clienteUpdatedAt", 0));
+
+                // Campos opcionales de estadísticas
+                clienteAEditar.setTotalOrders(getArguments().getInt("clienteTotalOrders", 0));
+                clienteAEditar.setTotalSpent(getArguments().getDouble("clienteTotalSpent", 0.0));
+                clienteAEditar.setLastOrderDate(getArguments().getLong("clienteLastOrderDate", 0));
+                clienteAEditar.setPreferredClient(getArguments().getBoolean("clienteIsPreferred", false));
+
+                // Debug log para verificar
+                Log.d("ClientesDialog", "Cliente para editar cargado - ID: " + clienteAEditar.getId() +
+                        ", CreatedBy: " + clienteAEditar.getCreatedBy() +
+                        ", CreatedAt: " + clienteAEditar.getCreatedAt());
 
                 // Llenar campos con datos existentes
                 llenarCamposParaEdicion();

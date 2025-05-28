@@ -565,7 +565,6 @@ public class DatabaseHelper {
             return;
         }
 
-        // Obtener información del usuario actual
         getUser(currentUserId, new DatabaseCallback<User>() {
             @Override
             public void onSuccess(User currentUser) {
@@ -574,23 +573,29 @@ public class DatabaseHelper {
                     return;
                 }
 
-                Log.d(TAG, "Usuario actual: " + currentUser.getName() + " - Rol: " + currentUser.getRole() + " - Es Admin: " + currentUser.isAdmin());
-                Log.d(TAG, "Cliente a editar: " + client.getName() + " - Creado por: " + client.getCreatedBy());
+                Log.d(TAG, "Usuario actual: " + currentUser.getName() +
+                        " - Rol: " + currentUser.getRole() +
+                        " - Es Admin: " + currentUser.isAdmin());
+                Log.d(TAG, "Cliente a editar - ID: " + client.getId() +
+                        " - Nombre: " + client.getName() +
+                        " - Creado por: " + client.getCreatedBy());
 
-                // Si es admin, puede editar cualquier cliente
+                // Admin puede editar cualquier cliente
                 if (currentUser.isAdmin()) {
                     Log.d(TAG, "Admin detectado, procediendo con actualización");
                     procederConActualizacion(client, callback);
                     return;
                 }
 
-                // Si es seller, verificar que sea el creador del cliente
+                // Seller solo puede editar sus clientes
                 if ("seller".equals(currentUser.getRole())) {
                     if (client.getCreatedBy() != null && client.getCreatedBy().equals(currentUserId)) {
                         Log.d(TAG, "Seller autorizado (es el creador), procediendo con actualización");
                         procederConActualizacion(client, callback);
                     } else {
-                        Log.e(TAG, "Seller NO autorizado - Cliente creado por: " + client.getCreatedBy() + " - Usuario actual: " + currentUserId);
+                        String errorMsg = "Seller NO autorizado - Cliente creado por: " +
+                                client.getCreatedBy() + " - Usuario actual: " + currentUserId;
+                        Log.e(TAG, errorMsg);
                         callback.onError("No tienes permisos para editar este cliente");
                     }
                 } else {
