@@ -10,7 +10,7 @@
     <FrameLayout
         android:id="@+id/fragmnetContainer"
         android:layout_width="match_parent"
-        android:layout_height="702dp"
+        android:layout_height="744dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
         android:background="@color/white"
@@ -18,18 +18,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/lblTitulo"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             android:background="@color/rosa_acento"
-            android:letterSpacing="0.15"
-            android:padding="20dp"
-            android:text="Pasteleria PDM"
-            android:textAlignment="textStart"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:minHeight="?attr/actionBarSize"
+            app:iconTint="@color/rosa_pastel"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="@color/rosa_acento"
+            app:popupTheme="@style/toolbarDesplegable1"
+            app:title="Pasteleria PMD"
+            app:titleTextAppearance="@style/ToolbarTitleText"
+            app:titleTextColor="@color/crema_suave" />
     </FrameLayout>
 
     <!-- NAVEGACION INFERIOR -->
