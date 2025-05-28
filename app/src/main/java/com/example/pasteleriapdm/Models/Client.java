@@ -17,26 +17,26 @@ public class Client {
 
 
 
-    private String id;                  // ID único del cliente
+    private String id;                  // ID unico del cliente
     private String name;                // Nombre completo
     private String email;               // Email de contacto
-    private String phone;               // Teléfono principal
-    private String address;             // Dirección completa
+    private String phone;               // Telefono principal
+    private String address;             // Direccion completa
     private String neighborhood;        // Barrio
     private String city;                // Ciudad
     private String status;              // Estado: active, inactive, blocked
-    private long createdAt;             // Timestamp de creación
-    private long updatedAt;             // Timestamp de última actualización
-    private String createdBy;           // UID del seller que lo creó
+    private long createdAt;             // Timestamp de creacion
+    private long updatedAt;             // Timestamp de ultima actualizacion
+    private String createdBy;           // UID del seller que lo creo
     private int totalOrders;            // Total de pedidos realizados
-    private double totalSpent;          // Total gastado histórico
-    private long lastOrderDate;         // Fecha del último pedido
+    private double totalSpent;          // Total gastado historico
+    private long lastOrderDate;         // Fecha del ultimo pedido
     private boolean preferredClient;    // Cliente preferente
 
-    // Constructor vacío requerido por Firebase
+    // Constructor vacio requerido por Firebase
     public Client() {}
 
-    // Constructor básico
+    // Constructor baasico
     public Client(String name, String phone, String email, String createdBy) {
         this.name = name;
         this.phone = phone;
@@ -81,7 +81,6 @@ public class Client {
         updateTimestamp();
     }
 
-
     public String getAddress() { return address; }
     public void setAddress(String address) {
         this.address = address;
@@ -100,8 +99,6 @@ public class Client {
         updateTimestamp();
     }
 
-
-
     public String getStatus() { return status; }
     public void setStatus(String status) {
         this.status = status;
@@ -110,11 +107,13 @@ public class Client {
 
     @PropertyName("createdAt")
     public long getCreatedAt() { return createdAt; }
+
     @PropertyName("createdAt")
     public void setCreatedAt(long createdAt) { this.createdAt = createdAt; }
 
     @PropertyName("updatedAt")
     public long getUpdatedAt() { return updatedAt; }
+
     @PropertyName("updatedAt")
     public void setUpdatedAt(long updatedAt) { this.updatedAt = updatedAt; }
 
@@ -123,17 +122,17 @@ public class Client {
     @PropertyName("createdBy")
     public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
 
-
     @PropertyName("totalOrders")
     public int getTotalOrders() { return totalOrders; }
+
     @PropertyName("totalOrders")
     public void setTotalOrders(int totalOrders) {
         this.totalOrders = totalOrders;
         updateTimestamp();
     }
-
     @PropertyName("totalSpent")
     public double getTotalSpent() { return totalSpent; }
+
     @PropertyName("totalSpent")
     public void setTotalSpent(double totalSpent) {
         this.totalSpent = totalSpent;
@@ -142,6 +141,7 @@ public class Client {
 
     @PropertyName("lastOrderDate")
     public long getLastOrderDate() { return lastOrderDate; }
+
     @PropertyName("lastOrderDate")
     public void setLastOrderDate(long lastOrderDate) {
         this.lastOrderDate = lastOrderDate;
@@ -150,13 +150,14 @@ public class Client {
 
     @PropertyName("preferredClient")
     public boolean isPreferredClient() { return preferredClient; }
+
     @PropertyName("preferredClient")
     public void setPreferredClient(boolean preferredClient) {
         this.preferredClient = preferredClient;
         updateTimestamp();
     }
 
-    // Métodos de utilidad
+    // Metodos de utilidad
     public boolean isActive() {
         return STATUS_ACTIVE.equals(status);
     }
@@ -177,7 +178,7 @@ public class Client {
         setStatus(STATUS_BLOCKED);
     }
 
-    // Actualizar timestamp de modificación
+    // Actualizar timestamp de modificaciion
     private void updateTimestamp() {
         this.updatedAt = System.currentTimeMillis();
     }
@@ -189,14 +190,13 @@ public class Client {
         this.lastOrderDate = System.currentTimeMillis();
         updateTimestamp();
 
-        // Marcar como cliente preferente si ha gastado más de $500,000
-        if (this.totalSpent >= 500000) {
+        // Marcar como cliente preferente si ha gastado mas de $50000
+        if (this.totalSpent >= 5000) {
             this.preferredClient = true;
         }
     }
 
-
-    // Obtener dirección completa
+    // Obtener direccion completa
     public String getFullAddress() {
         StringBuilder fullAddress = new StringBuilder();
         if (address != null) fullAddress.append(address);
@@ -211,7 +211,7 @@ public class Client {
         return fullAddress.toString();
     }
 
-    // Verificar si tiene información completa
+    // Verificar si tiene informacion completa
     public boolean hasCompleteInfo() {
         return name != null && !name.trim().isEmpty() &&
                 phone != null && !phone.trim().isEmpty() &&
@@ -243,7 +243,6 @@ public class Client {
         result.put("preferredClient", preferredClient);
         return result;
     }
-
 
     @Override
     public String toString() {

@@ -161,19 +161,19 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- Tamaño y Porciones en una fila -->
+        <!-- Tamaño (una sola columna) -->
         <LinearLayout
             android:id="@+id/layoutTamano"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="32dp"
             android:background="@drawable/spinner_background"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:padding="16dp"
-            app:layout_constraintEnd_toStartOf="@id/tilPorciones"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutStatus">
 
@@ -192,8 +192,43 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
+        <!-- Porciones (primera columna) -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPorciones"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="#80FFFFFF"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxStrokeColor="@android:color/white"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toStartOf="@id/tilPrecio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutTamano"
+            app:startIconDrawable="@drawable/ic_porcion_pastel"
+            app:startIconTint="@android:color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPorcionesPastel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Porciones"
+                android:inputType="number"
+                android:paddingVertical="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="#80FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Precio (segunda columna) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPrecio"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -209,41 +244,7 @@
             app:boxStrokeColor="@android:color/white"
             app:hintEnabled="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/layoutTamano"
-            app:layout_constraintTop_toBottomOf="@id/layoutStatus"
-            app:startIconDrawable="@drawable/ic_porcion_pastel"
-            app:startIconTint="@android:color/white">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtPorcionesPastel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Porciones"
-                android:inputType="number"
-                android:paddingVertical="16dp"
-                android:textColor="@android:color/white"
-                android:textColorHint="#80FFFFFF" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Precio -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPrecio"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:backgroundTint="#80FFFFFF"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxCornerRadiusBottomEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxStrokeColor="@android:color/white"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tilPorciones"
             app:layout_constraintTop_toBottomOf="@id/layoutTamano"
             app:prefixText="$"
             app:prefixTextColor="@android:color/white"
@@ -277,7 +278,7 @@
             app:cardElevation="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPrecio"
+            app:layout_constraintTop_toBottomOf="@id/tilPorciones"
             app:strokeColor="@android:color/white"
             app:strokeWidth="1dp">
 

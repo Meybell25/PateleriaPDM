@@ -23,16 +23,16 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class UsuariosDialog extends DialogFragment {
     private static final String TAG = "UsuariosDialog";
-
     private TextInputEditText txtNombreUsuario, txtEmailUsuario, txtPasswordUsuario;
     private Spinner spinnerRolUsuario, spinnerEstadoUsuario;
     private MaterialButton btnInsertarUsuario;
     private TextView btnSalir, lblTituloDialogoUsuario;
 
+    //Varibles para la base de datos
     private DatabaseHelper databaseHelper;
     private FirebaseAuth firebaseAuth;
 
-    // Variables para modo edición
+    // Variables para modo edicion
     private User usuarioParaEditar;
     private boolean modoEdicion = false;
     private boolean esPrimerAdmin = false;
@@ -62,6 +62,7 @@ public class UsuariosDialog extends DialogFragment {
         this.modoEdicion = true;
     }
 
+    //asignar un obj que se implementatra
     public void setUsuarioDialogListener(UsuarioDialogListener listener) {
         this.listener = listener;
     }
@@ -83,6 +84,7 @@ public class UsuariosDialog extends DialogFragment {
         databaseHelper = DatabaseHelper.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
 
+        //llamar a los metodos
         AsociarElementoXML(view);
         configurarSpinners();
         configurarEventos();
@@ -92,7 +94,7 @@ public class UsuariosDialog extends DialogFragment {
             configurarParaPrimerAdmin();
         }
 
-        // Si es modo edición, llenar los campos
+        // Si es modo edicion, llenar los campos
         if (modoEdicion && usuarioParaEditar != null) {
             llenarCamposParaEdicion();
         }
@@ -100,6 +102,7 @@ public class UsuariosDialog extends DialogFragment {
         return view;
     }
 
+    //Metodo para la configuracion de primer admin
     private void configurarParaPrimerAdmin() {
         lblTituloDialogoUsuario.setText("CREAR PRIMER ADMINISTRADOR");
         btnInsertarUsuario.setText("Crear Administrador");
@@ -113,11 +116,12 @@ public class UsuariosDialog extends DialogFragment {
 
         // Establecer contraseña por defecto para primer admin (pero el usuario puede cambiarla)
         txtPasswordUsuario.setText("admin123");
-        txtPasswordUsuario.setHint("Contraseña del administrador (mínimo 6 caracteres)");
+        txtPasswordUsuario.setHint("Contraseña del administrador (minimo 6 caracteres)");
 
         Toast.makeText(getContext(), "Creando el primer administrador del sistema", Toast.LENGTH_LONG).show();
     }
 
+    //Metodo para la configuracion de spinner de estados y roles
     private void configurarSpinners() {
         // Spinner de estados
         String[] estados = {"Activo", "Inactivo", "Bloqueado"};
@@ -125,7 +129,7 @@ public class UsuariosDialog extends DialogFragment {
                 R.layout.spinner_personalizado, estados);
         adapterEstado.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerEstadoUsuario.setAdapter(adapterEstado);
-        spinnerEstadoUsuario.setSelection(0); // Selecciona "Activo" por defecto
+        spinnerEstadoUsuario.setSelection(0); // Selecciona Activo por defecto
 
         // Spinner de roles
         String[] roles = {"admin", "seller", "production"};
@@ -133,7 +137,7 @@ public class UsuariosDialog extends DialogFragment {
                 R.layout.spinner_personalizado, roles);
         adapterRol.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerRolUsuario.setAdapter(adapterRol);
-        spinnerRolUsuario.setSelection(0); // Selecciona "admin" por defecto
+        spinnerRolUsuario.setSelection(0); // Selecciona admin por defecto
     }
 
     private void configurarEventos() {
@@ -147,6 +151,7 @@ public class UsuariosDialog extends DialogFragment {
         });
     }
 
+    //Metodo para si el dialog esta en modo edicion
     private void llenarCamposParaEdicion() {
         if (usuarioParaEditar == null) return;
 
@@ -160,7 +165,7 @@ public class UsuariosDialog extends DialogFragment {
         txtEmailUsuario.setText(usuarioParaEditar.getEmail());
         txtEmailUsuario.setEnabled(false); // No permitir cambiar email
 
-        // *** MOSTRAR LA CONTRASEÑA ACTUAL EN MODO EDICIÓN ***
+        //  MOSTRAR LA CONTRASENA ACTUAL EN MODO EDICION
         if (usuarioParaEditar.getPassword() != null && !usuarioParaEditar.getPassword().isEmpty()) {
             txtPasswordUsuario.setText(usuarioParaEditar.getPassword());
             txtPasswordUsuario.setHint("Contraseña actual (editable)");
@@ -188,6 +193,7 @@ public class UsuariosDialog extends DialogFragment {
         }
     }
 
+    //Metodo para crear usuario
     private void crearUsuario() {
         if (!validarCampos()) return;
 
@@ -199,7 +205,7 @@ public class UsuariosDialog extends DialogFragment {
         String rol = obtenerRolSeleccionado();
         String estado = obtenerEstadoSeleccionado();
 
-        Log.d(TAG, "Iniciando creación de usuario:");
+        Log.d(TAG, "Iniciando creacion de usuario:");
         Log.d(TAG, "- Nombre: " + nombre);
         Log.d(TAG, "- Email: " + email);
         Log.d(TAG, "- Rol: " + rol);
@@ -220,7 +226,7 @@ public class UsuariosDialog extends DialogFragment {
 
                     Log.d(TAG, "Usuario a crear en BD: " + nuevoUsuario.toString());
 
-                    // Usar el método apropiado según si es primer admin o no
+                    // Usar el metodo apropiado segun si es primer admin o no
                     if (esPrimerAdmin) {
                         Log.d(TAG, "Creando primer administrador con UID: " + uid);
                         databaseHelper.createFirstAdmin(nuevoUsuario, new DatabaseHelper.DatabaseCallback<User>() {
@@ -241,14 +247,14 @@ public class UsuariosDialog extends DialogFragment {
                                 Log.e(TAG, "Error creando primer administrador en BD: " + error);
                                 mostrarCargando(false);
 
-                                // Mostrar error específico
+                                // Mostrar error especifico
                                 String mensajeError = "Error creando primer administrador: " + error;
                                 Toast.makeText(getContext(), mensajeError, Toast.LENGTH_LONG).show();
 
-                                // Eliminar usuario de Auth si falló en BD
+                                // Eliminar usuario de Auth si fallo en BD
                                 if (authResult.getUser() != null) {
                                     authResult.getUser().delete()
-                                            .addOnSuccessListener(aVoid -> Log.d(TAG, "Usuario eliminado de Auth después del error"))
+                                            .addOnSuccessListener(aVoid -> Log.d(TAG, "Usuario eliminado de Auth despues del error"))
                                             .addOnFailureListener(e -> Log.e(TAG, "Error eliminando usuario de Auth", e));
                                 }
                             }
@@ -274,7 +280,7 @@ public class UsuariosDialog extends DialogFragment {
                                 mostrarCargando(false);
                                 Toast.makeText(getContext(), "Error: " + error, Toast.LENGTH_LONG).show();
 
-                                // Eliminar usuario de Auth si falló en BD
+                                // Eliminar usuario de Auth si fallo en BD
                                 if (authResult.getUser() != null) {
                                     authResult.getUser().delete()
                                             .addOnSuccessListener(aVoid -> Log.d(TAG, "Usuario eliminado de Auth después del error"))
@@ -290,19 +296,19 @@ public class UsuariosDialog extends DialogFragment {
 
                     String mensajeError;
                     if (e.getMessage().contains("email-already-in-use")) {
-                        mensajeError = "Este email ya está registrado";
+                        mensajeError = "Este email ya esta registrado";
                     } else if (e.getMessage().contains("weak-password")) {
-                        mensajeError = "La contraseña es muy débil";
+                        mensajeError = "La contraseña es muy debil";
                     } else if (e.getMessage().contains("invalid-email")) {
-                        mensajeError = "Email inválido";
+                        mensajeError = "Email invalido";
                     } else {
                         mensajeError = "Error creando usuario: " + e.getMessage();
                     }
-
                     Toast.makeText(getContext(), mensajeError, Toast.LENGTH_LONG).show();
                 });
     }
 
+    //Metodo para actulizar usuario
     private void actualizarUsuario() {
         if (!validarCamposEdicion()) return;
 
@@ -324,7 +330,7 @@ public class UsuariosDialog extends DialogFragment {
         usuarioParaEditar.setRole(rol);
         usuarioParaEditar.setStatus(estado);
 
-        // Solo actualizar contraseña si se cambió
+        // Solo actualizar contraseña si se cambio
         if (!password.isEmpty()) {
             usuarioParaEditar.setPassword(password);
             Log.d(TAG, "Contraseña será actualizada");
@@ -354,6 +360,7 @@ public class UsuariosDialog extends DialogFragment {
         });
     }
 
+    //Metodo para validar
     private boolean validarCampos() {
         String nombre = txtNombreUsuario.getText().toString().trim();
         String email = txtEmailUsuario.getText().toString().trim();
@@ -383,7 +390,7 @@ public class UsuariosDialog extends DialogFragment {
             return false;
         }
 
-        // *** VALIDACIÓN OBLIGATORIA DE CONTRASEÑA PARA CREACIÓN ***
+        //VALIDACION OBLIGATORIA DE CONTRASENIA PARA CREACI0N
         if (password.isEmpty()) {
             txtPasswordUsuario.setError("La contraseña es obligatoria");
             txtPasswordUsuario.requestFocus();
@@ -396,16 +403,16 @@ public class UsuariosDialog extends DialogFragment {
             return false;
         }
 
-        // Validación adicional de contraseña fuerte (opcional)
+        // Validacion adicional de contraseña fuerte
         if (!esContrasenaSegura(password)) {
             txtPasswordUsuario.setError("La contraseña debe contener al menos una letra y un número");
             txtPasswordUsuario.requestFocus();
             return false;
         }
-
         return true;
     }
 
+    //Metod para validar los campos en edicion
     private boolean validarCamposEdicion() {
         String nombre = txtNombreUsuario.getText().toString().trim();
         String password = txtPasswordUsuario.getText().toString().trim();
@@ -422,7 +429,7 @@ public class UsuariosDialog extends DialogFragment {
             return false;
         }
 
-        // En edición, la contraseña es opcional, pero si se ingresa debe ser válida
+        // En edición, la contrasenia es opcional, pero si se ingresa debe ser valida
         if (!password.isEmpty()) {
             if (password.length() < 6) {
                 txtPasswordUsuario.setError("La contraseña debe tener al menos 6 caracteres");
@@ -431,7 +438,7 @@ public class UsuariosDialog extends DialogFragment {
             }
 
             if (!esContrasenaSegura(password)) {
-                txtPasswordUsuario.setError("La contraseña debe contener al menos una letra y un número");
+                txtPasswordUsuario.setError("La contraseña debe contener al menos una letra y un numero");
                 txtPasswordUsuario.requestFocus();
                 return false;
             }
@@ -441,7 +448,7 @@ public class UsuariosDialog extends DialogFragment {
     }
 
     /**
-     * Valida que la contraseña tenga al menos una letra y un número
+     * Valida que la contraseña tenga al menos una letra y un numero
      */
     private boolean esContrasenaSegura(String password) {
         boolean tieneLetra = false;
@@ -458,20 +465,22 @@ public class UsuariosDialog extends DialogFragment {
                 break;
             }
         }
-
         return tieneLetra && tieneNumero;
     }
 
+    //Metodo para obtener el rol seleccionado
     private String obtenerRolSeleccionado() {
         String[] roles = {"admin", "seller", "production"};
         return roles[spinnerRolUsuario.getSelectedItemPosition()];
     }
 
+    //Metodo para obtner el estado seccionado
     private String obtenerEstadoSeleccionado() {
         String[] estados = {"active", "inactive", "blocked"};
         return estados[spinnerEstadoUsuario.getSelectedItemPosition()];
     }
 
+    //Metodo para mostar cargando tipo animacion
     private void mostrarCargando(boolean mostrar) {
         btnInsertarUsuario.setEnabled(!mostrar);
         btnSalir.setEnabled(!mostrar);
@@ -504,7 +513,7 @@ public class UsuariosDialog extends DialogFragment {
         spinnerRolUsuario = view.findViewById(R.id.spinnerRolUsuario);
         spinnerEstadoUsuario = view.findViewById(R.id.spinnerEstadoUsuario);
 
-        // Botón
+        // Boton
         btnInsertarUsuario = view.findViewById(R.id.btnInsertarUsuario);
     }
 }

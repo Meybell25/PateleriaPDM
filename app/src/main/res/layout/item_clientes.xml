@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Icono Cliente -->
+        <!-- ICONO -->
         <ImageView
             android:id="@+id/imgCliente"
             android:layout_width="45dp"
@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Nombre Completo -->
+        <!-- NOMBRE COMPLETO -->
         <TextView
             android:id="@+id/lblNombreCompleto"
             android:layout_width="0dp"
@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="12dp" />
 
-        <!-- Email -->
+        <!-- CORREO ELECTRONIC -->
         <TextView
             android:id="@+id/lblCorreo"
             android:layout_width="0dp"
@@ -53,7 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="4dp" />
 
-        <!-- tel Principal -->
+        <!-- TELEFONO PRINCPAL -->
         <TextView
             android:id="@+id/lblTelefono"
             android:layout_width="0dp"
@@ -66,7 +66,7 @@
             app:layout_constraintStart_toStartOf="@id/lblCorreo"
             app:layout_constraintTop_toBottomOf="@id/lblCorreo" />
 
-        <!-- tel Alternativo -->
+        <!-- TEL ALTERNATIVO -->
         <TextView
             android:id="@+id/lblTelefonoAlternativo"
             android:layout_width="0dp"
@@ -79,7 +79,7 @@
             app:layout_constraintStart_toStartOf="@id/lblTelefono"
             app:layout_constraintTop_toBottomOf="@id/lblTelefono" />
 
-        <!-- Direccion -->
+        <!-- DIRECCION -->
         <TextView
             android:id="@+id/tvDireccion"
             android:layout_width="0dp"
@@ -92,7 +92,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="2dp" />
 
-        <!-- Barrio -->
+        <!-- BARROL -->
         <TextView
             android:id="@+id/lblBarrio"
             android:layout_width="0dp"
@@ -105,7 +105,7 @@
             app:layout_constraintStart_toStartOf="@id/tvDireccion"
             app:layout_constraintTop_toBottomOf="@id/tvDireccion" />
 
-        <!-- Ciudad -->
+        <!-- CIUDAD -->
         <TextView
             android:id="@+id/lblCiudad"
             android:layout_width="0dp"
@@ -119,7 +119,7 @@
             app:layout_constraintStart_toEndOf="@id/lblBarrio"
             app:layout_constraintTop_toBottomOf="@id/tvDireccion" />
 
-        <!-- Notas Adicionales -->
+        <!-- NOTITAS ADICIONALES -->
         <TextView
             android:id="@+id/lblNotasAdicionales"
             android:layout_width="0dp"
@@ -133,7 +133,7 @@
             app:layout_constraintStart_toStartOf="@id/lblBarrio"
             app:layout_constraintTop_toBottomOf="@id/lblBarrio" />
 
-        <!-- Cliente Preferencial  -->
+        <!-- CLIENTE PREFRENCIAL  -->
         <TextView
             android:id="@+id/tvClientePreferencial"
             android:layout_width="wrap_content"
@@ -148,7 +148,6 @@
             app:layout_constraintStart_toStartOf="@id/lblNotasAdicionales"
             app:layout_constraintTop_toBottomOf="@id/lblNotasAdicionales" />
 
-        <!-- Spinner estado Cliente -->
         <TextView
             android:id="@+id/labelEstado"
             android:layout_width="wrap_content"
@@ -161,6 +160,7 @@
             app:layout_constraintStart_toStartOf="@id/tvClientePreferencial"
             android:layout_marginTop="6dp" />
 
+        <!-- SPINERSITO PARA EL ESTADO DEL CLIENTESITO -->
         <Spinner
             android:id="@+id/spinnerEstadoCliente"
             android:layout_width="135dp"
@@ -170,8 +170,6 @@
             android:background="@drawable/spinner_background"
             app:layout_constraintStart_toEndOf="@id/labelEstado"
             app:layout_constraintTop_toBottomOf="@id/tvClientePreferencial" />
-
-
 
         <!-- btn Editar -->
         <ImageButton
@@ -199,6 +197,5 @@
             android:contentDescription="Eliminar cliente"
             app:layout_constraintTop_toBottomOf="@id/spinnerEstadoCliente"
             app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

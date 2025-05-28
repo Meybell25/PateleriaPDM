@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".ClientRegisterActivity">
 
-        <!-- titulo -->
+        <!-- TITULO -->
         <TextView
             android:id="@+id/lblTituloDialogoCliente"
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Nombre Completo -->
+        <!-- CAMPO PARA NOMBRE -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNombreCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -52,6 +52,7 @@
             app:startIconDrawable="@drawable/ic_usuario"
             app:startIconTint="@android:color/white">
 
+            <!-- IMPUT NOMBRE-->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtNombreCliente"
                 android:layout_width="match_parent"
@@ -63,7 +64,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Email -->
+        <!-- CAMPO PARA CORREOO -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmailCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -86,6 +87,7 @@
             app:startIconDrawable="@drawable/ic_correo"
             app:startIconTint="@android:color/white">
 
+            <!-- IMPUT CORREO-->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtEmailCliente"
                 android:layout_width="match_parent"
@@ -97,7 +99,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- tel en una fila -->
+        <!-- TELEFONO -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilTelefonoCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -120,6 +122,7 @@
             app:startIconDrawable="@drawable/ic_telefono"
             app:startIconTint="@android:color/white">
 
+            <!--IMPUT PARA TELEFONOO -->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtTelefonoCliente"
                 android:layout_width="match_parent"
@@ -164,7 +167,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Direccion -->
+        <!-- CAMPO PARA DIRECCION -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDireccionCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -200,7 +203,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Barrio y Ciudad en una fila -->
+        <!-- FILA PARA BARRIO Y CIUDAD -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilBarrioCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -267,7 +270,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Notas -->
+        <!-- CAMPO PARA NOTAS -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNotasCliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -303,7 +306,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Estado del Cliente - CORREGIDO -->
+        <!-- LINEARLAYOUY PARA EL ESTADO DEL CLINETE -->
         <LinearLayout
             android:id="@+id/layoutEstadoCliente"
             android:layout_width="0dp"
@@ -342,7 +345,7 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- Cliente Preferente -->
+        <!-- LINEARLAYOUT PARA SI EL CLIENTE ES PREFERINO O NEL-->
         <LinearLayout
             android:id="@+id/layoutClientePreferente"
             android:layout_width="0dp"
@@ -363,8 +366,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
                 android:tint="@color/rosa_acento"
-                android:src="@drawable/ic_estado_usuario"
-                 />
+                android:src="@drawable/ic_estado_usuario" />
 
             <TextView
                 android:layout_width="0dp"
@@ -374,6 +376,7 @@
                 android:textColor="@color/rosa_acento"
                 android:textSize="16sp" />
 
+            <!--SWICH PARA SELECIONAR SI SI O NO -->
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchClientePreferente"
                 android:layout_width="wrap_content"
@@ -382,7 +385,7 @@
                 android:trackTint="@color/rosa_acento" />
         </LinearLayout>
 
-        <!-- btn de accion -->
+        <!-- BTN INSERTAR -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInsertarCliente"
             android:layout_width="0dp"
@@ -404,7 +407,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutClientePreferente" />
 
-        <!-- Texto de salir -->
+        <!-- LBL PARA SALIR CAPAZ SE ARREPINTIO DE INSETAR CLIENTES O SOLO QUIERE SALIR -->
         <TextView
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
@@ -419,7 +422,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnInsertarCliente" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

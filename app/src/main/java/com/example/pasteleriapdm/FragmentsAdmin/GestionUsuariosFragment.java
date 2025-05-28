@@ -114,7 +114,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // No hacer nada
+                // No hace nada
             }
         });
     }
@@ -126,7 +126,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         gestionarUsuariosAdapter.setOnUsuarioActionListener(new GestionarUsuariosAdapter.OnUsuarioActionListener() {
             @Override
             public void onUsuarioEliminado(String uid) {
-                // CORREGIDO: Llamar al método de instancia, no recursivo
+                // CORREGIDO: Llamar al metodo de instancia no recursivo
                 GestionUsuariosFragment.this.onUsuarioEliminado(uid);
             }
 
@@ -451,12 +451,12 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         Toast.makeText(getContext(), "Usuario " + usuario.getName() + " actualizado exitosamente", Toast.LENGTH_SHORT).show();
     }
 
-    // Método público para recargar usuarios (útil para llamadas externas)
+    // Metodo publico para recargar usuarios util para llamadas externas
     public void recargarUsuarios() {
         verificarYCargarUsuarios();
     }
 
-    // Método para manejar la eliminación de usuarios (llamado desde el adapter)
+    // Metodo para manejar la eliminacien de usuarios llamado desde el adapter
     public void onUsuarioEliminado(String uid) {
         Log.d(TAG, "Usuario eliminado: " + uid);
 

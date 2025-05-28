@@ -42,7 +42,7 @@ public class ClientesDialog extends DialogFragment {
                 R.layout.spinner_personalizado, estados);
         adapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerEstadoCliente.setAdapter(adapter);
-        spinnerEstadoCliente.setSelection(0); // Selecciona "Activo" por defecto
+        spinnerEstadoCliente.setSelection(0); // Selecciona Activo por defecto
 
         btnSalir.setOnClickListener(v -> dismiss());
         return view;

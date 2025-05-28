@@ -105,10 +105,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Verificar sesión existente y navegar apropiadamente
+     * Verificar sesion existente y navegar apropiadamente
      */
     private void verificarSesionYNavegar() {
-        Log.d(TAG, "Verificando sesión existente...");
+        Log.d(TAG, "Verificando sesion existente...");
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            // Verificar si la sesión es válida y no ha expirado
+            // Verificar si la sesión es valida y no ha expirado
             if (isSesionValida()) {
                 Log.d(TAG, "Sesión válida encontrada, verificando en BD...");
                 verificarUsuarioEnBDYRedireccionar(currentUser.getUid());
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Verificar usuario en base de datos y redireccionar según rol
+     * Verificar usuario en base de datos y redireccionar segun rol
      */
     private void verificarUsuarioEnBDYRedireccionar(String uid) {
         databaseHelper.getUser(uid, new DatabaseHelper.DatabaseCallback<User>() {
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(String error) {
-                        Log.w(TAG, "Error actualizando último login: " + error);
+                        Log.w(TAG, "Error actualizando ultimo login: " + error);
                         redirigirSegunRol(user);
                     }
                 });
@@ -197,10 +197,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Redireccionar según el rol del usuario
+     * Redireccionar segun el rol del usuario
      */
     private void redirigirSegunRol(User user) {
-        Log.d(TAG, "Redirigiendo según rol...");
+        Log.d(TAG, "Redirigiendo segun rol...");
         Log.d(TAG, "Rol del usuario: '" + user.getRole() + "'");
         Log.d(TAG, "ROLE_ADMIN: '" + User.ROLE_ADMIN + "'");
         Log.d(TAG, "ROLE_SELLER: '" + User.ROLE_SELLER + "'");
@@ -246,10 +246,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Cerrar sesión completa y ir a login
+     * Cerrar sesion completa y ir a login
      */
     private void cerrarSesionYIrALogin() {
-        Log.d(TAG, "Cerrando sesión completa");
+        Log.d(TAG, "Cerrando sesion completa");
 
         // Cerrar sesión de Firebase
         firebaseAuth.signOut();
@@ -262,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Limpiar preferencias de sesión
+     * Limpiar preferencias de sesion
      */
     private void limpiarPreferencias() {
         SharedPreferences.Editor editor = preferences.edit();
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
         editor.remove(KEY_LOGGED_USER_EMAIL);
         editor.apply();
 
-        Log.d(TAG, "Preferencias de sesión limpiadas");
+        Log.d(TAG, "Preferencias de sesion limpiadas");
     }
 
     /**
@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("FROM_SPLASH", true);
         startActivity(intent);
 
-        // Animación de transicion suave
+        // Animacion de transicion suave
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
         finish();

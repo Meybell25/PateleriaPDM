@@ -15,7 +15,7 @@
         android:paddingBottom="32dp"
         tools:context=".ReservaActivity">
 
-        <!-- Titulo -->
+        <!-- TITULO -->
         <TextView
             android:id="@+id/lblTituloDialogoReserva"
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Cliente -->
+        <!-- LBL CLINETES -->
         <TextView
             android:id="@+id/lblCliente"
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoReserva" />
 
-        <!-- Fecha y hora de entrega en una fila -->
+        <!-- LINEARLAYOUT FECHA Y HORA EN FILA -->
         <LinearLayout
             android:id="@+id/layoutCliente"
             android:layout_width="0dp"
@@ -75,6 +75,7 @@
                 android:background="@android:color/transparent" />
 
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/layoutFechaEntrega"
@@ -142,7 +143,7 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- Estado -->
+        <!-- ESTADO -->
         <TextView
             android:id="@+id/lblEstado"
             android:layout_width="wrap_content"
@@ -156,6 +157,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutFechaEntrega" />
 
+        <!--LINAR LAYOUT PARA ESTADO -->
         <LinearLayout
             android:id="@+id/layoutEstado"
             android:layout_width="0dp"
@@ -186,7 +188,7 @@
                 android:background="@android:color/transparent" />
         </LinearLayout>
 
-        <!-- Pasteles -->
+        <!-- PASTELES -->
         <TextView
             android:id="@+id/lblPasteles"
             android:layout_width="wrap_content"
@@ -200,6 +202,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutEstado" />
 
+        <!--LINEAR LAYOT PARA SELCCIONAR EL PASTELILLO -->
         <LinearLayout
             android:id="@+id/layoutPasteles"
             android:layout_width="0dp"
@@ -230,7 +233,7 @@
                 android:background="@android:color/transparent" />
         </LinearLayout>
 
-        <!-- ddireccion de entrega -->
+        <!-- CAMPO  PARA LA DIRECCION DW ENTRGA -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilDireccionEntrega"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -278,6 +281,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilDireccionEntrega" />
 
+        <!-- LINAR LAYOT PARA SELECCIONAR LA PIORIDAD DE LA RESERVA-->
         <LinearLayout
             android:id="@+id/layoutPrioridad"
             android:layout_width="0dp"
@@ -308,7 +312,7 @@
                 android:background="@android:color/transparent" />
         </LinearLayout>
 
-        <!-- Notas especiales -->
+        <!-- CAMPO PARA NOTITAS POR SI LAS HAY -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNotasEspeciales"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -344,7 +348,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- btns de accion en fila -->
+        <!-- LINEAR LAYOUT PARA BTNS-->
         <LinearLayout
             android:id="@+id/layoutBotones"
             android:layout_width="0dp"
@@ -358,6 +362,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilNotasEspeciales">
 
+            <!--METODO DE PAGO -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMetodoPago"
                 android:layout_width="0dp"
@@ -373,6 +378,7 @@
                 android:textStyle="bold"
                 app:cornerRadius="24dp" />
 
+            <!--CREAR RESERVAS -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCrearReserva"
                 android:layout_width="0dp"
@@ -389,7 +395,7 @@
                 app:cornerRadius="24dp" />
         </LinearLayout>
 
-        <!-- Texto de salir -->
+        <!-- SALIR XD-->
         <TextView
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
@@ -404,7 +410,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutBotones" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

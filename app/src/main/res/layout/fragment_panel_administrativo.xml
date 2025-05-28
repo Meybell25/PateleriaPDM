@@ -4,10 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-    <!-- Espacio reservado para el Toolbar -->
     <Space
         android:id="@+id/spaceForToolbar"
         android:layout_width="match_parent"
@@ -16,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Container compacto de bienvenida horizontal -->
+    <!-- CARD PARA EL TITULO DE LA SECCION EN LA QUE SE ENCUENTRA VIENVENIDA-->
     <androidx.cardview.widget.CardView
         android:id="@+id/welcomeCard"
         android:layout_width="0dp"
@@ -37,7 +35,7 @@
             android:padding="16dp"
             android:gravity="center_vertical">
 
-            <!-- Gatito compacto -->
+            <!-- IMAGEN DE GATITOO -->
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -54,10 +52,9 @@
                     android:src="@drawable/gatito"
                     android:scaleType="centerInside"
                     android:contentDescription="Cute Kitten" />
-
             </androidx.cardview.widget.CardView>
 
-            <!-- Texto de bienvenida compacto -->
+            <!-- TITULO DE WELCOME -->
             <TextView
                 android:id="@+id/lblWelcomeTitle"
                 android:layout_width="0dp"
@@ -69,13 +66,11 @@
                 android:textColor="@color/white"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="start|center_vertical" />
-
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
 
-    <!-- Primera fila -->
+    <!-- PRIMERA FILE-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcItemClientesPanel"
         android:layout_width="0dp"
@@ -102,7 +97,7 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintVertical_weight="1" />
 
-    <!-- Segunda fila -->
+    <!-- SGUNDA FILA -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcItemUsauriosPanel"
         android:layout_width="0dp"
@@ -129,7 +124,6 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintVertical_weight="1" />
 
-    <!-- Espacio reservado para buton menu -->
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
@@ -137,7 +131,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

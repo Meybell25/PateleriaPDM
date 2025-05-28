@@ -39,7 +39,7 @@ public class PagosDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_pagos, container, false);
         AsociarElementoXML(view);
 
-        // Spinner con metodos de pago
+        // Spiner con metodos de pago
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 requireContext(),
                 R.layout.spinner_personalizado,
@@ -53,7 +53,6 @@ public class PagosDialog extends DialogFragment {
         return view;
     }
     private void AsociarElementoXML(View view) {
-        // Inicializar vistas
         txtPrecioPastel = view.findViewById(R.id.txtPrecioPastel);
         txtMontoTotal = view.findViewById(R.id.txtMontoTotal);
         txtDescuento = view.findViewById(R.id.txtDescuento);
@@ -61,6 +60,5 @@ public class PagosDialog extends DialogFragment {
         btnProcesarPago = view.findViewById(R.id.btnProcesarPago);
         btnCancelarPago = view.findViewById(R.id.btnCancelarPago);
         btnSalir = view.findViewById(R.id.btnSalir);
-
     }
 }

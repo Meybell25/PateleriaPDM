@@ -30,10 +30,10 @@ public class MunuSellerActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_munu_seller);
 
-        // Ajustamos solo los insets necesarios, quitando el padding inferior
+        //AJUSTAR LOS MAGIN BUTON
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0); // <- Corregido aquí
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0);
             return insets;
         });
 
@@ -46,7 +46,7 @@ public class MunuSellerActivity extends AppCompatActivity {
             bottomnavigationSeller.setSelectedItemId(R.id.navPanelAdministrativo);
         }
 
-        // Lógica del BottomNavigationView
+        // Logica del BottomNavigationView
         bottomnavigationSeller.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.navGestionarClientes) {
@@ -72,8 +72,8 @@ public class MunuSellerActivity extends AppCompatActivity {
 
     private void mostrarDialogoCerrarSesion() {
         new AlertDialog.Builder(this)
-                .setTitle("Cerrar Sesión")
-                .setMessage("¿Está seguro que desea cerrar sesión?")
+                .setTitle("Cerrar Sesion")
+                .setMessage("¿Está seguro que desea cerrar sesion?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Sí, cerrar sesión", new DialogInterface.OnClickListener() {
                     @Override
@@ -88,8 +88,8 @@ public class MunuSellerActivity extends AppCompatActivity {
 
     private void mostrarDialogoSalirApp() {
         new AlertDialog.Builder(this)
-                .setTitle("Salir de la Aplicación")
-                .setMessage("¿Desea salir de la aplicación? Su sesión permanecerá activa.")
+                .setTitle("Salir de la Aplicacion")
+                .setMessage("¿Desea salir de la aplicacion? Su sesion permanecera activa.")
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .setPositiveButton("Salir", (dialog, which) -> {
                     moveTaskToBack(true);
@@ -103,12 +103,12 @@ public class MunuSellerActivity extends AppCompatActivity {
 
     private void cerrarSesion() {
         try {
-            Log.d(TAG, "Iniciando proceso de cierre de sesión");
-            Toast.makeText(this, "Cerrando sesión...", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Iniciando proceso de cierre de sesion");
+            Toast.makeText(this, "Cerrando sesion...", Toast.LENGTH_SHORT).show();
             LoginActivity.cerrarSesionYRedireccionar(this);
         } catch (Exception e) {
             Log.e(TAG, "Error cerrando sesión", e);
-            Toast.makeText(this, "Error cerrando sesión: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error cerrando sesion: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 }

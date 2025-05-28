@@ -21,7 +21,6 @@ import com.example.pasteleriapdm.R;
 
 public class ReservaFragment extends Fragment {
 
-
     private Button btnAbrirDialogoReserva;
     private RecyclerView rvcReserva;
     private Spinner spinnerFiltroRservaEstado;
@@ -29,7 +28,6 @@ public class ReservaFragment extends Fragment {
     public ReservaFragment() {
         // Required empty public constructor
     }
-
 
     public static ReservaFragment newInstance(String param1, String param2) {
         ReservaFragment fragment = new ReservaFragment();
@@ -53,6 +51,7 @@ public class ReservaFragment extends Fragment {
         AsociarElementoXML(view);
 
         ReservaAdapter reservaAdapter= new ReservaAdapter(getContext(), getParentFragmentManager());
+
         rvcReserva.setLayoutManager(new LinearLayoutManager(getContext()));
         rvcReserva.setAdapter(reservaAdapter);
         btnAbrirDialogoReserva.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +62,6 @@ public class ReservaFragment extends Fragment {
                 dialog.show(getParentFragmentManager(), "reservaDialogo");
             }
         });
-
         return view;
     }
     private  void AsociarElementoXML(View view){

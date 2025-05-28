@@ -16,7 +16,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Imagen del pastel -->
+        <!-- Imagen  -->
         <ImageView
             android:id="@+id/imagen"
             android:layout_width="match_parent"
@@ -28,12 +28,9 @@
             android:src="@drawable/img_usuarios_panel"
             card_view:cardCornerRadius="12dp" />
 
-        <!-- Layout inferior con texto y botn -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <!-- Contenedor para texto y botn en la misma lin -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -68,10 +65,7 @@
                     android:textColor="#070707"
                     android:textSize="14sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
-
         </RelativeLayout>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

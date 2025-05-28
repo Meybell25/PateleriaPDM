@@ -29,6 +29,7 @@ import java.util.List;
 
 public class GestionPastelesFragment extends Fragment implements PastelesDialog.OnCakeOperationListener {
 
+    //Para indentificar mensages de error
     private static final String TAG = "GestionPastelesFragment";
 
     // UI Components
@@ -137,7 +138,7 @@ public class GestionPastelesFragment extends Fragment implements PastelesDialog.
             }
         });
 
-        // Configurar botón para limpiar búsqueda
+        // Configurar boton para limpiar busqueda
         iconClear.setOnClickListener(v -> {
             txtBuscarPastel.setText("");
             txtBuscarPastel.clearFocus();

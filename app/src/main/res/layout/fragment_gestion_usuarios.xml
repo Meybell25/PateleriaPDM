@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Card de Bienvenida para Usuarios -->
+    <!-- CARD PARA MOSTAR LA SECCION EN LA Q ESTA  -->
     <androidx.cardview.widget.CardView
         android:id="@+id/usuariosCard"
         android:layout_width="0dp"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Texto de título centrado solo con emoji -->
+        <!-- TITULO DE LA SECCION -->
         <TextView
             android:id="@+id/lblUsuariosTitle"
             android:layout_width="match_parent"
@@ -42,10 +42,9 @@
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:padding="16dp" />
-
     </androidx.cardview.widget.CardView>
 
-    <!-- Contenedor para filtros -->
+    <!-- LinearLoyout para filtar POR ROL -->
     <LinearLayout
         android:id="@+id/layoutFiltros"
         android:layout_width="0dp"
@@ -58,7 +57,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Texto de filtro -->
+        <!-- Texto -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -68,7 +67,7 @@
             android:textStyle="bold"
             android:layout_marginEnd="12dp" />
 
-        <!-- Spinner personalizado -->
+        <!-- CARD PARA EL SPINNER -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -95,11 +94,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Botón para limpiar filtro -->
+        <!-- BTN LIMIAS FILTROS -->
         <ImageButton
             android:id="@+id/btnLimpiarFiltro"
             android:layout_width="40dp"
@@ -114,7 +112,7 @@
     </LinearLayout>
 
 
-    <!-- Contador de usuarios -->
+    <!-- CONTADOR DE USUARIOS -->
     <TextView
         android:id="@+id/lblContadorUsuarios"
         android:layout_width="wrap_content"
@@ -127,7 +125,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutFiltros" />
 
-    <!-- RecyclerView -->
+    <!-- RVC PARA MOSTAR LOS USUARIO -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcUsuarios"
         android:layout_width="0dp"
@@ -141,7 +139,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Mensaje cuando no hay usuarios filtrados -->
+    <!-- MENSAJE PARA CUANDO NO HAYA USUARIOS -->
     <LinearLayout
         android:id="@+id/layoutNoUsuarios"
         android:layout_width="wrap_content"
@@ -181,7 +179,7 @@
 
     </LinearLayout>
 
-    <!-- boton -->
+    <!-- BTN PARA ABRIR DIALOG PARA INSETAR UNSUARIO -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btnAbrirDialogoUsuarios"
         android:layout_width="wrap_content"
@@ -196,7 +194,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Espacio para boton menu -->
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
@@ -214,5 +211,4 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="86dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

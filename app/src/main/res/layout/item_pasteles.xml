@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp">
 
-        <!-- Imagen del producto -->
+        <!-- Imagen -->
         <ImageView
             android:id="@+id/imgImagenPastel"
             android:layout_width="0dp"
@@ -71,7 +71,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <!-- CreatedAt -->
+            <!-- FECHA DE CREACION -->
             <TextView
                 android:id="@+id/lblCreatedAt"
                 android:layout_width="match_parent"
@@ -83,7 +83,7 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
-            <!-- updatedAt -->
+            <!-- FECHA DE ACTULIZACION -->
             <TextView
                 android:id="@+id/lblupdatedAt"
                 android:layout_width="match_parent"
@@ -108,8 +108,7 @@
                 android:textSize="14sp" />
 
 
-            <!-- Tamanioo y porciones -->
-
+            <!-- LINEARLAYOUT PARA TAMNO Y PORCIONES -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -135,7 +134,7 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Precio -->
+            <!-- PRECIO -->
             <TextView
                 android:id="@+id/lblPrecioPastel"
                 android:layout_width="match_parent"
@@ -146,7 +145,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="6dp" />
 
-            <!-- Estado -->
+            <!-- ESTADO -->
             <TextView
                 android:id="@+id/lblEstado"
                 android:layout_width="match_parent"
@@ -158,14 +157,13 @@
                 android:textStyle="bold"
                 android:layout_marginTop="6dp" />
 
-            <!-- botones del administrador -->
+            <!-- BTN PARA ACCIONES -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:gravity="end">
-
 
                 <!-- btn Editar -->
                 <ImageButton

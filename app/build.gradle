@@ -42,18 +42,32 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
 
+    //DEPENDENCIA PARA CONTROLAR TODAS LA VERSIONES DE LAS LIBRERIA DE FIREBASE
     implementation(platform("com.google.firebase:firebase-bom:33.14.0"))
+
+    //RGISTRAR EVETOS
     implementation("com.google.firebase:firebase-analytics")
+
+    //DEPEENDCIA PARA PERMITIR EL INNICO DE SECIO Y LA AUTENTICACION
     implementation("com.google.firebase:firebase-auth")
+
+    //DEPENDECIA PARA ALAMCERNAR Y SENCRONIZAR DATO EN TIEPO REAL
     implementation("com.google.firebase:firebase-database")
 
 
+    //DEPENDICIA PARA CONECTAR A LA BASE DE DATOS REALTIME DATABASE  DE Firebase PARA LEER O ESCRIBI DATOS EN TIEMPO RAL
     implementation 'com.google.firebase:firebase-database:20.2.1'
 
+    //DEPENDECIA PARA CARGA IMAGNES
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+    //DEPENDECIA PARA: PROCESAR ANOTACIONES Y PERMITIR CONFIGRAIONES PERSOL=NALIZADAS
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
 
+    //DEPENDIACIA PARA CREAR Y MANIPULAR ARCHIVO PDF
     implementation 'com.itextpdf:itext7-core:7.2.5'
+
+    //DEPENDIACIA PARA MOSTAR GRAFICAS Y ESTADISTICA VISULES EN ANDROID
     implementation 'com.github.PhilJay:MPAndroidChart:3.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 

@@ -25,29 +25,29 @@ public class Cake implements Serializable {
     public static final String STATUS_ACTIVE = "active";
     public static final String STATUS_INACTIVE = "inactive";
 
-    // Constantes para tamaños
+    // Constantes para tamanios
     public static final String SIZE_SMALL = "small";     // 6-8 personas
     public static final String SIZE_MEDIUM = "medium";   // 10-12 personas
     public static final String SIZE_LARGE = "large";     // 15-20 personas
     public static final String SIZE_XLARGE = "xlarge";   // 25+ personas
 
-    private String id;               // ID único del pastel
+    private String id;               // ID unico del pastel
     private String name;             // Nombre del pastel
-    private String description;      // Descripción detallada
+    private String description;      // Descripcion detallada
     private double price;            // Precio en COP
-    private String category;         // Categoría del pastel
+    private String category;         // Categoria del pastel
     private String imageUrl;
     private String status;           // Estado: active, inactive
     private String size;             // Tamaño del pastel
     private long createdAt;          // Timestamp de creación
-    private long updatedAt;          // Timestamp de última actualización
-    private String createdBy;        // UID del admin que lo creó
-    private int servings;            // Número de porciones
+    private long updatedAt;          // Timestamp de ultima actualizacion
+    private String createdBy;        // UID del admin que lo creo
+    private int servings;            // Numero de porciones
 
-    // Constructor vacío requerido por Firebase
+    // Constructor vacio requerido por Firebase
     public Cake() {}
 
-    // Constructor básico
+    // Constructor basico
     public Cake(String name, String description, double price, String category) {
         this.name = name;
         this.description = description;
@@ -138,7 +138,7 @@ public class Cake implements Serializable {
         updateTimestamp();
     }
 
-    // Métodos de utilidad
+    // Metodos de utilidad
     public boolean isActive() {
         return STATUS_ACTIVE.equals(status);
     }
@@ -188,7 +188,7 @@ public class Cake implements Serializable {
         return result;
     }
 
-    // Validar categoría válida
+    // Validar categoria valida
     public static boolean isValidCategory(String category) {
         return CATEGORY_CHOCOLATE.equals(category) ||
                 CATEGORY_VANILLA.equals(category) ||
@@ -199,7 +199,7 @@ public class Cake implements Serializable {
                 CATEGORY_WEDDING.equals(category);
     }
 
-    // Validar tamaño válido
+    // Validar tamaño valido
     public static boolean isValidSize(String size) {
         return SIZE_SMALL.equals(size) ||
                 SIZE_MEDIUM.equals(size) ||
@@ -207,7 +207,7 @@ public class Cake implements Serializable {
                 SIZE_XLARGE.equals(size);
     }
 
-    // Obtener descripción del tamaño
+    // Obtener descripcion del tamaño
     public String getSizeDescription() {
         switch (size) {
             case SIZE_SMALL: return "Pequeño (6-8 personas)";
@@ -217,7 +217,6 @@ public class Cake implements Serializable {
             default: return "Tamaño no especificado";
         }
     }
-
     @Override
     public String toString() {
         return "Cake{" +
