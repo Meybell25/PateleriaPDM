@@ -13,7 +13,6 @@
         android:icon="@drawable/ic_usuario"
         android:title="Clientes " />
 
-
     <item
         android:id="@+id/navGestionarUsuarios"
         android:icon="@drawable/ic_getionar_usuarios"
