@@ -179,13 +179,13 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
     private void configurarColorRol(ViewHolderGestionarUsuariosAdapter holder, String rol) {
         switch (rol) {
             case User.ROLE_ADMIN:
-                holder.lblRol.setTextColor(Color.parseColor("#D32F2F")); // Rojo para admin
+                holder.lblRol.setTextColor(Color.parseColor("#FF69B4")); //  Fusia  para admin
                 break;
             case User.ROLE_SELLER:
-                holder.lblRol.setTextColor(Color.parseColor("#1976D2")); // Azul para vendedor
+                holder.lblRol.setTextColor(Color.parseColor("#C68EFD")); // Purpura  para vendedor
                 break;
             case User.ROLE_PRODUCTION:
-                holder.lblRol.setTextColor(Color.parseColor("#388E3C")); // Verde para producción
+                holder.lblRol.setTextColor(Color.parseColor("#8B4513")); // Marron para producción
                 break;
             default:
                 holder.lblRol.setTextColor(Color.parseColor("#666666")); // Gris por defecto
@@ -263,15 +263,15 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
         switch (usuario.getRole()) {
             case User.ROLE_ADMIN:
                 holder.imgUsuario.setImageResource(R.drawable.ic_admin);
-                holder.imgUsuario.setColorFilter(Color.parseColor("#D32F2F")); // Rojo
+                holder.imgUsuario.setColorFilter(Color.parseColor("#FF69B4")); // Fusia Suave
                 break;
             case User.ROLE_SELLER:
                 holder.imgUsuario.setImageResource(R.drawable.ic_seller);
-                holder.imgUsuario.setColorFilter(Color.parseColor("#1976D2")); // Azul
+                holder.imgUsuario.setColorFilter(Color.parseColor("#C68EFD")); // Purpura suvae
                 break;
             case User.ROLE_PRODUCTION:
                 holder.imgUsuario.setImageResource(R.drawable.ic_production);
-                holder.imgUsuario.setColorFilter(Color.parseColor("#388E3C")); // Verde
+                holder.imgUsuario.setColorFilter(Color.parseColor("#8B4513")); //  marron
                 break;
             default:
                 holder.imgUsuario.setImageResource(R.drawable.ic_usuario);

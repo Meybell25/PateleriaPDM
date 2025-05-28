@@ -100,7 +100,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
 
         // Configurar adapter del spinner
         spinnerAdapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_item, opcionesFiltro);
+                R.layout.spinner_personalizado, opcionesFiltro);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFiltroRol.setAdapter(spinnerAdapter);
 

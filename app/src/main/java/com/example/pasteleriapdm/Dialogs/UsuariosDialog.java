@@ -122,16 +122,16 @@ public class UsuariosDialog extends DialogFragment {
         // Spinner de estados
         String[] estados = {"Activo", "Inactivo", "Bloqueado"};
         ArrayAdapter<String> adapterEstado = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, estados);
-        adapterEstado.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_personalizado, estados);
+        adapterEstado.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerEstadoUsuario.setAdapter(adapterEstado);
         spinnerEstadoUsuario.setSelection(0); // Selecciona "Activo" por defecto
 
         // Spinner de roles
         String[] roles = {"admin", "seller", "production"};
         ArrayAdapter<String> adapterRol = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, roles);
-        adapterRol.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_personalizado, roles);
+        adapterRol.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerRolUsuario.setAdapter(adapterRol);
         spinnerRolUsuario.setSelection(0); // Selecciona "admin" por defecto
     }

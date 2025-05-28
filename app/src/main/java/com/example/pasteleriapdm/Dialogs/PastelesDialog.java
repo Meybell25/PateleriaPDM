@@ -163,8 +163,8 @@ public class PastelesDialog extends DialogFragment {
                 "Especial", "Cumpleaños", "Bodas"
         );
         ArrayAdapter<String> categoriasAdapter = new ArrayAdapter<>(
-                requireContext(), android.R.layout.simple_spinner_item, categorias);
-        categoriasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                requireContext(), R.layout.spinner_personalizado, categorias);
+        categoriasAdapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerCategoria.setAdapter(categoriasAdapter);
 
         // Configurar spinner de tamaños
@@ -175,15 +175,15 @@ public class PastelesDialog extends DialogFragment {
                 "Extra Grande (25+ personas)"
         );
         ArrayAdapter<String> tamanosAdapter = new ArrayAdapter<>(
-                requireContext(), android.R.layout.simple_spinner_item, tamanos);
-        tamanosAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                requireContext(), R.layout.spinner_personalizado, tamanos);
+        tamanosAdapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerTamano.setAdapter(tamanosAdapter);
 
         // Configurar spinner de status
         List<String> statusOptions = Arrays.asList("Activo", "Inactivo");
         ArrayAdapter<String> statusAdapter = new ArrayAdapter<>(
-                requireContext(), android.R.layout.simple_spinner_item, statusOptions);
-        statusAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                requireContext(), R.layout.spinner_personalizado, statusOptions);
+        statusAdapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerStatus.setAdapter(statusAdapter);
     }
 
