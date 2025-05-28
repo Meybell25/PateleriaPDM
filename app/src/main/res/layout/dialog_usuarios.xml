@@ -7,6 +7,7 @@
     android:background="@drawable/degradado_rosa"
     android:fillViewport="true">
 
+    <!-- ESPACIO  DEL DIALOGO-->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:background="@drawable/style_redondeado"
@@ -15,7 +16,7 @@
         android:paddingBottom="32dp"
         tools:context=".UserRegisterActivity">
 
-        <!-- tituloo -->
+        <!-- TITULO -->
         <TextView
             android:id="@+id/lblTituloDialogoUsuario"
             android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Nombre Completo -->
+        <!-- CAMPO PARA NOMBRE DE USUARIO -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilNombreUsuario"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -52,6 +53,7 @@
             app:startIconDrawable="@drawable/ic_usuario"
             app:startIconTint="@android:color/white">
 
+            <!--IMPUT PARA NOMBRE -->
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtNombreUsuario"
                 android:layout_width="match_parent"
@@ -63,7 +65,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Email -->
+        <!-- CAMPO PARA CORREO -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmailUsuario"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -97,7 +99,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Contraseña -->
+        <!-- CAMPO PARA CONTRASENIA -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPasswordUsuario"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -133,7 +135,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Rol del Usuario -->
+        <!-- LINEARLAYOT PARA SELECCIONAR EL ROL DE USEER -->
         <LinearLayout
             android:id="@+id/layoutRolUsuario"
             android:layout_width="0dp"
@@ -172,7 +174,7 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- Estado del Usuario -->
+        <!-- LINEAR LAYOT PARA SEECIONAR EL ESTADO DEL USUARIO -->
         <LinearLayout
             android:id="@+id/layoutEstadoUsuario"
             android:layout_width="0dp"
@@ -211,7 +213,7 @@
                 android:background="@drawable/spinner_background" />
         </LinearLayout>
 
-        <!-- Botón de acción -->
+        <!-- BTN INSERT USUARIO -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInsertarUsuario"
             android:layout_width="0dp"
@@ -234,7 +236,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/layoutEstadoUsuario" />
 
-        <!-- Texto de salir -->
+        <!-- SALIR -->
         <TextView
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
@@ -249,7 +251,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnInsertarUsuario" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

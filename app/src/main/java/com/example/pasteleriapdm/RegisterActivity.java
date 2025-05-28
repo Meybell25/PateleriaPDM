@@ -25,11 +25,11 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
         lblIniciarSesion = findViewById(R.id.lblIniciarSesion);
-        // Navegar a la pantalla de inicio de sesión
+        // Navegar a la pantalla de inicio de sesion
         lblIniciarSesion.setOnClickListener(v -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
-            finish(); // Cerrar esta actividad para evitar regresar con el botón atrás
+            finish(); // Cerrar esta actividad para evitar regresar con el btn de atras
         });
 
     }

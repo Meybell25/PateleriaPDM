@@ -37,7 +37,7 @@ public class DatabaseHelper {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    // Método para obtener instancia única
+    // Metodo para obtener instancia única
     public static synchronized DatabaseHelper getInstance() {
         if (instance == null) {
             instance = new DatabaseHelper();
@@ -141,7 +141,7 @@ public class DatabaseHelper {
             updates.put("password", user.getPassword());
             Log.d(TAG, "Actualizando contraseña del usuario");
         } else {
-            Log.d(TAG, "No se actualiza la contraseña (está vacía)");
+            Log.d(TAG, "No se actualiza la contraseña (esta vacia)");
         }
 
         // Agregar: Actualizar lastLogin si tiene un valor valido
@@ -150,7 +150,7 @@ public class DatabaseHelper {
             Log.d(TAG, "Actualizando lastLogin del usuario: " + user.getLastLogin());
         }
 
-        // Timestamp de actualización
+        // Timestamp de actualizacion
         updates.put("updatedAt", System.currentTimeMillis());
 
         Log.d(TAG, "Actualizando usuario con UID: " + user.getUid());
@@ -264,9 +264,9 @@ public class DatabaseHelper {
             return;
         }
 
-        Log.d(TAG, "Iniciando eliminación del usuario: " + uid);
+        Log.d(TAG, "Iniciando eliminacion del usuario: " + uid);
 
-        // Primero verificar que el usuario existe y está inactivo
+        // Primero verificar que el usuario existe y esta inactivo
         databaseRef.child(USERS_NODE).child(uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -282,13 +282,13 @@ public class DatabaseHelper {
                             return;
                         }
 
-                        // Verificar que el usuario esté inactivo
+                        // Verificar que el usuario este inactivo
                         if (!User.STATUS_INACTIVE.equals(user.getStatus())) {
                             String estadoActual = user.getStatus();
                             String mensajeError;
 
                             if (User.STATUS_ACTIVE.equals(estadoActual)) {
-                                mensajeError = "No se puede eliminar un usuario ACTIVO. Desactívalo primero.";
+                                mensajeError = "No se puede eliminar un usuario ACTIVO. Desactivalo primero.";
                             } else if (User.STATUS_BLOCKED.equals(estadoActual)) {
                                 mensajeError = "No se puede eliminar un usuario BLOQUEADO. Solo usuarios INACTIVOS.";
                             } else {
@@ -300,10 +300,10 @@ public class DatabaseHelper {
                             return;
                         }
 
-                        // Si llegamos aquí, el usuario está inactivo y puede ser eliminado
+                        // Si llegamos aqui, el usuario esta inactivo y puede ser eliminado
                         Log.d(TAG, "Usuario verificado como INACTIVO, procediendo con eliminación");
 
-                        // Proceder con la eliminación
+                        // Proceder con la eliminacion
                         databaseRef.child(USERS_NODE).child(uid)
                                 .removeValue()
                                 .addOnSuccessListener(aVoid -> {
@@ -318,12 +318,12 @@ public class DatabaseHelper {
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        Log.e(TAG, "Error verificando usuario para eliminación", error.toException());
+                        Log.e(TAG, "Error verificando usuario para eliminacion", error.toException());
                         callback.onError("Error verificando usuario: " + error.getMessage());
                     }
                 });
     }
-    // ==================== MÉTODOS PARA OBTENER INFORMACIÓN DEL USUARIO ====================
+    // ==================== METODOS PARA OBTENER INFORMACION DEL USUARIO ====================
 
     /**
      * Obtener usuario por ID
@@ -648,7 +648,7 @@ public class DatabaseHelper {
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        Log.e(TAG, "Error obteniendo reservas de producción", error.toException());
+                        Log.e(TAG, "Error obteniendo reservas de produccion", error.toException());
                         callback.onError("Error obteniendo reservas: " + error.getMessage());
                     }
                 });
@@ -697,7 +697,7 @@ public class DatabaseHelper {
                 });
     }
 
-    // ==================== MÉTODOS AUXILIARES ====================
+    // ==================== METODOS AUXILIARES ====================
 
     /**
      * Obtener usuario actual
@@ -753,7 +753,7 @@ public class DatabaseHelper {
     }
 
     /**
-     * Escuchar cambios en reservas de producción
+     * Escuchar cambios en reservas de produccion
      */
     public void listenToProductionReservations(DatabaseCallback<List<Reservation>> callback) {
         databaseRef.child(RESERVATIONS_NODE)
@@ -775,7 +775,7 @@ public class DatabaseHelper {
 
                     @Override
                     public void onCancelled(DatabaseError error) {
-                        callback.onError("Error escuchando reservas de producción: " + error.getMessage());
+                        callback.onError("Error escuchando reservas de produccion: " + error.getMessage());
                     }
                 });
     }

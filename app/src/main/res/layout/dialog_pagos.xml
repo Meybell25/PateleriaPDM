@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="32dp">
 
-        <!-- titulo -->
+        <!-- TITULOO -->
         <TextView
             android:id="@+id/lblTituloDialogoPago"
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Precio del pastel -->
+        <!-- LBL PRECIO DEL PASTELASO -->
         <TextView
             android:id="@+id/lblPrecioPastel"
             android:layout_width="wrap_content"
@@ -41,6 +41,7 @@
             app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoPago"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- IMPUT PRECIO DEL PASTILLO-->
         <TextView
             android:id="@+id/txtPrecioPastel"
             android:layout_width="wrap_content"
@@ -54,7 +55,7 @@
             app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoPago"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Descuento -->
+        <!-- DESCUENTO POR SI ES QUE HAY XD -->
         <TextView
             android:id="@+id/lblDescuento"
             android:layout_width="wrap_content"
@@ -99,7 +100,7 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Metodo de pago -->
+        <!-- METODO DE PAGO -->
         <TextView
             android:id="@+id/lblMetodoPago"
             android:layout_width="wrap_content"
@@ -113,6 +114,7 @@
             app:layout_constraintTop_toBottomOf="@id/tilDescuento"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- SECCOPN CON LINEARLAYOT PARA EL METODO DE PAGO-->
         <LinearLayout
             android:id="@+id/layoutMetodoPago"
             android:layout_width="0dp"
@@ -147,7 +149,7 @@
                 android:background="@android:color/transparent" />
         </LinearLayout>
 
-        <!-- Monto total -->
+        <!-- MOTO TOTAL -->
         <TextView
             android:id="@+id/lblMontoTotal"
             android:layout_width="wrap_content"
@@ -174,7 +176,7 @@
             app:layout_constraintTop_toBottomOf="@id/layoutMetodoPago"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Referencia -->
+        <!-- REFERENACIAS -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilReferencia"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -194,7 +196,7 @@
             app:boxCornerRadiusBottomStart="24dp"
             app:boxCornerRadiusBottomEnd="24dp" />
 
-        <!-- Botones de accion -->
+        <!-- LENEARLAYOT PARA BTNS -->
         <LinearLayout
             android:id="@+id/layoutBotonesPago"
             android:layout_width="0dp"
@@ -208,6 +210,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+            <!-- CANCELAR-->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancelarPago"
                 android:layout_width="0dp"
@@ -223,6 +226,7 @@
                 android:backgroundTint="@color/morado_oscuro"
                 app:cornerRadius="24dp" />
 
+            <!--PROCESAR PAGOO -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnProcesarPago"
                 android:layout_width="0dp"
@@ -239,7 +243,7 @@
                 app:cornerRadius="24dp" />
         </LinearLayout>
 
-        <!-- btn de Salir -->
+        <!-- SALIR XD -->
         <TextView
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
@@ -253,7 +257,5 @@
             app:layout_constraintTop_toBottomOf="@id/layoutBotonesPago"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

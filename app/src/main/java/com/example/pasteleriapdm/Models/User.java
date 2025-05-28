@@ -28,11 +28,11 @@ public class User implements Serializable {
     private String password;      // Contraseña del usuario
     private String role;          // Rol: admin, seller, production
     private String status;        // Estado: active, inactive, blocked
-    private long createdAt;       // Timestamp de creación
-    private long lastLogin;       // Último login
+    private long createdAt;       // Timestamp de creacion
+    private long lastLogin;       // ultimo login
     private long updatedAt;
 
-    // Constructor vacío requerido por Firebase
+    // Constructor vacio requerido por Firebase
     public User() {}
 
     // Constructor completo
@@ -86,11 +86,7 @@ public class User implements Serializable {
     @PropertyName("lastLogin")
     public void setLastLogin(long lastLogin) { this.lastLogin = lastLogin; }
 
-
-
-
-
-    // Métodos de utilidad
+    // Metodos de utilidad
     public boolean isAdmin() {
         return ROLE_ADMIN.equals(role);
     }
@@ -111,7 +107,7 @@ public class User implements Serializable {
         return STATUS_BLOCKED.equals(status);
     }
 
-    // Método para actualizar último login
+    // Metodo para actualizar ultimo login
     public void updateLastLogin() {
         this.lastLogin = System.currentTimeMillis();
     }
@@ -121,7 +117,7 @@ public class User implements Serializable {
         return isAdmin() && isActive();
     }
 
-    // Validar si el usuario puede crear un rol específico
+    // Validar si el usuario puede crear un rol especifico
     public boolean canCreateRole(String targetRole) {
         if (!canCreateUsers()) return false;
 
@@ -129,7 +125,7 @@ public class User implements Serializable {
         return isAdmin();
     }
 
-    // Método toMap mejorado para Firebase
+    // Metodo toMap mejorado para Firebase
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("uid", uid);
@@ -149,7 +145,7 @@ public class User implements Serializable {
         return result;
     }
 
-    // Método para crear mapa de actualización (sin campos sensibles)
+    // Metodo para crear mapa de actualizaciom (sin campos sensibles)
     public Map<String, Object> toUpdateMap() {
         Map<String, Object> result = new HashMap<>();
         result.put("name", name);
@@ -161,30 +157,29 @@ public class User implements Serializable {
         if (password != null && !password.trim().isEmpty()) {
             result.put("password", password);
         }
-
         return result;
     }
 
-    // Validar rol válido
+    // Validar rol valido
     public static boolean isValidRole(String role) {
         return ROLE_ADMIN.equals(role) ||
                 ROLE_SELLER.equals(role) ||
                 ROLE_PRODUCTION.equals(role);
     }
 
-    // Validar estado válido
+    // Validar estado valido
     public static boolean isValidStatus(String status) {
         return STATUS_ACTIVE.equals(status) ||
                 STATUS_INACTIVE.equals(status) ||
                 STATUS_BLOCKED.equals(status);
     }
 
-    // Método para validar contraseña
+    // Metodo para validar contraseña
     public static boolean isValidPassword(String password) {
         return password != null && password.length() >= 6;
     }
 
-    // Método para validar datos antes de guardar
+    // Metodo para validar datos antes de guardar
     public boolean isValid() {
         return uid != null && !uid.isEmpty() &&
                 name != null && !name.isEmpty() &&
@@ -195,7 +190,7 @@ public class User implements Serializable {
                 isValidStatus(status);
     }
 
-    // Método para obtener contraseña censurada (para mostrar en UI)
+    // Metodo para obtener contraseña censurada (para mostrar en UI)
     public String getCensoredPassword() {
         if (password == null || password.isEmpty()) {
             return "";

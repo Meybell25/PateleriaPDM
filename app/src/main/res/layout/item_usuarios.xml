@@ -50,6 +50,7 @@
             app:layout_constraintTop_toBottomOf="@id/lblNombreCompleto"
             app:layout_constraintStart_toStartOf="@id/lblNombreCompleto"
             app:layout_constraintEnd_toEndOf="parent" />
+
         <!-- Password -->
         <TextView
             android:id="@+id/lblOlvidePassword"
@@ -63,7 +64,7 @@
             app:layout_constraintStart_toStartOf="@id/lblRol"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- CreatedAt -->
+        <!-- FECHA de cracion -->
         <TextView
             android:id="@+id/lblCreatedAt"
             android:layout_width="0dp"
@@ -77,7 +78,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
 
-        <!-- LastLogin -->
+        <!-- Ultino acceso -->
         <TextView
             android:id="@+id/lblLastLogin"
             android:layout_width="0dp"
@@ -142,6 +143,5 @@
             app:layout_constraintTop_toBottomOf="@id/lblEstadoUsuario"
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/white" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

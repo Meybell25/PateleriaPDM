@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsAdmin.ReservaFragment">
 
-    <!-- Espacio reservado para el Toolbar -->
     <Space
         android:id="@+id/spaceForToolbar"
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Card de Bienvenida para Pasteles -->
+    <!-- CARD PARA TITULO DE LA SECCION -->
     <androidx.cardview.widget.CardView
         android:id="@+id/CardTitulo"
         android:layout_width="0dp"
@@ -43,7 +42,7 @@
             android:padding="16dp" />
     </androidx.cardview.widget.CardView>
 
-    <!-- Contenedor para filtros -->
+    <!-- LINEAR LAYOUT PARA FILTRAS-->
     <LinearLayout
         android:id="@+id/layoutFiltros"
         android:layout_width="0dp"
@@ -56,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Texto de filtro -->
+        <!-- TEXTO REFERNCIA COL 1 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +65,7 @@
             android:textSize="14sp"
             android:textStyle="bold" />
 
-        <!-- Spinner personalizado -->
+        <!-- SPINNER COL 2 -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="48dp"
@@ -97,7 +96,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Botón para limpiar filtro -->
+        <!-- BTN LIMPIAR FILTROS -->
         <ImageButton
             android:id="@+id/btnLimpiarFiltro"
             android:layout_width="40dp"
@@ -110,7 +109,7 @@
             app:tint="@color/rosa_acento" />
     </LinearLayout>
 
-    <!-- RecyclerView -->
+    <!-- RVC PARA MOSTAR LAS RESERVAS -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvcReservas"
         android:layout_width="0dp"
@@ -124,7 +123,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botón flotante -->
+    <!-- BTN ABRIR DIALOGO -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btnAbrirDialogoReservas"
         android:layout_width="wrap_content"
@@ -139,7 +138,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Espacio para bottom navigation o menú -->
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
@@ -148,7 +146,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto de error -->
+    <!-- LBL PARA ERROR -->
     <TextView
         android:id="@+id/lblerrorClientes"
         android:layout_width="wrap_content"
@@ -156,5 +154,4 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="86dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

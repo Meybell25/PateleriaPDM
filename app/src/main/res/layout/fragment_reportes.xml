@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".FragmentsAdmin.ReportesFragment">
 
-    <!-- Espacio reservado para el Toolbar -->
     <Space
         android:id="@+id/spaceForToolbar"
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Card de Bienvenida para REPORTES -->
+    <!-- CARD PARA EL TITULO EPORTES -->
     <androidx.cardview.widget.CardView
         android:id="@+id/CardTitulo"
         android:layout_width="0dp"
@@ -30,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Texto de titulo  -->
+        <!-- TITULO  -->
         <TextView
             android:id="@+id/lblTitle"
             android:layout_width="match_parent"
@@ -45,7 +44,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- ScrollView para todo el contenido -->
+    <!--ScrollView para todo el contenido a mostrase-->
     <ScrollView
         android:id="@+id/scrollViewReportes"
         android:layout_width="0dp"
@@ -63,7 +62,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Estadísticas rápidas -->
+            <!-- LinearLayout para ESTADISTICA -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,12 +120,10 @@
                         android:textSize="12sp"
                         android:textColor="#666666"
                         android:gravity="center" />
-
                 </LinearLayout>
-
             </LinearLayout>
 
-            <!-- Card para Gráfico Circular -->
+            <!-- CARD PARA GRAFICO DE PASTEL-->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="380dp"
@@ -151,7 +148,7 @@
                         android:gravity="center"
                         android:layout_marginBottom="16dp" />
 
-                    <!-- Gráfico Circular -->
+                    <!-- GRAFICO CIRCLAR -->
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/graficoCircular"
                         android:layout_width="match_parent"
@@ -161,7 +158,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Card para Gráfico de Barras -->
+            <!-- CARD PARA GRAFICO DE BARRAR -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="380dp"
@@ -186,7 +183,7 @@
                         android:gravity="center"
                         android:layout_marginBottom="16dp" />
 
-                    <!-- Gráfico de Barras -->
+                    <!-- GRADICO DE BARRAR-->
                     <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/graficoBarras"
                         android:layout_width="match_parent"
@@ -196,7 +193,7 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Sección de opciones adicionales -->
+            <!-- SECION DE OPCIONES ADICIONALES -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -221,7 +218,7 @@
                         android:gravity="center"
                         android:layout_marginBottom="16dp" />
 
-                    <!-- Botón Exportar PDF -->
+                    <!-- BTN EXPORT PDF -->
                     <Button
                         android:id="@+id/btnExportarPdf"
                         android:layout_width="match_parent"
@@ -233,7 +230,7 @@
                         android:layout_marginBottom="12dp"
                         android:elevation="2dp" />
 
-                    <!-- Botón Actualizar Datos -->
+                    <!-- BTN PARA ACTUALIZAR DATOS -->
                     <Button
                         android:id="@+id/btnActualizarDatos"
                         android:layout_width="match_parent"
@@ -243,12 +240,11 @@
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:elevation="1dp" />
-
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <!-- Mantener el RecyclerView original (opcional) -->
+            <!-- RVC -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
@@ -274,23 +270,18 @@
                         android:gravity="center"
                         android:layout_marginBottom="12dp" />
 
-                    <!-- RecyclerView original -->
+                    <!-- RVC ORGINAL -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvcReportes"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:clipToPadding="false"
                         android:paddingHorizontal="8dp" />
-
                 </LinearLayout>
-
             </androidx.cardview.widget.CardView>
-
         </LinearLayout>
-
     </ScrollView>
 
-    <!-- Espacio para button menu -->
     <Space
         android:id="@+id/spaceForNavigation"
         android:layout_width="match_parent"
@@ -299,7 +290,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto de error -->
+    <!-- LBL ERROR -->
     <TextView
         android:id="@+id/lblerror"
         android:layout_width="wrap_content"
@@ -311,5 +302,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/CardTitulo"
         app:layout_constraintBottom_toTopOf="@id/spaceForNavigation" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

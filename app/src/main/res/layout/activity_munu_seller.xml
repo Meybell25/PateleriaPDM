@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MunuSellerActivity">
 
-
+    <!--CARD PARA BOTTONNAVIGATION -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -17,6 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!--BOTTOMNAVIGATION -->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomnavigationSeller"
             android:layout_width="match_parent"
@@ -32,6 +33,7 @@
             app:itemPaddingBottom="8dp" />
     </androidx.cardview.widget.CardView>
 
+    <!--FRAMELAYOUT PARA MOSTAR EL CONTENIDO DEL FRAGAMENTP SEGUN EL ITEM SELECCIONADO -->
     <FrameLayout
         android:id="@+id/fragmnetContainer"
         android:layout_width="match_parent"
@@ -45,6 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <!-- TOOLBAR-->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -60,5 +63,4 @@
             app:titleTextAppearance="@style/ToolbarTitleText"
             app:titleTextColor="@color/crema_suave" />
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

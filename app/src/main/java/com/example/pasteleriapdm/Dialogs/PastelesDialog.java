@@ -115,12 +115,11 @@ public class PastelesDialog extends DialogFragment {
         configurarSpinners();
         configurarEventos();
 
-        // Si estamos editando, cargar los datos y mostrar información adicional
+        // Si estamos editando, cargar los datos y mostrar informacion adicional
         if (MODE_EDIT.equals(currentMode) && cakeToEdit != null) {
             cargarDatosParaEdicion();
             mostrarInformacionCreacion();
         }
-
         return view;
     }
 
@@ -136,17 +135,17 @@ public class PastelesDialog extends DialogFragment {
         btnInsertarPastel = view.findViewById(R.id.btnInsertarPastel);
         lblTituloDailogoPastel = view.findViewById(R.id.lblTituloDailogoPastel);
 
-        // Elementos de imagen - AQUÍ ESTABA EL PROBLEMA
+        // Elementos de imagen
         txtUrlImagen = view.findViewById(R.id.txtUrlImagen);
-        imgPreview = view.findViewById(R.id.imgPreview); // Esta línea faltaba
+        imgPreview = view.findViewById(R.id.imgPreview);
 
-        // Elementos de información de creación
+        // Elementos de informacion de creacion
         cardInfoCreacion = view.findViewById(R.id.cardInfoCreacion);
         lblFechaCreacion = view.findViewById(R.id.lblFechaCreacion);
         lblUltimaActualizacion = view.findViewById(R.id.lblUltimaActualizacion);
         lblCreadoPor = view.findViewById(R.id.lblCreadoPor);
 
-        // Configurar título y botón según el modo
+        // Configurar titulo y boton segun el modo
         if (MODE_EDIT.equals(currentMode)) {
             lblTituloDailogoPastel.setText("EDITAR PASTEL");
             btnInsertarPastel.setText("Actualizar Pastel");
@@ -157,7 +156,7 @@ public class PastelesDialog extends DialogFragment {
     }
 
     private void configurarSpinners() {
-        // Configurar spinner de categorías
+        // Configurar spinner de categorias
         List<String> categorias = Arrays.asList(
                 "Chocolate", "Vainilla", "Frutas", "Cheesecake",
                 "Especial", "Cumpleaños", "Bodas"
@@ -279,7 +278,7 @@ public class PastelesDialog extends DialogFragment {
         txtPrecioPastel.setText(String.valueOf(cakeToEdit.getPrice()));
         txtPorcionesPastel.setText(String.valueOf(cakeToEdit.getServings()));
 
-        // Seleccionar categoría en el spinner
+        // Seleccionar categoria en el spinner
         String categoria = convertirCategoriaParaDisplay(cakeToEdit.getCategory());
         ArrayAdapter<String> categoriasAdapter = (ArrayAdapter<String>) spinnerCategoria.getAdapter();
         int categoriaPosition = categoriasAdapter.getPosition(categoria);

@@ -60,7 +60,6 @@ public class GestionClientesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ClientesDialog dialog = new ClientesDialog();
-                // dialog.setProductoListener(this::actualizar); // this debe implementar ProductoListener
                 dialog.show(getParentFragmentManager(), "clientesDialogo");
             }
         });
