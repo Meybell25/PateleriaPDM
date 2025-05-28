@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = txtEmail.getText().toString().trim();
         String password = txtPassword.getText().toString().trim();
 
-        Log.d(TAG, "Iniciando sesión manual para: " + email);
+        Log.d(TAG, "Iniciando sesion manual para: " + email);
 
         // Mostrar progreso
         mostrarCargando(true);
@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (user != null) {
                         Log.d(TAG, "Login exitoso para: " + user.getEmail());
 
-                        // Guardar los datos del usuario que se logueó
+                        // Guardar los datos del usuario que se logueo
                         guardarSesionValida(user.getUid(), user.getEmail());
 
                         verificarUsuarioEnBD(user.getUid());
@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "Error en login", e);
                     mostrarCargando(false);
                     isManualLogin = false; // Reset flag
-                    mostrarError("Error: " + e.getMessage());
+                    mostrarError(" Error: Al iniciciar seccion" );
                 });
     }
 

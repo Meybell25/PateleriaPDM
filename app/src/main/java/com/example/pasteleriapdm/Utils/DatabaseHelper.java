@@ -1,6 +1,7 @@
 package com.example.pasteleriapdm.Utils;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -52,10 +53,9 @@ public class DatabaseHelper {
      */
     public void createUser(User user, DatabaseCallback<User> callback) {
         if (user.getUid() == null) {
-            callback.onError("UID del usuario no puede ser null");
+            callback.onError("El UID del usuario no puede ser nulo.");
             return;
         }
-
         databaseRef.child(USERS_NODE).child(user.getUid())
                 .setValue(user.toMap())
                 .addOnSuccessListener(aVoid -> {
@@ -64,7 +64,22 @@ public class DatabaseHelper {
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Error creando usuario", e);
-                    callback.onError("Error creando usuario: " + e.getMessage());
+
+                    String mensajeError;
+                    String error = e.getMessage();
+
+                    if (error != null && error.contains("correo electronico ya en uso")) {
+                        mensajeError = "Este email ya está registrado.";
+                    } else if (error != null && error.contains("contraseña débil")) {
+                        mensajeError = "La contraseña es muy débil.";
+                    } else if (error != null && error.contains("correo invalido")) {
+                        mensajeError = "Correo inválido.";
+                    } else {
+                        mensajeError = "Error al crear el usuario: " + error;
+                    }
+
+                    callback.onError(mensajeError);
+
                 });
     }
 
