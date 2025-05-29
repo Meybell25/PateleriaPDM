@@ -1,5 +1,6 @@
 package com.example.pasteleriapdm.Utils;
 
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -208,13 +209,13 @@ public class DatabaseHelper {
                             // No hay usuarios, crear el primer admin
                             Log.d(TAG, "No hay usuarios existentes, creando primer administrador");
 
-                            // Asegurar que sea admin y activo
+                            // Asegurarse que sea admin y activo
                             user.setRole(User.ROLE_ADMIN);
                             user.setStatus(User.STATUS_ACTIVE);
                             user.setCreatedAt(System.currentTimeMillis());
                             user.setLastLogin(0);
 
-                            // Crear el Map COMPLETO incluyendo la contraseña (necesario para primer admin)
+                            // Crear el Map COMPLETO  (necesario para primer admin)
                             Map<String, Object> userData = new HashMap<>();
                             userData.put("uid", user.getUid());
                             userData.put("name", user.getName());
@@ -484,6 +485,285 @@ public class DatabaseHelper {
                     Log.e(TAG, "Error eliminando pastel permanentemente", e);
                     callback.onError("Error eliminando pastel: " + e.getMessage());
                 });
+    }
+
+
+    /**
+     * Crear un nuevo pastel con imagen en Firebase Storage
+     */
+    public void createCakeWithImage(Cake cake, Uri imageUri, DatabaseCallback<Cake> callback) {
+        // Generar ID del pastel primero
+        String cakeId = databaseRef.child(CAKES_NODE).push().getKey();
+        if (cakeId == null) {
+            callback.onError("Error generando ID del pastel");
+            return;
+        }
+
+        cake.setId(cakeId);
+
+        // Si no hay imagen, crear pastel sin imagen
+        if (imageUri == null) {
+            createCake(cake, callback);
+            return;
+        }
+
+        // Subir imagen primero
+        StorageHelper.getInstance().uploadCakeImage(imageUri, cakeId, new StorageHelper.StorageCallback() {
+            @Override
+            public void onSuccess(String downloadUrl, String storagePath) {
+                // Configurar datos de imagen en el pastel
+                cake.setImageUrl(downloadUrl);
+                cake.setImagePath(storagePath);
+                cake.setImageFileName(getFileNameFromPath(storagePath));
+
+                // Crear pastel en la base de datos
+                createCake(cake, callback);
+            }
+
+            @Override
+            public void onError(String error) {
+                Log.e(TAG, "Error subiendo imagen del pastel", new Exception(error));
+                callback.onError("Error subiendo imagen: " + error);
+            }
+
+            @Override
+            public void onProgress(int progress) {
+                Log.d(TAG, "Progreso subida imagen: " + progress + "%");
+            }
+        });
+    }
+
+    /**
+     * Actualizar pastel con nueva imagen
+     */
+    public void updateCakeWithImage(Cake cake, Uri newImageUri, DatabaseCallback<Cake> callback) {
+        if (newImageUri == null) {
+            // No hay nueva imagen, solo actualizar datos
+            updateCake(cake, callback);
+            return;
+        }
+
+        // Obtener ruta de imagen anterior para eliminarla
+        String oldImagePath = cake.getImagePath();
+
+        // Subir nueva imagen
+        StorageHelper.getInstance().updateCakeImage(newImageUri, cake.getId(), oldImagePath,
+                new StorageHelper.StorageCallback() {
+                    @Override
+                    public void onSuccess(String downloadUrl, String storagePath) {
+                        // Actualizar datos de imagen en el pastel
+                        cake.setImageUrl(downloadUrl);
+                        cake.setImagePath(storagePath);
+                        cake.setImageFileName(getFileNameFromPath(storagePath));
+
+                        // Actualizar pastel en la base de datos
+                        updateCake(cake, callback);
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Log.e(TAG, "Error actualizando imagen del pastel", new Exception(error));
+                        callback.onError("Error actualizando imagen: " + error);
+                    }
+
+                    @Override
+                    public void onProgress(int progress) {
+                        Log.d(TAG, "Progreso actualización imagen: " + progress + "%");
+                    }
+                });
+    }
+
+    /**
+     * Eliminar pastel y su imagen de Storage
+     */
+    public void deleteCakeWithImage(String cakeId, DatabaseCallback<Boolean> callback) {
+        // Primero obtener datos del pastel para conseguir la ruta de la imagen
+        databaseRef.child(CAKES_NODE).child(cakeId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists()) {
+                            callback.onError("El pastel no existe");
+                            return;
+                        }
+
+                        try {
+                            Cake cake = snapshot.getValue(Cake.class);
+                            if (cake != null && cake.hasStorageImage()) {
+                                // Eliminar imagen primero
+                                StorageHelper.getInstance().deleteCakeImage(cake.getImagePath(),
+                                        new StorageHelper.DeleteCallback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                // Imagen eliminada, ahora eliminar pastel de BD
+                                                permanentDeleteCake(cakeId, callback);
+                                            }
+
+                                            @Override
+                                            public void onError(String error) {
+                                                Log.w(TAG, "No se pudo eliminar imagen: " + error);
+                                                // Continuar eliminando el pastel aunque falle la imagen
+                                                permanentDeleteCake(cakeId, callback);
+                                            }
+                                        });
+                            } else {
+                                // No hay imagen, solo eliminar pastel
+                                permanentDeleteCake(cakeId, callback);
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error procesando datos del pastel para eliminar", e);
+                            callback.onError("Error procesando pastel: " + e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo pastel para eliminar", error.toException());
+                        callback.onError("Error obteniendo pastel: " + error.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * Eliminar solo la imagen de un pastel (mantener el pastel sin imagen)
+     */
+    public void removeCakeImage(String cakeId, DatabaseCallback<Cake> callback) {
+        databaseRef.child(CAKES_NODE).child(cakeId)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.exists()) {
+                            callback.onError("El pastel no existe");
+                            return;
+                        }
+
+                        try {
+                            Cake cake = snapshot.getValue(Cake.class);
+                            if (cake != null && cake.hasStorageImage()) {
+                                // Eliminar imagen de Storage
+                                StorageHelper.getInstance().deleteCakeImage(cake.getImagePath(),
+                                        new StorageHelper.DeleteCallback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                // Limpiar datos de imagen del pastel
+                                                cake.setImageUrl(null);
+                                                cake.setImagePath(null);
+                                                cake.setImageFileName(null);
+
+                                                // Actualizar pastel en BD
+                                                updateCake(cake, callback);
+                                            }
+
+                                            @Override
+                                            public void onError(String error) {
+                                                Log.e(TAG, "Error eliminando imagen", new Exception(error));
+                                                callback.onError("Error eliminando imagen: " + error);
+                                            }
+                                        });
+                            } else {
+                                callback.onError("El pastel no tiene imagen para eliminar");
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error procesando pastel para eliminar imagen", e);
+                            callback.onError("Error procesando pastel: " + e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo pastel", error.toException());
+                        callback.onError("Error obteniendo pastel: " + error.getMessage());
+                    }
+                });
+    }
+
+    /**
+     * Método helper para extraer nombre de archivo de la ruta de Storage
+     */
+    private String getFileNameFromPath(String storagePath) {
+        if (storagePath == null || storagePath.isEmpty()) return null;
+
+        int lastSlash = storagePath.lastIndexOf('/');
+        if (lastSlash >= 0 && lastSlash < storagePath.length() - 1) {
+            return storagePath.substring(lastSlash + 1);
+        }
+        return storagePath;
+    }
+
+    /**
+     * Validar y regenerar URLs de descarga para pasteles existentes
+     *
+     */
+    public void refreshCakeImageUrls(DatabaseCallback<Integer> callback) {
+        getAllCakes(new DatabaseCallback<List<Cake>>() {
+            @Override
+            public void onSuccess(List<Cake> cakes) {
+                int[] refreshCount = {0};
+                int[] totalToRefresh = {0};
+
+                // Contar cuántos pasteles tienen imágenes para refrescar
+                for (Cake cake : cakes) {
+                    if (cake.hasStorageImage()) {
+                        totalToRefresh[0]++;
+                    }
+                }
+
+                if (totalToRefresh[0] == 0) {
+                    callback.onSuccess(0);
+                    return;
+                }
+
+                // Refrescar URLs
+                for (Cake cake : cakes) {
+                    if (cake.hasStorageImage()) {
+                        StorageHelper.getInstance().getImageDownloadUrl(cake.getImagePath(),
+                                new StorageHelper.StorageCallback() {
+                                    @Override
+                                    public void onSuccess(String downloadUrl, String storagePath) {
+                                        cake.setImageUrl(downloadUrl);
+                                        updateCake(cake, new DatabaseCallback<Cake>() {
+                                            @Override
+                                            public void onSuccess(Cake result) {
+                                                refreshCount[0]++;
+                                                if (refreshCount[0] == totalToRefresh[0]) {
+                                                    callback.onSuccess(refreshCount[0]);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onError(String error) {
+                                                Log.w(TAG, "Error actualizando URL de " + cake.getName() + ": " + error);
+                                                refreshCount[0]++;
+                                                if (refreshCount[0] == totalToRefresh[0]) {
+                                                    callback.onSuccess(refreshCount[0]);
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onError(String error) {
+                                        Log.w(TAG, "Error obteniendo URL para " + cake.getName() + ": " + error);
+                                        refreshCount[0]++;
+                                        if (refreshCount[0] == totalToRefresh[0]) {
+                                            callback.onSuccess(refreshCount[0]);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onProgress(int progress) {
+                                        // No necesario para esta operación
+                                    }
+                                });
+                    }
+                }
+            }
+
+            @Override
+            public void onError(String error) {
+                callback.onError("Error obteniendo pasteles: " + error);
+            }
+        });
     }
 
     // ==================== OPERACIONES DE CLIENTES ====================

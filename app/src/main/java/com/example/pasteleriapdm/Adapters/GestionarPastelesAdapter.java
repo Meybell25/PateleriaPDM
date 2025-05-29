@@ -106,7 +106,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderGestionarPastelesAdapter holder, int position) {
-        // Verificar si la posición es válida
+        // Verificar si la posición es valida
         if (position < 0 || position >= listasPastelesFiltrada.size()) {
             Log.e(TAG, "Posición inválida: " + position + ", tamaño: " + listasPastelesFiltrada.size());
             return;
@@ -187,7 +187,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
         configurarBotones(holder, cake);
     }
 
-    // ========== MÉTODOS DE BÚSQUEDA MEJORADOS ==========
+    // ========== METODOS DE BÚSQUEDA  ==========
 
     /**
      * Filtrar pasteles por nombre - VERSION MEJORADA
@@ -225,7 +225,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
     }
 
     /**
-     * Limpiar filtro de búsqueda
+     * Limpiar filtro de busqueda
      */
     public void limpiarFiltro() {
         Log.d(TAG, "Limpiando filtro");
@@ -256,7 +256,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
         return count;
     }
 
-    // ========== MÉTODOS DE ACTUALIZACIÓN MEJORADOS ==========
+    // ========== METODOS DE ACTUALIZACION  ==========
 
     /**
      * Método para actualizar la lista - VERSION MEJORADA
@@ -290,7 +290,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
     }
 
     /**
-     * Método para actualizar un pastel específico
+     * Metodo para actualizar un pastel especifico
      */
     public void actualizarPastel(Cake cake) {
         if (cake == null || cake.getId() == null) {
@@ -319,7 +319,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
     }
 
     /**
-     * Método para eliminar un pastel
+     * Metodo para eliminar un pastel
      */
     public void eliminarPastel(String cakeId) {
         if (cakeId == null) {
@@ -347,7 +347,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
         }
     }
 
-    // ========== MÉTODOS AUXILIARES ==========
+    // ========== METODOS AUXILIARES ==========
 
     private void configurarEstadoPastel(ViewHolderGestionarPastelesAdapter holder, Cake cake) {
         String status = cake.getStatus();
@@ -375,7 +375,7 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
     }
 
     private void configurarBotones(ViewHolderGestionarPastelesAdapter holder, Cake cake) {
-        // El botón de editar siempre está disponible
+        // El boton de editar siempre esta disponible
         holder.btnEditarPastel.setOnClickListener(v -> {
             if (actionListener != null) {
                 actionListener.onEditarPastel(cake);
@@ -387,12 +387,12 @@ public class GestionarPastelesAdapter extends RecyclerView.Adapter<GestionarPast
         boolean esInactivo = Cake.STATUS_INACTIVE.equals(status);
 
         if (esInactivo) {
-            // Pastel inactivo - permitir eliminación
+            // Pastel inactivo - permitir eliminacion
             holder.btnEliminarPastel.setEnabled(true);
             holder.btnEliminarPastel.setAlpha(1.0f);
             holder.btnEliminarPastel.setOnClickListener(v -> mostrarDialogoEliminar(cake));
         } else {
-            // Pastel activo - no permitir eliminación
+            // Pastel activo - no permitir eliminacipn
             holder.btnEliminarPastel.setEnabled(false);
             holder.btnEliminarPastel.setAlpha(0.5f);
             holder.btnEliminarPastel.setOnClickListener(v ->

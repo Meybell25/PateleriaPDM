@@ -1,5 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/navGestionarPasteles"
+        android:icon="@drawable/ic_pastel"
+        android:title="Pasteles" />
+    <item
         android:id="@+id/navGestionarClientes"
         android:icon="@drawable/ic_usuario"
         android:title="Clientes " />

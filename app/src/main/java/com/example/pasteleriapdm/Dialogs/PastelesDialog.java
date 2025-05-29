@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.ContentResolver;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.provider.MediaStore;
+import android.widget.LinearLayout;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -48,18 +53,17 @@ public class PastelesDialog extends DialogFragment {
     // UI Elements
     private EditText txtPrecioPastel, txtPorcionesPastel, txtDescripcionPastel, txtNombrePastel;
     private TextView lblTituloDailogoPastel, btnSalir;
-    private TextView lblFechaCreacion, lblUltimaActualizacion, lblCreadoPor;
     private Button btnInsertarPastel;
     private Spinner spinnerCategoria, spinnerTamano, spinnerStatus;
-    private View cardInfoCreacion;
-    private EditText txtUrlImagen;
     private ImageView imgPreview;
-    private String imageUrlSeleccionada = "";
+    private TextView lblSeleccionarImagen;
 
-    // Variables para imagen
+    // Variables para imagen - CORREGIDAS
     private ActivityResultLauncher<Intent> imagenLauncher;
-    private Uri imagenUriSeleccionada;
-    private int selectedImageResource = R.drawable.ic_imagen1; // Imagen por defecto
+    private Uri imagenUriSeleccionada = null; // INICIALIZADA CORRECTAMENTE
+    private String imageUrlSeleccionada = "";
+    private String imagePathSeleccionada = "";
+    private String imageFileNameSeleccionada = "";
 
     // Variables para el modelo
     private Cake cakeToEdit;
@@ -115,10 +119,9 @@ public class PastelesDialog extends DialogFragment {
         configurarSpinners();
         configurarEventos();
 
-        // Si estamos editando, cargar los datos y mostrar informacion adicional
+        // Si estamos editando, cargar los datos
         if (MODE_EDIT.equals(currentMode) && cakeToEdit != null) {
             cargarDatosParaEdicion();
-            mostrarInformacionCreacion();
         }
         return view;
     }
@@ -134,16 +137,12 @@ public class PastelesDialog extends DialogFragment {
         btnSalir = view.findViewById(R.id.btnSalir);
         btnInsertarPastel = view.findViewById(R.id.btnInsertarPastel);
         lblTituloDailogoPastel = view.findViewById(R.id.lblTituloDailogoPastel);
+        LinearLayout layoutSeleccionarImagen = view.findViewById(R.id.layoutSeleccionarImagen);
+        layoutSeleccionarImagen.setOnClickListener(v -> seleccionarImagen());
 
         // Elementos de imagen
-        txtUrlImagen = view.findViewById(R.id.txtUrlImagen);
         imgPreview = view.findViewById(R.id.imgPreview);
-
-        // Elementos de informacion de creacion
-        cardInfoCreacion = view.findViewById(R.id.cardInfoCreacion);
-        lblFechaCreacion = view.findViewById(R.id.lblFechaCreacion);
-        lblUltimaActualizacion = view.findViewById(R.id.lblUltimaActualizacion);
-        lblCreadoPor = view.findViewById(R.id.lblCreadoPor);
+        lblSeleccionarImagen = view.findViewById(R.id.lblSeleccionarImagen);
 
         // Configurar titulo y boton segun el modo
         if (MODE_EDIT.equals(currentMode)) {
@@ -153,6 +152,12 @@ public class PastelesDialog extends DialogFragment {
             lblTituloDailogoPastel.setText("CREAR PASTEL");
             btnInsertarPastel.setText("Crear Pastel");
         }
+    }
+
+    private void seleccionarImagen() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        imagenLauncher.launch(intent);
     }
 
     private void configurarSpinners() {
@@ -166,12 +171,12 @@ public class PastelesDialog extends DialogFragment {
         categoriasAdapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerCategoria.setAdapter(categoriasAdapter);
 
-        // Configurar spinner de tamaños
+        // Configurar spinner de tamaños - CORREGIDO
         List<String> tamanos = Arrays.asList(
-                "Pequeño",
-                "Mediano ",
-                "Grande ",
-                "Extra Grande "
+                "Pequeño (6-8 personas)",
+                "Mediano (10-12 personas)",
+                "Grande (15-20 personas)",
+                "Extra Grande (25+ personas)"
         );
         ArrayAdapter<String> tamanosAdapter = new ArrayAdapter<>(
                 requireContext(), R.layout.spinner_personalizado, tamanos);
@@ -189,69 +194,6 @@ public class PastelesDialog extends DialogFragment {
     private void configurarEventos() {
         btnSalir.setOnClickListener(v -> dismiss());
         btnInsertarPastel.setOnClickListener(v -> procesarPastel());
-
-        // Cargar imagen automáticamente cuando se escriba una URL
-        txtUrlImagen.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // ACTUALIZAR imageUrlSeleccionada inmediatamente cuando cambia el texto
-                String url = s.toString().trim();
-                imageUrlSeleccionada = url;
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String url = s.toString().trim();
-                if (esUrlValida(url)) {
-                    // Pequeño delay para evitar múltiples cargas mientras el usuario escribe
-                    txtUrlImagen.removeCallbacks(cargarImagenRunnable);
-                    txtUrlImagen.postDelayed(cargarImagenRunnable, 1000); // 1 segundo de delay
-                } else if (url.isEmpty()) {
-                    // Si se borra la URL, limpiar la imagen
-                    imgPreview.setImageResource(R.drawable.decoracion_pastel);
-                    // imageUrlSeleccionada ya se actualizó en onTextChanged
-                }
-            }
-        });
-    }
-
-    // Runnable para cargar imagen con delay
-    private final Runnable cargarImagenRunnable = new Runnable() {
-        @Override
-        public void run() {
-            cargarPreviewImagen();
-        }
-    };
-
-    private void cargarPreviewImagen() {
-        String url = txtUrlImagen.getText().toString().trim();
-
-        if (url.isEmpty()) {
-            imgPreview.setImageResource(R.drawable.decoracion_pastel);
-            imageUrlSeleccionada = ""; // Asegurar que esté vacío
-            return;
-        }
-
-        if (!esUrlValida(url)) {
-            Toast.makeText(getContext(), "La URL no parece ser válida", Toast.LENGTH_SHORT).show();
-            imgPreview.setImageResource(R.drawable.decoracion_pastel);
-            return;
-        }
-
-        // Usar Glide para cargar la imagen
-        Glide.with(this)
-                .load(url)
-                .placeholder(R.drawable.ic_imagen1) // Imagen mientras carga
-                .error(R.drawable.decoracion_pastel) // Imagen si hay error
-                .into(imgPreview);
-    }
-
-
-    private boolean esUrlValida(String url) {
-        return url.startsWith("http://") || url.startsWith("https://");
     }
 
     private void configurarActivityResultLaunchers() {
@@ -261,9 +203,20 @@ public class PastelesDialog extends DialogFragment {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         imagenUriSeleccionada = result.getData().getData();
                         if (imagenUriSeleccionada != null) {
-                            imgPreview.setImageURI(imagenUriSeleccionada);
-                            Toast.makeText(getContext(), "Imagen seleccionada correctamente", Toast.LENGTH_SHORT).show();
-                            selectedImageResource = R.drawable.ic_pastel;
+                            try {
+                                // Mostrar preview de la imagen seleccionada
+                                ContentResolver cr = requireContext().getContentResolver();
+                                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(imagenUriSeleccionada));
+                                imgPreview.setImageBitmap(bitmap);
+
+                                // Ocultar el texto de seleccionar imagen
+                                lblSeleccionarImagen.setVisibility(View.GONE);
+
+                                Log.d(TAG, "Imagen seleccionada: " + imagenUriSeleccionada.toString());
+                            } catch (Exception e) {
+                                Toast.makeText(getContext(), "Error al cargar la imagen", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "Error al cargar imagen", e);
+                            }
                         }
                     }
                 }
@@ -302,80 +255,25 @@ public class PastelesDialog extends DialogFragment {
             spinnerStatus.setSelection(statusPosition);
         }
 
-        // Cargar imagen si existe
-        if (cakeToEdit.getImageUrl() != null && !cakeToEdit.getImageUrl().isEmpty()) {
-            txtUrlImagen.setText(cakeToEdit.getImageUrl());
-            cargarImagenDesdeUrl(cakeToEdit.getImageUrl(), imgPreview);
-            imageUrlSeleccionada = cakeToEdit.getImageUrl();
-        }
-    }
-
-    private void cargarImagenDesdeUrl(String url, ImageView imageView) {
-        if (url != null && !url.isEmpty() && esUrlValida(url)) {
+        // Cargar imagen existente
+        if (cakeToEdit.hasStorageImage()) {
+            // Usar Glide para cargar la imagen desde Firebase Storage
             Glide.with(this)
-                    .load(url)
+                    .load(cakeToEdit.getImageUrl())
                     .placeholder(R.drawable.ic_imagen1)
                     .error(R.drawable.decoracion_pastel)
-                    .into(imageView);
-        } else {
-            imageView.setImageResource(R.drawable.decoracion_pastel);
+                    .into(imgPreview);
+
+            // Ocultar el texto de "Toca para agregar imagen"
+            lblSeleccionarImagen.setVisibility(View.GONE);
+
+            // Configurar las variables de imagen
+            imageUrlSeleccionada = cakeToEdit.getImageUrl();
+            imagePathSeleccionada = cakeToEdit.getImagePath();
+            imageFileNameSeleccionada = cakeToEdit.getImageFileName();
         }
     }
 
-    private void mostrarInformacionCreacion() {
-        if (cakeToEdit == null) return;
-
-        cardInfoCreacion.setVisibility(View.VISIBLE);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-
-        // Mostrar fecha de creación
-        if (cakeToEdit.getCreatedAt() > 0) {
-            String fechaCreacion = dateFormat.format(new Date(cakeToEdit.getCreatedAt()));
-            lblFechaCreacion.setText("Creado: " + fechaCreacion);
-        }
-
-        // Mostrar fecha de actualización
-        if (cakeToEdit.getUpdatedAt() > 0) {
-            String fechaActualizacion = dateFormat.format(new Date(cakeToEdit.getUpdatedAt()));
-            lblUltimaActualizacion.setText("Actualizado: " + fechaActualizacion);
-        }
-
-        // Mostrar creado por
-        if (cakeToEdit.getCreatedBy() != null && !cakeToEdit.getCreatedBy().isEmpty()) {
-            // Si createdBy contiene un ID (más de 20 caracteres), buscar el nombre
-            if (cakeToEdit.getCreatedBy().length() > 20) {
-                // Es un ID, buscar el nombre del usuario
-                lblCreadoPor.setText("Creado por: Cargando...");
-                DatabaseHelper.getInstance().getUserById(cakeToEdit.getCreatedBy(), new DatabaseHelper.DatabaseCallback<User>() {
-                    @Override
-                    public void onSuccess(User user) {
-                        if (getActivity() != null) {
-                            getActivity().runOnUiThread(() -> {
-                                lblCreadoPor.setText("Creado por: " + user.getName());
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onError(String error) {
-                        if (getActivity() != null) {
-                            getActivity().runOnUiThread(() -> {
-                                lblCreadoPor.setText("Creado por: Usuario desconocido");
-                            });
-                        }
-                    }
-                });
-            } else {
-                // Ya es un nombre, mostrarlo directamente
-                lblCreadoPor.setText("Creado por: " + cakeToEdit.getCreatedBy());
-            }
-        } else {
-            lblCreadoPor.setText("Creado por: --");
-        }
-    }
-
-    // Método helper para convertir tamaño de BD a display
     private String convertirTamanoParaDisplay(String dbSize) {
         switch (dbSize) {
             case Cake.SIZE_SMALL: return "Pequeño (6-8 personas)";
@@ -386,7 +284,6 @@ public class PastelesDialog extends DialogFragment {
         }
     }
 
-    // Método helper para convertir status de BD a display
     private String convertirStatusParaDisplay(String dbStatus) {
         switch (dbStatus) {
             case Cake.STATUS_ACTIVE: return "Activo";
@@ -400,16 +297,104 @@ public class PastelesDialog extends DialogFragment {
             return;
         }
 
+        Log.d(TAG, "Procesando pastel. Modo: " + currentMode);
+        Log.d(TAG, "Imagen seleccionada: " + (imagenUriSeleccionada != null ? imagenUriSeleccionada.toString() : "null"));
+
         // Crear o actualizar el pastel
-        Cake cake;
         if (MODE_EDIT.equals(currentMode) && cakeToEdit != null) {
-            cake = cakeToEdit;
-            actualizarDatosPastel(cake);
-            actualizarPastel(cake);
+            actualizarDatosPastel(cakeToEdit);
+
+            if (imagenUriSeleccionada != null) {
+                // Hay una nueva imagen para actualizar
+                actualizarPastelConImagen(cakeToEdit);
+            } else {
+                // No hay nueva imagen, solo actualizar datos
+                actualizarPastel(cakeToEdit);
+            }
         } else {
-            cake = crearNuevoPastel();
-            guardarPastel(cake);
+            Cake nuevoPastel = crearNuevoPastel();
+
+            if (imagenUriSeleccionada != null) {
+                // Crear pastel con imagen
+                Log.d(TAG, "Creando pastel con imagen");
+                crearPastelConImagen(nuevoPastel);
+            } else {
+                // Crear pastel sin imagen
+                Log.d(TAG, "Creando pastel sin imagen");
+                guardarPastel(nuevoPastel);
+            }
         }
+    }
+
+    private void crearPastelConImagen(Cake cake) {
+        btnInsertarPastel.setEnabled(false);
+        btnInsertarPastel.setText("Subiendo imagen...");
+
+        Log.d(TAG, "Iniciando creación de pastel con imagen");
+
+        DatabaseHelper.getInstance().createCakeWithImage(cake, imagenUriSeleccionada,
+                new DatabaseHelper.DatabaseCallback<Cake>() {
+                    @Override
+                    public void onSuccess(Cake result) {
+                        Log.d(TAG, "Pastel creado exitosamente con imagen");
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                Toast.makeText(getContext(), "Pastel creado exitosamente", Toast.LENGTH_SHORT).show();
+                                if (listener != null) {
+                                    listener.onCakeCreated(result);
+                                }
+                                dismiss();
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        Log.e(TAG, "Error creando pastel con imagen: " + error);
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                btnInsertarPastel.setEnabled(true);
+                                btnInsertarPastel.setText("Crear Pastel");
+                                Toast.makeText(getContext(), "Error: " + error, Toast.LENGTH_LONG).show();
+                            });
+                        }
+                    }
+                });
+    }
+
+    private void actualizarPastelConImagen(Cake cake) {
+        btnInsertarPastel.setEnabled(false);
+        btnInsertarPastel.setText("Actualizando imagen...");
+
+        DatabaseHelper.getInstance().updateCakeWithImage(
+                cake,
+                imagenUriSeleccionada,
+                new DatabaseHelper.DatabaseCallback<Cake>() {
+                    @Override
+                    public void onSuccess(Cake result) {
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                Toast.makeText(getContext(), "Pastel actualizado exitosamente", Toast.LENGTH_SHORT).show();
+                                if (listener != null) {
+                                    listener.onCakeUpdated(result);
+                                }
+                                dismiss();
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onError(String error) {
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(() -> {
+                                btnInsertarPastel.setEnabled(true);
+                                btnInsertarPastel.setText("Actualizar Pastel");
+                                Toast.makeText(getContext(), "Error: " + error, Toast.LENGTH_LONG).show();
+                            });
+                        }
+                    }
+                }
+        );
     }
 
     private boolean validarCampos() {
@@ -481,7 +466,7 @@ public class PastelesDialog extends DialogFragment {
         cake.setServings(porciones);
         cake.setStatus(status);
 
-        cake.setImageUrl(imageUrlSeleccionada.isEmpty() ? "" : imageUrlSeleccionada);
+        Log.d(TAG, "Nuevo pastel creado: " + nombre);
 
         return cake;
     }
@@ -497,23 +482,18 @@ public class PastelesDialog extends DialogFragment {
 
         // Actualizar timestamp de modificación
         cake.setUpdatedAt(System.currentTimeMillis());
-
-        // Actualizar imagen siempre con el valor actual del campo
-        String urlActual = txtUrlImagen.getText().toString().trim();
-        cake.setImageUrl(urlActual); // Usar directamente el valor del campo
-
-        // Log para debugging
-        Log.d(TAG, "Actualizando pastel con imagen URL: " + urlActual);
     }
-
 
     private void guardarPastel(Cake cake) {
         btnInsertarPastel.setEnabled(false);
         btnInsertarPastel.setText("Guardando...");
 
+        Log.d(TAG, "Guardando pastel sin imagen");
+
         databaseHelper.createCake(cake, new DatabaseHelper.DatabaseCallback<Cake>() {
             @Override
             public void onSuccess(Cake result) {
+                Log.d(TAG, "Pastel creado exitosamente sin imagen");
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
                         Toast.makeText(getContext(), "Pastel creado exitosamente", Toast.LENGTH_SHORT).show();
@@ -529,9 +509,9 @@ public class PastelesDialog extends DialogFragment {
 
             @Override
             public void onError(String error) {
+                Log.e(TAG, "Error creando pastel: " + error);
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(() -> {
-                        Log.e(TAG, "Error creando pastel: " + error);
                         Toast.makeText(getContext(), "Error creando pastel: " + error, Toast.LENGTH_LONG).show();
 
                         btnInsertarPastel.setEnabled(true);
