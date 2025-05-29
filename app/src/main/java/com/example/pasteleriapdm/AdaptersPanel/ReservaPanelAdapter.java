@@ -63,7 +63,7 @@ public class ReservaPanelAdapter extends RecyclerView.Adapter<ReservaPanelAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ReservaPanelAdapter.ViewHolderReservaPanelAdapter holder, int position) {
-        holder.image.setImageResource(R.drawable.img_reserva164);
+        holder.image.setImageResource(R.drawable.img_reservas1);
         holder.lblReserva.setText("Reservas");
         holder.lblCantidaReseservasPanel.setText(String.valueOf(totalReservas));
 
