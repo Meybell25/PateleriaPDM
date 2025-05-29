@@ -58,7 +58,6 @@ public class ReservaFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ReservaDialogo dialog = new ReservaDialogo();
-                // dialog.setProductoListener(this::actualizar); // this debe implementar ProductoListener
                 dialog.show(getParentFragmentManager(), "reservaDialogo");
             }
         });

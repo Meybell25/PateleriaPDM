@@ -27,7 +27,7 @@ public class StorageHelper {
     private static final String STORAGE_BUCKET = "gs://pasteleriapdm.firebasestorage.app";
     private static final int MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-    // Constructor privado (Singleton)
+    // Constructor privado Singleton
     private StorageHelper() {
         try {
             // Configurar Firebase Storage con el bucket específico
@@ -81,12 +81,12 @@ public class StorageHelper {
         }
 
         if (!isValidImageUri(imageUri)) {
-            callback.onError("URI de imagen no válido");
+            callback.onError("URI de imagen no valido");
             return;
         }
 
         try {
-            // Generar nombre único para el archivo
+            // Generar nombre unico para el archivo
             String fileName = generateImageFileName(cakeId);
             String imagePath = CAKES_FOLDER + "/" + fileName;
 
@@ -96,7 +96,7 @@ public class StorageHelper {
             Log.d(TAG, "Subiendo imagen a: " + imagePath);
             Log.d(TAG, "URI de imagen: " + imageUri.toString());
 
-            // Configurar metadata opcional
+            // Configurar
             /*
             StorageMetadata metadata = new StorageMetadata.Builder()
                     .setContentType("image/jpeg")
@@ -152,7 +152,7 @@ public class StorageHelper {
      */
     public void deleteCakeImage(String imagePath, DeleteCallback callback) {
         if (imagePath == null || imagePath.trim().isEmpty()) {
-            callback.onError("Ruta de imagen no válida");
+            callback.onError("Ruta de imagen no valida");
             return;
         }
 
@@ -169,7 +169,7 @@ public class StorageHelper {
                 callback.onSuccess();
             }).addOnFailureListener(e -> {
                 Log.e(TAG, "Error eliminando imagen: " + cleanPath, e);
-                // Si el archivo no existe, consideramos que es éxito
+                // See el archivo no existe, consideramos que es exito
                 if (e.getMessage() != null && e.getMessage().contains("does not exist")) {
                     Log.w(TAG, "El archivo ya no existe, considerando como eliminado exitosamente");
                     callback.onSuccess();
@@ -223,7 +223,7 @@ public class StorageHelper {
     }
 
     /**
-     * Generar nombre único para archivo de imagen
+     * Generar nombre unico para archivo de imagen
      */
     private String generateImageFileName(String cakeId) {
         String prefix = (cakeId != null && !cakeId.isEmpty()) ? "cake_" + cakeId : "cake";
@@ -233,7 +233,7 @@ public class StorageHelper {
     }
 
     /**
-     * Validar si el URI es una imagen válida
+     * Validar si el URI es una imagen valida
      */
     public boolean isValidImageUri(Uri imageUri) {
         if (imageUri == null) return false;
@@ -246,7 +246,7 @@ public class StorageHelper {
     }
 
     /**
-     * Obtener referencia a una imagen específica
+     * Obtener referencia a una imagen especifica
      */
     public StorageReference getImageReference(String imagePath) {
         if (imagePath == null || imagePath.trim().isEmpty()) {
@@ -291,7 +291,7 @@ public class StorageHelper {
     }
 
     /**
-     * Verificar si el servicio de Storage está disponible
+     * Verificar si el servicio de Storage esta disponible
      */
     public boolean isStorageAvailable() {
         try {
@@ -310,7 +310,7 @@ public class StorageHelper {
     }
 
     /**
-     * Limpiar cache y referencias (para testing o cleanup)
+     * Limpiar cache y referencias
      */
     public void cleanup() {
         // Firebase Storage maneja su propia limpieza
