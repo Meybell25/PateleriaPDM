@@ -168,7 +168,7 @@ Log.d("succses", "rol obtenido"+ currentUserRole);
     private void setupButtonListener() {
         if (btnAbrirDialogoReserva != null) {
             btnAbrirDialogoReserva.setOnClickListener(v -> {
-                ReservaDialogo dialog = new ReservaDialogo();
+                ReservaDialogo dialog = new ReservaDialogo()
 
                 // Configurar callback para actualizar la lista cuando se guarde una reserva
                 dialog.setCallback(new ReservaDialogo.ReservationCallback() {
@@ -184,6 +184,7 @@ Log.d("succses", "rol obtenido"+ currentUserRole);
                         loadReservations();
                     }
                 });
+
 
                 dialog.show(getParentFragmentManager(), "reservaDialogo");
             });

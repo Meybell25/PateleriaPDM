@@ -63,7 +63,7 @@ public class PastelPanelAdapter extends RecyclerView.Adapter<PastelPanelAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PastelPanelAdapter.ViewHolderPastelPanelAdapter holder, int position) {
-        holder.imgPastel.setImageResource(R.drawable.img_pastel_panel);
+        holder.imgPastel.setImageResource(R.drawable.img_pastel1);
         holder.txtNombrePastel.setText("Pasteles");
         holder.txtCantidadPastelesPanel.setText(String.valueOf(totalPasteles));
 

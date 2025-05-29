@@ -27,7 +27,7 @@ public class StorageHelper {
     private static final String STORAGE_BUCKET = "gs://pasteleriapdm.firebasestorage.app";
     private static final int MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-    // Constructor privado (Singleton)
+    // Constructor privado Singleton
     private StorageHelper() {
         try {
             // Configurar Firebase Storage con el bucket específico
@@ -86,7 +86,7 @@ public class StorageHelper {
         }
 
         try {
-            // Generar nombre único para el archivo
+            // Generar nombre unico para el archivo
             String fileName = generateImageFileName(cakeId);
             String imagePath = CAKES_FOLDER + "/" + fileName;
 
@@ -95,7 +95,6 @@ public class StorageHelper {
 
             Log.d(TAG, "Subiendo imagen a: " + imagePath);
             Log.d(TAG, "URI de imagen: " + imageUri.toString());
-
             // Subir archivo
             UploadTask uploadTask = imageRef.putFile(imageUri);
 
@@ -144,7 +143,7 @@ public class StorageHelper {
      */
     public void deleteCakeImage(String imagePath, DeleteCallback callback) {
         if (imagePath == null || imagePath.trim().isEmpty()) {
-            callback.onError("Ruta de imagen no válida");
+            callback.onError("Ruta de imagen no valida");
             return;
         }
 
@@ -161,7 +160,7 @@ public class StorageHelper {
                 callback.onSuccess();
             }).addOnFailureListener(e -> {
                 Log.e(TAG, "Error eliminando imagen: " + cleanPath, e);
-                // Si el archivo no existe, consideramos que es éxito
+                // See el archivo no existe, consideramos que es exito
                 if (e.getMessage() != null && e.getMessage().contains("does not exist")) {
                     Log.w(TAG, "El archivo ya no existe, considerando como eliminado exitosamente");
                     callback.onSuccess();
@@ -225,7 +224,7 @@ public class StorageHelper {
     }
 
     /**
-     * Validar si el URI es una imagen válida
+     * Validar si el URI es una imagen valida
      */
     public boolean isValidImageUri(Uri imageUri) {
         if (imageUri == null) return false;
@@ -283,7 +282,7 @@ public class StorageHelper {
     }
 
     /**
-     * Verificar si el servicio de Storage está disponible
+     * Verificar si el servicio de Storage esta disponible
      */
     public boolean isStorageAvailable() {
         try {
@@ -300,6 +299,5 @@ public class StorageHelper {
     public String getStorageBucket() {
         return STORAGE_BUCKET;
     }
-
 
 }
