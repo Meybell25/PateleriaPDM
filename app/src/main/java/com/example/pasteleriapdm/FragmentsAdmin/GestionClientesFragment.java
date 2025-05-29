@@ -60,11 +60,11 @@ public class GestionClientesFragment extends Fragment implements
     private boolean isAdmin = false;
     private boolean isInitialized = false;
 
-    // Variables para búsqueda
+    // Variables para busqueda
     private String textoBusquedaActual = "";
 
     public GestionClientesFragment() {
-        // Required empty public constructor
+        // Constructor vacio requerido
     }
 
     public static GestionClientesFragment newInstance() {
@@ -107,7 +107,7 @@ public class GestionClientesFragment extends Fragment implements
                 return view;
             }
 
-            // Configurar búsqueda
+            // Configurar busqueda
             setupSearchFunctionality();
 
             verificarUsuarioYConfigurar();
@@ -131,7 +131,7 @@ public class GestionClientesFragment extends Fragment implements
             iconClear = view.findViewById(R.id.iconClear);
             lblerrorClientes = view.findViewById(R.id.lblerrorClientes);
 
-            // Verificar vistas críticas
+            // Verificar vistas criticas
             if (btnAbrirDialogoClientes == null) {
                 Log.e(TAG, "btnAbrirDialogoClientes es null - verificar R.id.btnAbrirDialogoClientes");
             }
@@ -154,14 +154,14 @@ public class GestionClientesFragment extends Fragment implements
 
     private void setupSearchFunctionality() {
         try {
-            Log.d(TAG, "Configurando funcionalidad de búsqueda");
+            Log.d(TAG, "Configurando funcionalidad de busqueda");
 
             if (txtBuscarClientes == null || iconClear == null) {
-                Log.e(TAG, "Vistas de búsqueda no inicializadas");
+                Log.e(TAG, "Vistas de busqueda no inicializadas");
                 return;
             }
 
-            // Configurar TextWatcher para búsqueda en tiempo real
+            // Configurar TextWatcher para busqueda en tiempo real
             txtBuscarClientes.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -170,11 +170,11 @@ public class GestionClientesFragment extends Fragment implements
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    // Actualizar búsqueda en tiempo real
+                    // Actualizar busqueda en tiempo real
                     String textoBusqueda = s.toString().trim();
                     textoBusquedaActual = textoBusqueda;
 
-                    // Mostrar/ocultar botón de limpiar
+                    // Mostrar/ocultar boton de limpiar
                     if (textoBusqueda.isEmpty()) {
                         iconClear.setVisibility(View.GONE);
                     } else {
@@ -191,17 +191,17 @@ public class GestionClientesFragment extends Fragment implements
                 }
             });
 
-            // Configurar botón de limpiar
+            // Configurar boton de limpiar
             iconClear.setOnClickListener(v -> {
                 txtBuscarClientes.setText("");
                 txtBuscarClientes.clearFocus();
-                // El TextWatcher se encargará del resto
+                // El TextWatcher se encargara del resto
             });
 
-            Log.d(TAG, "Funcionalidad de búsqueda configurada correctamente");
+            Log.d(TAG, "Funcionalidad de busqueda configurada correctamente");
 
         } catch (Exception e) {
-            Log.e(TAG, "Error configurando búsqueda: " + e.getMessage(), e);
+            Log.e(TAG, "Error configurando busqueda: " + e.getMessage(), e);
         }
     }
 
@@ -218,17 +218,17 @@ public class GestionClientesFragment extends Fragment implements
             listaClientesFiltrada.clear();
 
             if (textoBusqueda.isEmpty()) {
-                // Si no hay texto de búsqueda, mostrar todos los clientes
+                // Si no hay texto de busqueda, mostrar todos los clientes
                 listaClientesFiltrada.addAll(listaClientesCompleta);
             } else {
-                // Filtrar por nombre (búsqueda case-insensitive)
+                // Filtrar por nombre (busqueda case-insensitive)
                 String textoBusquedaLower = textoBusqueda.toLowerCase();
 
                 for (Client cliente : listaClientesCompleta) {
                     if (cliente != null && cliente.getName() != null) {
                         String nombreCliente = cliente.getName().toLowerCase();
 
-                        // Verificar si el nombre contiene el texto de búsqueda
+                        // Verificar si el nombre contiene el texto de busqueda
                         if (nombreCliente.contains(textoBusquedaLower)) {
                             listaClientesFiltrada.add(cliente);
                         }
@@ -267,16 +267,16 @@ public class GestionClientesFragment extends Fragment implements
             if (lblerrorClientes == null) return;
 
             if (!textoBusquedaActual.isEmpty() && listaClientesFiltrada.isEmpty()) {
-                // No hay resultados para la búsqueda
+                // No hay resultados para la busqueda
                 lblerrorClientes.setText("No se encontraron clientes con el nombre: \"" + textoBusquedaActual + "\"");
                 lblerrorClientes.setVisibility(View.VISIBLE);
             } else if (textoBusquedaActual.isEmpty() && listaClientesCompleta.isEmpty()) {
                 // No hay clientes en total
-                String mensaje = isAdmin ? "No hay clientes registrados" : "No has creado clientes aún";
+                String mensaje = isAdmin ? "No hay clientes registrados" : "No has creado clientes aun";
                 lblerrorClientes.setText(mensaje);
                 lblerrorClientes.setVisibility(View.VISIBLE);
             } else {
-                // Hay resultados o no se está buscando
+                // Hay resultados o no se esta buscando
                 lblerrorClientes.setVisibility(View.GONE);
             }
 
@@ -322,7 +322,7 @@ public class GestionClientesFragment extends Fragment implements
                                     cargarClientes();
                                     isInitialized = true;
                                 } catch (Exception e) {
-                                    Log.e(TAG, "Error en configuración post-verificación: " + e.getMessage(), e);
+                                    Log.e(TAG, "Error en configuracion post-verificacion: " + e.getMessage(), e);
                                     Toast.makeText(getContext(), "Error configurando interfaz", Toast.LENGTH_LONG).show();
                                 }
                             });
@@ -402,8 +402,8 @@ public class GestionClientesFragment extends Fragment implements
                         dialog.setClienteDialogListener(this);
                         dialog.show(getParentFragmentManager(), "clientesDialogo");
                     } catch (Exception e) {
-                        Log.e(TAG, "Error abriendo diálogo: " + e.getMessage(), e);
-                        Toast.makeText(getContext(), "Error abriendo diálogo", Toast.LENGTH_SHORT).show();
+                        Log.e(TAG, "Error abriendo dialogo: " + e.getMessage(), e);
+                        Toast.makeText(getContext(), "Error abriendo dialogo", Toast.LENGTH_SHORT).show();
                     }
                 });
                 Log.d(TAG, "Listeners configurados correctamente");
@@ -538,13 +538,12 @@ public class GestionClientesFragment extends Fragment implements
         }
     }
 
-    // Implementación de ClienteDialogListener
+    // Implementacion de ClienteDialogListener
     @Override
     public void onClienteCreado() {
         try {
             Log.d(TAG, "Cliente creado, recargando lista");
             cargarClientes();
-            Toast.makeText(getContext(), "Cliente creado - Lista actualizada", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e(TAG, "Error en onClienteCreado: " + e.getMessage(), e);
         }
@@ -555,19 +554,17 @@ public class GestionClientesFragment extends Fragment implements
         try {
             Log.d(TAG, "Cliente editado, recargando lista");
             cargarClientes();
-            Toast.makeText(getContext(), "Cliente editado - Lista actualizada", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e(TAG, "Error en onClienteEditado: " + e.getMessage(), e);
         }
     }
 
-    // Implementación de ClienteAdapterListener (Admin)
+    // Implementacion de ClienteAdapterListener (Admin)
     @Override
     public void onClienteEliminado() {
         try {
             Log.d(TAG, "Cliente eliminado, recargando lista");
             cargarClientes();
-            Toast.makeText(getContext(), "Cliente eliminado - Lista actualizada", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Log.e(TAG, "Error en onClienteEliminado: " + e.getMessage(), e);
         }
@@ -616,7 +613,7 @@ public class GestionClientesFragment extends Fragment implements
     }
 
     /**
-     * Método público para limpiar la búsqueda (útil para llamar desde otros lugares)
+     * Metodo publico para limpiar la busqueda
      */
     public void limpiarBusqueda() {
         try {
@@ -624,12 +621,12 @@ public class GestionClientesFragment extends Fragment implements
                 txtBuscarClientes.setText("");
             }
         } catch (Exception e) {
-            Log.e(TAG, "Error limpiando búsqueda: " + e.getMessage(), e);
+            Log.e(TAG, "Error limpiando busqueda: " + e.getMessage(), e);
         }
     }
 
     /**
-     * Método público para obtener el texto de búsqueda actual
+     * Metodo publico para obtener el texto de busqueda actual
      */
     public String getTextoBusquedaActual() {
         return textoBusquedaActual;

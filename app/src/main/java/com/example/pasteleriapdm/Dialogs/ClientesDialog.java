@@ -45,7 +45,7 @@ public class ClientesDialog extends DialogFragment {
     private ClienteDialogListener listener;
 
     public ClientesDialog() {
-        // Constructor vacío requerido
+        // Constructor vacioo requerido
     }
 
     // Constructor para modo edición
@@ -121,10 +121,10 @@ public class ClientesDialog extends DialogFragment {
     private void configurarSpinner() {
         String[] estados = {"Activo", "Inactivo", "Bloqueado"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(),
-                android.R.layout.simple_spinner_item, estados);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_personalizado, estados);
+        adapter.setDropDownViewResource(R.layout.spinner_personalizado);
         spinnerEstadoCliente.setAdapter(adapter);
-        spinnerEstadoCliente.setSelection(0); // Selecciona "Activo" por defecto
+        spinnerEstadoCliente.setSelection(0); // Selecciona activo por defecto
     }
 
     private void verificarModoEdicion() {
@@ -263,7 +263,7 @@ public class ClientesDialog extends DialogFragment {
         btnInsertarCliente.setEnabled(false);
         btnInsertarCliente.setText("Actualizando...");
 
-        // Actualizar en base de datos - La verificación de permisos se hace en DatabaseHelper
+        // Actualizar en base de datos - La verificacion de permisos se hace en DatabaseHelper
         databaseHelper.updateClient(clienteAEditar, new DatabaseHelper.DatabaseCallback<Client>() {
             @Override
             public void onSuccess(Client result) {

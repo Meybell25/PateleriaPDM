@@ -214,7 +214,7 @@ public class GestionarUsuariosAdapter extends RecyclerView.Adapter<GestionarUsua
                     if (listener != null) {
                         listener.onUsuarioActualizado(usuarioActualizado);
                     }
-                    Toast.makeText(context, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "Usuario actualizado correctamente", Toast.LENGTH_SHORT).show();
                 }
             });
             usuariosDialog.show(fragmentManager, "editarUsuario");

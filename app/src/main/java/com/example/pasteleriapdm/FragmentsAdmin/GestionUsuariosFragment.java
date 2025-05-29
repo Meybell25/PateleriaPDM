@@ -52,7 +52,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
     private ArrayAdapter<String> spinnerAdapter;
 
     public GestionUsuariosFragment() {
-        // Required empty public constructor
+        // Constructor vacio requerido
     }
 
     public static GestionUsuariosFragment newInstance() {
@@ -96,7 +96,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         opcionesFiltro.add("TODOS");
         opcionesFiltro.add("ADMINISTRADOR");
         opcionesFiltro.add("VENDEDOR");
-        opcionesFiltro.add("PRODUCCIÓN");
+        opcionesFiltro.add("PRODUCCION");
 
         // Configurar adapter del spinner
         spinnerAdapter = new ArrayAdapter<>(getContext(),
@@ -114,7 +114,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // No hace nada
+                // No hacer nada
             }
         });
     }
@@ -163,7 +163,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
             }
         });
 
-        // Configurar botón limpiar filtro
+        // Configurar boton limpiar filtro
         btnLimpiarFiltro.setOnClickListener(v -> {
             limpiarFiltro();
         });
@@ -173,7 +173,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         filtroRolActual = filtro;
         Log.d(TAG, "Aplicando filtro: " + filtro);
 
-        // Mostrar/ocultar botón limpiar filtro
+        // Mostrar/ocultar boton limpiar filtro
         if ("TODOS".equals(filtro)) {
             btnLimpiarFiltro.setVisibility(View.GONE);
         } else {
@@ -208,7 +208,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
                 return User.ROLE_ADMIN;
             case "VENDEDOR":
                 return User.ROLE_SELLER;
-            case "PRODUCCIÓN":
+            case "PRODUCCION":
                 return User.ROLE_PRODUCTION;
             default:
                 return "";
@@ -217,7 +217,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
 
     private void limpiarFiltro() {
         spinnerFiltroRol.setSelection(0); // Seleccionar "TODOS"
-        // El listener del spinner se encargará de aplicar el filtro
+        // El listener del spinner se encargara de aplicar el filtro
     }
 
     private void actualizarContadorUsuarios() {
@@ -250,7 +250,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
     }
 
     private void crearPrimerAdmin() {
-        Log.d(TAG, "Iniciando creación del primer administrador");
+        Log.d(TAG, "Iniciando creacion del primer administrador");
         UsuariosDialog dialog = new UsuariosDialog(true); // true indica que es primer admin
         dialog.setUsuarioDialogListener(this);
         dialog.show(getParentFragmentManager(), "PrimerAdminDialog");
@@ -389,7 +389,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         lblerrorClientes.setVisibility(View.GONE);
     }
 
-    // Implementación de UsuarioDialogListener
+    // Implementacion de UsuarioDialogListener
     @Override
     public void onUsuarioCreado(User usuario) {
         Log.d(TAG, "Usuario creado: " + usuario.getName());
@@ -416,7 +416,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
             rvcUsuarios.smoothScrollToPosition(gestionarUsuariosAdapter.getItemCount() - 1);
         }
 
-        // Ocultar mensaje de vacío si estaba visible
+        // Ocultar mensaje de vacio si estaba visible
         ocultarMensajeVacio();
 
         // Actualizar contador y visibilidad
@@ -424,7 +424,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         actualizarVisibilidadListas();
         actualizarBotonSegunEstado();
 
-        // Mostrar mensaje de éxito
+        // Mostrar mensaje de exito
         String mensaje = usuario.isAdmin() && listaUsuariosCompleta.size() == 1
                 ? "¡Primer administrador creado exitosamente!\nYa puedes gestionar el sistema."
                 : "Usuario " + usuario.getName() + " creado exitosamente";
@@ -447,7 +447,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         // Reaplicar el filtro para reflejar los cambios
         aplicarFiltroRol(filtroRolActual);
 
-        // Mostrar mensaje de éxito
+        // Mostrar mensaje de exito
         Toast.makeText(getContext(), "Usuario " + usuario.getName() + " actualizado exitosamente", Toast.LENGTH_SHORT).show();
     }
 
@@ -456,7 +456,7 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         verificarYCargarUsuarios();
     }
 
-    // Metodo para manejar la eliminacien de usuarios llamado desde el adapter
+    // Metodo para manejar la eliminacion de usuarios llamado desde el adapter
     public void onUsuarioEliminado(String uid) {
         Log.d(TAG, "Usuario eliminado: " + uid);
 
@@ -496,6 +496,4 @@ public class GestionUsuariosFragment extends Fragment implements UsuariosDialog.
         listaUsuariosCompleta.clear();
         listaUsuariosFiltrada.clear();
     }
-
-
 }

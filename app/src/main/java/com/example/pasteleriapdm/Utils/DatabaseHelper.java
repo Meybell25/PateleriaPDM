@@ -38,7 +38,7 @@ public class DatabaseHelper {
         firebaseAuth = FirebaseAuth.getInstance();
     }
 
-    // Metodo para obtener instancia única
+    // Metodo para obtener instancia unica
     public static synchronized DatabaseHelper getInstance() {
         if (instance == null) {
             instance = new DatabaseHelper();
@@ -69,17 +69,16 @@ public class DatabaseHelper {
                     String error = e.getMessage();
 
                     if (error != null && error.contains("correo electronico ya en uso")) {
-                        mensajeError = "Este email ya está registrado.";
-                    } else if (error != null && error.contains("contraseña débil")) {
-                        mensajeError = "La contraseña es muy débil.";
+                        mensajeError = "Este email ya esta registrado.";
+                    } else if (error != null && error.contains("contrasena debil")) {
+                        mensajeError = "La contrasena es muy debil.";
                     } else if (error != null && error.contains("correo invalido")) {
-                        mensajeError = "Correo inválido.";
+                        mensajeError = "Correo invalido.";
                     } else {
                         mensajeError = "Error al crear el usuario: " + error;
                     }
 
                     callback.onError(mensajeError);
-
                 });
     }
 
@@ -143,7 +142,7 @@ public class DatabaseHelper {
      * Actualizar usuario
      */
     public void updateUser(User user, DatabaseCallback<User> callback) {
-        // Crear mapa de actualizaciones sin incluir campos null o vacíos
+        // Crear mapa de actualizaciones sin incluir campos null o vacios
         Map<String, Object> updates = new HashMap<>();
 
         // Campos obligatorios que siempre se actualizan
@@ -151,12 +150,12 @@ public class DatabaseHelper {
         updates.put("role", user.getRole());
         updates.put("status", user.getStatus());
 
-        // Solo actualizar contraseña si no está vacía
+        // Solo actualizar contrasena si no esta vacia
         if (user.getPassword() != null && !user.getPassword().trim().isEmpty()) {
             updates.put("password", user.getPassword());
-            Log.d(TAG, "Actualizando contraseña del usuario");
+            Log.d(TAG, "Actualizando contrasena del usuario");
         } else {
-            Log.d(TAG, "No se actualiza la contraseña (esta vacia)");
+            Log.d(TAG, "No se actualiza la contrasena (esta vacia)");
         }
 
         // Agregar: Actualizar lastLogin si tiene un valor valido
@@ -193,7 +192,7 @@ public class DatabaseHelper {
             return;
         }
 
-        Log.d(TAG, "Iniciando creación del primer administrador con UID: " + user.getUid());
+        Log.d(TAG, "Iniciando creacion del primer administrador con UID: " + user.getUid());
 
         // Verificar primero si ya existen usuarios
         databaseRef.child(USERS_NODE)
@@ -214,7 +213,7 @@ public class DatabaseHelper {
                             user.setCreatedAt(System.currentTimeMillis());
                             user.setLastLogin(0);
 
-                            // Crear el Map COMPLETO incluyendo la contraseña (necesario para primer admin)
+                            // Crear el Map COMPLETO incluyendo la contrasena (necesario para primer admin)
                             Map<String, Object> userData = new HashMap<>();
                             userData.put("uid", user.getUid());
                             userData.put("name", user.getName());
@@ -275,7 +274,7 @@ public class DatabaseHelper {
      */
     public void deleteUser(String uid, DatabaseCallback<Boolean> callback) {
         if (uid == null || uid.trim().isEmpty()) {
-            callback.onError("UID del usuario no puede ser null o vacío");
+            callback.onError("UID del usuario no puede ser null o vacio");
             return;
         }
 
@@ -316,7 +315,7 @@ public class DatabaseHelper {
                         }
 
                         // Si llegamos aqui, el usuario esta inactivo y puede ser eliminado
-                        Log.d(TAG, "Usuario verificado como INACTIVO, procediendo con eliminación");
+                        Log.d(TAG, "Usuario verificado como INACTIVO, procediendo con eliminacion");
 
                         // Proceder con la eliminacion
                         databaseRef.child(USERS_NODE).child(uid)
@@ -338,6 +337,7 @@ public class DatabaseHelper {
                     }
                 });
     }
+
     // ==================== METODOS PARA OBTENER INFORMACION DEL USUARIO ====================
 
     /**
@@ -364,8 +364,6 @@ public class DatabaseHelper {
                     }
                 });
     }
-
-
 
     // ==================== OPERACIONES DE PASTELES ====================
 
@@ -571,7 +569,7 @@ public class DatabaseHelper {
     }
 
     /**
-     * Actualizar cliente - Versión CORREGIDA para permisos
+     * Actualizar cliente - Version CORREGIDA para permisos
      */
     public void updateClient(Client client, DatabaseCallback<Client> callback) {
         String currentUserId = getCurrentUserId();
@@ -597,7 +595,7 @@ public class DatabaseHelper {
 
                 // Admin puede editar cualquier cliente
                 if (currentUser.isAdmin()) {
-                    Log.d(TAG, "Admin detectado, procediendo con actualización");
+                    Log.d(TAG, "Admin detectado, procediendo con actualizacion");
                     procederConActualizacion(client, callback);
                     return;
                 }
@@ -605,7 +603,7 @@ public class DatabaseHelper {
                 // Seller solo puede editar sus clientes
                 if ("seller".equals(currentUser.getRole())) {
                     if (client.getCreatedBy() != null && client.getCreatedBy().equals(currentUserId)) {
-                        Log.d(TAG, "Seller autorizado (es el creador), procediendo con actualización");
+                        Log.d(TAG, "Seller autorizado (es el creador), procediendo con actualizacion");
                         procederConActualizacion(client, callback);
                     } else {
                         String errorMsg = "Seller NO autorizado - Cliente creado por: " +
@@ -637,7 +635,6 @@ public class DatabaseHelper {
         updates.put("status", client.getStatus());
         updates.put("updatedAt", System.currentTimeMillis());
 
-
         Log.d(TAG, "Actualizando cliente: " + client.getId() + " con datos: " + updates.toString());
 
         databaseRef.child(CLIENTS_NODE).child(client.getId())
@@ -651,11 +648,12 @@ public class DatabaseHelper {
                     callback.onError("Error actualizando cliente: " + e.getMessage());
                 });
     }
+
     /**
-     * * Eliminar cliente (solo clientes inactivos)
-     * */
+     * Eliminar cliente (solo clientes inactivos)
+     */
     public void deleteClient(String clientId, DatabaseCallback<Void> callback) {
-        // Primero verificar que el cliente esté inactivo
+        // Primero verificar que el cliente este inactivo
         databaseRef.child(CLIENTS_NODE).child(clientId)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -671,7 +669,7 @@ public class DatabaseHelper {
                             return;
                         }
 
-                        // Proceder con la eliminación
+                        // Proceder con la eliminacion
                         databaseRef.child(CLIENTS_NODE).child(clientId)
                                 .removeValue()
                                 .addOnSuccessListener(aVoid -> {
@@ -747,7 +745,7 @@ public class DatabaseHelper {
     }
 
     /**
-     * Obtener reservas para producción
+     * Obtener reservas para produccion
      */
     public void getProductionReservations(DatabaseCallback<List<Reservation>> callback) {
         databaseRef.child(RESERVATIONS_NODE)
@@ -759,7 +757,7 @@ public class DatabaseHelper {
                         for (DataSnapshot reservationSnapshot : snapshot.getChildren()) {
                             Reservation reservation = reservationSnapshot.getValue(Reservation.class);
                             if (reservation != null) {
-                                // Solo reservas confirmadas o en producción
+                                // Solo reservas confirmadas o en produccion
                                 if (reservation.isConfirmed() || reservation.isInProduction() ||
                                         reservation.isReady() || reservation.isDelivered()) {
                                     reservation.setId(reservationSnapshot.getKey());
@@ -916,12 +914,7 @@ public class DatabaseHelper {
         });
     }
 
-    //  metodo para el totala de usario
-
-    /**
-     * Obtiene el total de usuarios en la base de datos
-     * @param callback Callback para recibir el resultado
-     */
+    // ==================== METODO PARA OBTENER EL TOTAL DE USUARIOS ====================
     /**
      * Obtiene el total de usuarios en la base de datos
      * @param callback Callback para recibir el resultado
@@ -945,4 +938,81 @@ public class DatabaseHelper {
                     }
                 });
     }
+
+    // ==================== METODO PARA OBTENER EL TOTAL DE CLIENTES ====================
+    /**
+     * Obtiene el total de clientes en la base de datos
+     * @param callback Callback para recibir el resultado
+     */
+    public void obtenerTotalClientes(DatabaseCallback<Integer> callback) {
+        Log.d(TAG, "Obteniendo total de clientes...");
+
+        databaseRef.child(CLIENTS_NODE)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        int total = (int) snapshot.getChildrenCount();
+                        Log.d(TAG, "Total de clientes: " + total);
+                        callback.onSuccess(total);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo total de clientes", error.toException());
+                        callback.onError("Error: " + error.getMessage());
+                    }
+                });
+    }
+
+
+// ==================== METODO PARA OBTENER EL TOTAL DE PASTELES ====================
+    /**
+     * Obtiene el total de pasteles en la base de datos
+     * @param callback Callback para recibir el resultado
+     */
+    public void obtenerTotalPasteles(DatabaseCallback<Integer> callback) {
+        Log.d(TAG, "Obteniendo total de pasteles...");
+
+        databaseRef.child(CAKES_NODE)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        int total = (int) snapshot.getChildrenCount();
+                        Log.d(TAG, "Total de pasteles: " + total);
+                        callback.onSuccess(total);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo total de pasteles", error.toException());
+                        callback.onError("Error: " + error.getMessage());
+                    }
+                });
+    }
+
+    // ==================== METODO PARA OBTENER EL TOTAL DE RESERVAS ====================
+    /**
+     * Obtiene el total de reservas en la base de datos
+     * @param callback Callback para recibir el resultado
+     */
+    public void obtenerTotalReservas(DatabaseCallback<Integer> callback) {
+        Log.d(TAG, "Obteniendo total de reservas...");
+
+        databaseRef.child(RESERVATIONS_NODE)
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        int total = (int) snapshot.getChildrenCount();
+                        Log.d(TAG, "Total de reservas: " + total);
+                        callback.onSuccess(total);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        Log.e(TAG, "Error obteniendo total de reservas", error.toException());
+                        callback.onError("Error: " + error.getMessage());
+                    }
+                });
+    }
+
 }
