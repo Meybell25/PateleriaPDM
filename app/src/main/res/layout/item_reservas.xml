@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp">
 
-        <!-- LL PARA ECABESADO DE LASECCION -->
+        <!-- HEADER DE LA RESERVA -->
         <LinearLayout
             android:id="@+id/llHeaderReserva"
             android:layout_width="0dp"
@@ -37,7 +37,7 @@
             <TextView
                 android:id="@+id/lblEstadoReserva"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/style_estado_reserva"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
@@ -67,18 +67,18 @@
                 android:layout_marginEnd="8dp" />
 
             <TextView
-                android:id="@+id/lblNombreCliente"
+                android:id="@+id/lblClienteId"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Cliente: Juan Pérez"
+                android:text="Cliente NOMBRE:"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- INFO VENDEDOR O ADMIN -->
+        <!-- INFO CREADOR/VENDEDOR -->
         <LinearLayout
-            android:id="@+id/llInfoVendedor"
+            android:id="@+id/llInfoCreador"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -96,16 +96,16 @@
                 android:layout_marginEnd="8dp" />
 
             <TextView
-                android:id="@+id/lblNombreVendedor"
+                android:id="@+id/lblCreador"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Atendido por: María González"
+                android:text="Creada nombre: seller123"
                 android:textColor="@color/morado_oscuro"
                 android:textSize="13sp" />
         </LinearLayout>
 
-        <!-- FECHA PARA ENTREGA -->
+        <!-- FECHA Y HORA DE ENTREGA -->
         <LinearLayout
             android:id="@+id/llInfoEntrega"
             android:layout_width="0dp"
@@ -113,7 +113,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/llInfoVendedor"
+            app:layout_constraintTop_toBottomOf="@id/llInfoCreador"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -125,45 +125,16 @@
                 android:layout_marginEnd="8dp" />
 
             <TextView
-                android:id="@+id/lblFechaEntrega"
+                android:id="@+id/lblFechaHoraEntrega"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Fecha: 25/05/2025"
+                android:text="Entrega: 25/05/2025 - 15:30"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <!-- HORA DE ENTRAGA -->
-        <LinearLayout
-            android:id="@+id/llInfoHoraEntrega"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/llInfoEntrega"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_reloj"
-                android:tint="@color/rosa_acento"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:id="@+id/lblHoraEntrega"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Hora: 15:30"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <!-- direccion de entrega -->
+        <!-- DIRECCION DE ENTREGA -->
         <LinearLayout
             android:id="@+id/llInfoDireccion"
             android:layout_width="0dp"
@@ -171,7 +142,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/llInfoHoraEntrega"
+            app:layout_constraintTop_toBottomOf="@id/llInfoEntrega"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
@@ -187,14 +158,14 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Calle Principal #123, Col. Centro"
+                android:text="Dirección de entrega"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:maxLines="2"
                 android:ellipsize="end" />
         </LinearLayout>
 
-        <!-- Items del pedido -->
+        <!-- ITEMS DEL PEDIDO -->
         <LinearLayout
             android:id="@+id/llInfoItems"
             android:layout_width="0dp"
@@ -222,62 +193,110 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Pasteles Reservados:"
+                    android:text="Pasteles:"
                     android:textColor="@color/morado_oscuro"
                     android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblTotalItems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="(3 items)"
+                    android:textColor="@color/rosa_acento"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <TextView
-                android:id="@+id/lblNombresPasteles"
+                android:id="@+id/lblDetalleItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="28dp"
-                android:text="• Pastel de Chocolate (2x)\n• Cheesecake de Fresa (1x)"
+                android:text="Ver detalles de pasteles..."
                 android:textColor="@color/black"
                 android:textSize="13sp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:lineSpacingExtra="2dp" />
+                android:maxLines="2"
+                android:ellipsize="end" />
         </LinearLayout>
 
-        <!-- LL PARA PIUORIDAD-->
+        <!-- INFORMACION DE PAGO -->
         <LinearLayout
-            android:id="@+id/llPrioridadTotal"
+            android:id="@+id/llInfoPago"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="12dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/llInfoItems"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_pago"
+                android:tint="@color/rosa_acento"
+                android:layout_marginEnd="8dp" />
+
             <TextView
-                android:id="@+id/lblPrioridadReserva"
+                android:id="@+id/lblEstadoPago"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="ALTA"
-                android:textColor="@color/rosa"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:drawableStart="@drawable/ic_estado_cliente"
-                android:drawableTint="@color/rosa"
-                android:drawablePadding="6dp"
-                android:gravity="center_vertical" />
+                android:text="Pago: Pendiente"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- TOTAL Y FECHAS -->
+        <LinearLayout
+            android:id="@+id/llTotalFechas"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            app:layout_constraintTop_toBottomOf="@id/llInfoPago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblFechaCreacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Creada: 20/05/2025"
+                    android:textColor="@color/black"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/lblUltimaActualizacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Actualizada: 21/05/2025"
+                    android:textColor="@color/black"
+                    android:textSize="11sp"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/lblTotalReserva"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$450.00"
+                android:text="$450.00 COP"
                 android:textColor="@color/rosa"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center" />
         </LinearLayout>
 
-        <!--NOTITAS  -->
+        <!-- NOTAS -->
         <TextView
             android:id="@+id/lblNotasReserva"
             android:layout_width="0dp"
@@ -290,11 +309,26 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/llPrioridadTotal"
+            app:layout_constraintTop_toBottomOf="@id/llTotalFechas"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- btns de accion -->
+        <!-- INDICADOR DE VENCIMIENTO -->
+        <TextView
+            android:id="@+id/lblVencimiento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="⚠️ VENCIDA"
+            android:textColor="@color/rojo_error"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/lblNotasReserva"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- BOTONES DE ACCION -->
         <LinearLayout
             android:id="@+id/llBotonesAccion"
             android:layout_width="0dp"
@@ -302,12 +336,12 @@
             android:orientation="horizontal"
             android:layout_marginTop="16dp"
             android:gravity="end"
-            app:layout_constraintTop_toBottomOf="@id/lblNotasReserva"
+            app:layout_constraintTop_toBottomOf="@id/lblVencimiento"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- btn Ver O Detalles -->
+            <!-- Botón Ver Detalles
             <ImageButton
                 android:id="@+id/btnVerReserva"
                 android:layout_width="42dp"
@@ -316,9 +350,9 @@
                 android:background="@drawable/style_circulo2"
                 android:src="@drawable/ic_ojo"
                 android:tint="@color/white"
-                android:contentDescription="Ver detalles" />
+                android:contentDescription="Ver detalles" />-->
 
-            <!-- btn Editar -->
+            <!-- Botón Editar -->
             <ImageButton
                 android:id="@+id/btnEditarReserva"
                 android:layout_width="42dp"
@@ -329,7 +363,9 @@
                 android:tint="@color/white"
                 android:contentDescription="Editar reserva" />
 
-            <!-- btn Eliminar -->
+
+
+            <!-- Botón Eliminar -->
             <ImageButton
                 android:id="@+id/btnEliminarReserva"
                 android:layout_width="42dp"
