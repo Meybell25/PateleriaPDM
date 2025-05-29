@@ -45,7 +45,7 @@ public class UsuarioPaneleAdapter extends RecyclerView.Adapter<UsuarioPaneleAdap
         holder.lblCantidadUsuariosPanel.setText(String.valueOf(totalUsuarios));
 
         // Opcional: cambiar icono
-        holder.imgPastel.setImageResource(R.drawable.img_usuarios_panel);
+        holder.imgPastel.setImageResource(R.drawable.img_usuarios1_panel);
     }
 
     @Override

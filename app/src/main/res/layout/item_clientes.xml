@@ -20,7 +20,7 @@
             android:id="@+id/imgCliente"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_user"
+            android:src="@drawable/img_cliente_leal2_panel"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -40,7 +40,7 @@
 
 
 
-        <!-- Teléfono Principal -->
+        <!-- Telefono Principal -->
         <TextView
             android:id="@+id/lblTelefono"
             android:layout_width="0dp"
@@ -53,7 +53,7 @@
             app:layout_constraintStart_toStartOf="@id/lblNombreCompleto"
             app:layout_constraintTop_toBottomOf="@id/lblNombreCompleto" />
 
-        <!-- Dirección -->
+        <!-- Direccion -->
         <TextView
             android:id="@+id/tvDireccion"
             android:layout_width="0dp"
@@ -82,7 +82,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Información de Fechas -->
+        <!-- Informacion de Fechas -->
         <LinearLayout
             android:id="@+id/layoutFechas"
             android:layout_width="0dp"
@@ -124,7 +124,7 @@
 
         </LinearLayout>
 
-        <!-- Estadísticas de cliente -->
+        <!-- Estadisticas de cliente -->
         <LinearLayout
             android:id="@+id/layoutEstadisticas"
             android:layout_width="0dp"
@@ -162,7 +162,7 @@
 
         </LinearLayout>
 
-        <!-- Información del Creador -->
+        <!-- Informacion del Creador -->
         <TextView
             android:id="@+id/lblCreadoPor"
             android:layout_width="0dp"
@@ -176,7 +176,7 @@
             app:layout_constraintEnd_toStartOf="@id/tvEstado"
             app:layout_constraintTop_toBottomOf="@id/layoutEstadisticas" />
 
-        <!-- Cliente Preferencial (Solo si es preferencial) -->
+        <!-- Cliente Preferencial Solo si es preferencial -->
         <TextView
             android:id="@+id/tvClientePreferencial"
             android:layout_width="wrap_content"
@@ -194,7 +194,7 @@
             app:layout_constraintStart_toStartOf="@id/lblCreadoPor"
             app:layout_constraintTop_toBottomOf="@id/lblCreadoPor" />
 
-        <!-- Botones de Acción -->
+        <!-- Botones de Accion -->
         <LinearLayout
             android:id="@+id/layoutBotones"
             android:layout_width="wrap_content"
@@ -204,7 +204,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvClientePreferencial"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- Botón Editar -->
+            <!-- Boton Editar -->
             <ImageButton
                 android:id="@+id/btnEditarCliente"
                 android:layout_width="36dp"
@@ -215,7 +215,7 @@
                 android:tint="@color/white"
                 android:contentDescription="Editar cliente" />
 
-            <!-- Botón Eliminar -->
+            <!-- Boton Eliminar -->
             <ImageButton
                 android:id="@+id/btnEliminarCliente"
                 android:layout_width="36dp"
@@ -224,8 +224,6 @@
                 android:src="@drawable/ic_eliminar"
                 android:tint="@color/white"
                 android:contentDescription="Eliminar cliente" />
-
         </LinearLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

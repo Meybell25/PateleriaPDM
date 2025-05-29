@@ -18,7 +18,7 @@
 
         <!-- Imagen -->
         <ImageView
-            android:id="@+id/imege"
+            android:id="@+id/imageClientes"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginBottom="16dp"

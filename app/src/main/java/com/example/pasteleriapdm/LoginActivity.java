@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "Error en login", e);
                     mostrarCargando(false);
                     isManualLogin = false; // Reset flag
-                    mostrarError(" Error: Al iniciciar seccion" );
+                    mostrarError(" Error: Al iniciciar seccion verifique sus credenciales" );
                 });
     }
 

@@ -266,7 +266,7 @@ public class UsuariosDialog extends DialogFragment {
                             public void onSuccess(User usuario) {
                                 Log.d(TAG, "Usuario creado exitosamente");
                                 mostrarCargando(false);
-                                Toast.makeText(getContext(), "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), "Usuario creado exitosamente", Toast.LENGTH_SHORT).show();
 
                                 if (listener != null) {
                                     listener.onUsuarioCreado(usuario);
@@ -297,12 +297,12 @@ public class UsuariosDialog extends DialogFragment {
                     String mensajeError;
                     if (e.getMessage().contains("correo electronico ya en uso")) {
                         mensajeError = "Este email ya esta registrado";
-                    } else if (e.getMessage().contains("contraseña débil")) {
+                    } else if (e.getMessage().contains("contraseña debil")) {
                         mensajeError = "La contraseña es muy debil";
                     } else if (e.getMessage().contains("correo invalido")) {
                         mensajeError = "Correo invalido";
                     } else {
-                        mensajeError = "Error creando usuario: " + e.getMessage();
+                        mensajeError = "Error al crear unsuario: Este correo ya tiene una cuenta" ;
                     }
                     Toast.makeText(getContext(), mensajeError, Toast.LENGTH_LONG).show();
                 });
