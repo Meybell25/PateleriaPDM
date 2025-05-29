@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="32dp">
 
-        <!-- TITULOO -->
+        <!-- TITULO -->
         <TextView
             android:id="@+id/lblTituloDialogoPago"
             android:layout_width="wrap_content"
@@ -27,12 +27,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- LBL PRECIO DEL PASTELASO -->
+        <!-- MONTO BASE -->
         <TextView
             android:id="@+id/lblPrecioPastel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Precio del pastel:"
+            android:text="Monto base:"
             android:textColor="#F6F3F3"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -41,12 +41,11 @@
             app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoPago"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- IMPUT PRECIO DEL PASTILLO-->
         <TextView
             android:id="@+id/txtPrecioPastel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$0.00"
+            android:text="$0.00 COP"
             android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -55,7 +54,7 @@
             app:layout_constraintTop_toBottomOf="@id/lblTituloDialogoPago"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- DESCUENTO POR SI ES QUE HAY XD -->
+        <!-- DESCUENTO -->
         <TextView
             android:id="@+id/lblDescuento"
             android:layout_width="wrap_content"
@@ -82,19 +81,64 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:boxBackgroundColor="#33FFFFFF"
             app:boxStrokeColor="@android:color/white"
+            app:startIconDrawable="@drawable/ic_descuento"
             app:startIconTint="@android:color/white"
             app:boxCornerRadiusTopStart="24dp"
             app:boxCornerRadiusTopEnd="24dp"
             app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusBottomEnd="24dp">
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtDescuento"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="Ingrese descuento"
+                android:hint="Ingrese descuento (COP)"
                 android:inputType="numberDecimal"
-                android:padding="20dp"
+                android:paddingVertical="16dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="#80FFFFFF" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- IMPUESTO/TAX -->
+        <TextView
+            android:id="@+id/lblImpuesto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Impuesto (opcional)"
+            android:textColor="#F6F3F3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@id/tilDescuento"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilImpuesto"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:layout_constraintTop_toBottomOf="@id/lblImpuesto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxStrokeColor="@android:color/white"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtImpuesto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Ingrese impuesto (COP)"
+                android:inputType="numberDecimal"
                 android:paddingVertical="16dp"
                 android:textColor="@android:color/white"
                 android:textColorHint="#80FFFFFF" />
@@ -105,16 +149,15 @@
             android:id="@+id/lblMetodoPago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Método de pago"
+            android:text="Método de pago *"
             android:textColor="#F6F3F3"
             android:textSize="14sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:layout_marginStart="32dp"
-            app:layout_constraintTop_toBottomOf="@id/tilDescuento"
+            app:layout_constraintTop_toBottomOf="@id/tilImpuesto"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- SECCOPN CON LINEARLAYOT PARA EL METODO DE PAGO-->
         <LinearLayout
             android:id="@+id/layoutMetodoPago"
             android:layout_width="0dp"
@@ -142,75 +185,119 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAppearance="@style/SpinnerTextAppearance"
-                android:theme="@style/SpinnerTheme"
-                android:textColor="@color/rosa_fucsia_suave"
-                style="@style/TextoSpinnerItemEstilo"
                 android:background="@android:color/transparent" />
         </LinearLayout>
 
-        <!-- MOTO TOTAL -->
+        <!-- ESTADO DEL PAGO -->
+        <TextView
+            android:id="@+id/lblEstadoPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado del pago"
+            android:textColor="#F6F3F3"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@id/layoutMetodoPago"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layoutEstadoPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/spinner_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@id/lblEstadoPago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:tint="@color/rosa_acento" />
+
+            <Spinner
+                android:id="@+id/spinnerEstadoPago"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent" />
+        </LinearLayout>
+
+        <!-- RESUMEN DE CALCULO -->
+        <View
+            android:id="@+id/dividerCalculos"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="32dp"
+            android:background="#33FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/layoutEstadoPago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/lblResumenCalculos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resumen de cálculos"
+            android:textColor="#F6F3F3"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@id/dividerCalculos"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- MONTO TOTAL FINAL -->
         <TextView
             android:id="@+id/lblMontoTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Monto total a pagar:"
+            android:text="MONTO TOTAL A PAGAR:"
             android:textColor="#F6F3F3"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="40dp"
-            app:layout_constraintTop_toBottomOf="@id/layoutMetodoPago"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintTop_toBottomOf="@id/lblResumenCalculos"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/txtMontoTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$0.00"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
+            android:text="$0.00 COP"
+            android:textColor="@color/rosa_acento"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            app:layout_constraintTop_toBottomOf="@id/layoutMetodoPago"
+            app:layout_constraintTop_toBottomOf="@id/lblResumenCalculos"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- REFERENACIAS -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilReferencia"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:layout_constraintTop_toBottomOf="@id/lblMontoTotal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:boxBackgroundColor="#33FFFFFF"
-            app:boxStrokeColor="@android:color/white"
-            app:startIconTint="@android:color/white"
-            app:boxCornerRadiusTopStart="24dp"
-            app:boxCornerRadiusTopEnd="24dp"
-            app:boxCornerRadiusBottomStart="24dp"
-            app:boxCornerRadiusBottomEnd="24dp" />
-
-        <!-- LENEARLAYOT PARA BTNS -->
+        <!-- BOTONES -->
         <LinearLayout
             android:id="@+id/layoutBotonesPago"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:orientation="horizontal"
             android:weightSum="2"
-            app:layout_constraintTop_toBottomOf="@id/tilReferencia"
+            app:layout_constraintTop_toBottomOf="@id/lblMontoTotal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <!-- CANCELAR-->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancelarPago"
                 android:layout_width="0dp"
@@ -226,7 +313,6 @@
                 android:backgroundTint="@color/morado_oscuro"
                 app:cornerRadius="24dp" />
 
-            <!--PROCESAR PAGOO -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnProcesarPago"
                 android:layout_width="0dp"
@@ -243,7 +329,7 @@
                 app:cornerRadius="24dp" />
         </LinearLayout>
 
-        <!-- SALIR XD -->
+        <!-- SALIR -->
         <TextView
             android:id="@+id/btnSalir"
             android:layout_width="wrap_content"
@@ -257,5 +343,6 @@
             app:layout_constraintTop_toBottomOf="@id/layoutBotonesPago"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

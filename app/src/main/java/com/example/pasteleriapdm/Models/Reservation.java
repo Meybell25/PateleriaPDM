@@ -18,40 +18,31 @@ public class Reservation {
     public static final String STATUS_DELIVERED = "entregada";
     public static final String STATUS_CANCELLED = "cancelada";
 
-    // Constantes para prioridad
-    public static final String PRIORITY_LOW = "baja";
-    public static final String PRIORITY_NORMAL = "normal";
-    public static final String PRIORITY_HIGH = "alta";
-    public static final String PRIORITY_URGENT = "urgente";
-
-    private String id;                    // ID unico de la reserva
-    private String clientId;              // ID del cliente
-    private String createdBy;             // UID del seller que la creo
-    private long createdAt;               // Timestamp de creacion
-    private long deliveryAt;              // Timestamp de entrega programada
-    private long updatedAt;               // Timestamp de ultima actualizacion
-    private String status;                // Estado actual de la reserva
-    private Map<String, Integer> items;   // cakeId -> cantidad
-    private Payment payment;              // Información del pago
-    private String notes;                 // Notas especiales del pedido
-    private String deliveryAddress;       // Direccion de entrega
-    private String priority;              // Prioridad del pedido
-    private double totalAmount;           // Monto total calculado
-    private String lastUpdatedBy;         // UID del último usuario que la modifico
-
+    private String id;                            // ID unico de la reserva
+    private String clientId;                      // ID del cliente
+    private String createdBy;                     // UID del seller que la creo
+    private long createdAt;                       // Timestamp de creacion
+    private long deliveryAt;                      // Timestamp de entrega programada
+    private long updatedAt;                       // Timestamp de ultima actualizacion
+    private String status;                        // Estado actual de la reserva
+    private Map<String, Object> items;            // CAMBIADO: cakeId -> {quantity, unitPrice, cakeName}
+    private Payment payment;                      // Información del pago
+    private String notes;                         // Notas especiales del pedido
+    private String deliveryAddress;               // Direccion de entrega
+    private double totalAmount;                   // Monto total calculado
+    private String lastUpdatedBy;                 // UID del último usuario que la modifico
 
     // Constructor vacio requerido por Firebase
     public Reservation() {}
 
-    // Constructor básico
+    // Constructor básico actualizado
     public Reservation(String clientId, String createdBy, long deliveryAt,
-                       Map<String, Integer> items) {
+                       Map<String, Object> items) {
         this.clientId = clientId;
         this.createdBy = createdBy;
         this.deliveryAt = deliveryAt;
         this.items = items;
         this.status = STATUS_PENDING;
-        this.priority = PRIORITY_NORMAL;
         this.createdAt = System.currentTimeMillis();
         this.updatedAt = this.createdAt;
         this.totalAmount = 0.0;
@@ -59,10 +50,9 @@ public class Reservation {
 
     // Constructor completo
     public Reservation(String clientId, String createdBy, long deliveryAt,
-                       Map<String, Integer> items, String notes, String priority) {
+                       Map<String, Object> items, String notes) {
         this(clientId, createdBy, deliveryAt, items);
         this.notes = notes;
-        this.priority = priority;
     }
 
     // Getters y Setters
@@ -105,8 +95,9 @@ public class Reservation {
         updateTimestamp();
     }
 
-    public Map<String, Integer> getItems() { return items; }
-    public void setItems(Map<String, Integer> items) {
+    // CAMBIADO: Ahora usa Map<String, Object>
+    public Map<String, Object> getItems() { return items; }
+    public void setItems(Map<String, Object> items) {
         this.items = items;
         updateTimestamp();
     }
@@ -131,12 +122,6 @@ public class Reservation {
         updateTimestamp();
     }
 
-    public String getPriority() { return priority; }
-    public void setPriority(String priority) {
-        this.priority = priority;
-        updateTimestamp();
-    }
-
     @PropertyName("totalAmount")
     public double getTotalAmount() { return totalAmount; }
     @PropertyName("totalAmount")
@@ -152,7 +137,6 @@ public class Reservation {
         this.lastUpdatedBy = lastUpdatedBy;
         updateTimestamp();
     }
-
 
     // Metodos de utilidad para estados
     public boolean isPending() {
@@ -210,12 +194,19 @@ public class Reservation {
         this.updatedAt = System.currentTimeMillis();
     }
 
-    // Calcular total de items
+    // ACTUALIZADO: Calcular total de items con el nuevo formato
     public int getTotalItems() {
         if (items == null) return 0;
         int total = 0;
-        for (Integer quantity : items.values()) {
-            total += quantity;
+        for (Object itemObj : items.values()) {
+            if (itemObj instanceof Map) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> itemData = (Map<String, Object>) itemObj;
+                Object quantityObj = itemData.get("quantity");
+                if (quantityObj instanceof Number) {
+                    total += ((Number) quantityObj).intValue();
+                }
+            }
         }
         return total;
     }
@@ -239,15 +230,138 @@ public class Reservation {
                 STATUS_DELIVERED.equals(status) ||
                 STATUS_CANCELLED.equals(status);
     }
+    // Agregar este método a tu clase Reservation
+    @SuppressWarnings("unchecked")
+    public void loadFromMap(Map<String, Object> data) {
+        if (data.containsKey("id")) {
+            this.id = (String) data.get("id");
+        }
 
-    // Validar prioridad valida
-    public static boolean isValidPriority(String priority) {
-        return PRIORITY_LOW.equals(priority) ||
-                PRIORITY_NORMAL.equals(priority) ||
-                PRIORITY_HIGH.equals(priority) ||
-                PRIORITY_URGENT.equals(priority);
+        if (data.containsKey("clientId")) {
+            this.clientId = (String) data.get("clientId");
+        }
+
+        if (data.containsKey("createdBy")) {
+            this.createdBy = (String) data.get("createdBy");
+        }
+
+        if (data.containsKey("createdAt")) {
+            Object createdAtObj = data.get("createdAt");
+            if (createdAtObj instanceof Long) {
+                this.createdAt = (Long) createdAtObj;
+            }
+        }
+
+        if (data.containsKey("deliveryAt")) {
+            Object deliveryAtObj = data.get("deliveryAt");
+            if (deliveryAtObj instanceof Long) {
+                this.deliveryAt = (Long) deliveryAtObj;
+            }
+        }
+
+        if (data.containsKey("updatedAt")) {
+            Object updatedAtObj = data.get("updatedAt");
+            if (updatedAtObj instanceof Long) {
+                this.updatedAt = (Long) updatedAtObj;
+            }
+        }
+
+        if (data.containsKey("status")) {
+            this.status = (String) data.get("status");
+        }
+
+        if (data.containsKey("items")) {
+            this.items = (Map<String, Object>) data.get("items");
+        }
+
+        if (data.containsKey("notes")) {
+            this.notes = (String) data.get("notes");
+        }
+
+        if (data.containsKey("deliveryAddress")) {
+            this.deliveryAddress = (String) data.get("deliveryAddress");
+        }
+
+        if (data.containsKey("totalAmount")) {
+            Object totalAmountObj = data.get("totalAmount");
+            if (totalAmountObj instanceof Double) {
+                this.totalAmount = (Double) totalAmountObj;
+            } else if (totalAmountObj instanceof Long) {
+                this.totalAmount = ((Long) totalAmountObj).doubleValue();
+            }
+        }
+
+        if (data.containsKey("lastUpdatedBy")) {
+            this.lastUpdatedBy = (String) data.get("lastUpdatedBy");
+        }
+
+        // Cargar información del pago
+        if (data.containsKey("payment") && data.get("payment") != null) {
+            Map<String, Object> paymentData = (Map<String, Object>) data.get("payment");
+            Payment payment = new Payment();
+
+            if (paymentData.containsKey("amount")) {
+                Object amountObj = paymentData.get("amount");
+                if (amountObj instanceof Double) {
+                    payment.setAmount((Double) amountObj);
+                } else if (amountObj instanceof Long) {
+                    payment.setAmount(((Long) amountObj).doubleValue());
+                }
+            }
+
+            if (paymentData.containsKey("method")) {
+                payment.setMethod((String) paymentData.get("method"));
+            }
+
+            if (paymentData.containsKey("status")) {
+                payment.setStatus((String) paymentData.get("status"));
+            }
+
+            if (paymentData.containsKey("timestamp")) {
+                Object timestampObj = paymentData.get("timestamp");
+                if (timestampObj instanceof Long) {
+                    payment.setTimestamp((Long) timestampObj);
+                }
+            }
+
+            if (paymentData.containsKey("processedBy")) {
+                payment.setProcessedBy((String) paymentData.get("processedBy"));
+            }
+
+            if (paymentData.containsKey("discount")) {
+                Object discountObj = paymentData.get("discount");
+                if (discountObj instanceof Double) {
+                    payment.setDiscount((Double) discountObj);
+                } else if (discountObj instanceof Long) {
+                    payment.setDiscount(((Long) discountObj).doubleValue());
+                }
+            }
+
+            if (paymentData.containsKey("tax")) {
+                Object taxObj = paymentData.get("tax");
+                if (taxObj instanceof Double) {
+                    payment.setTax((Double) taxObj);
+                } else if (taxObj instanceof Long) {
+                    payment.setTax(((Long) taxObj).doubleValue());
+                }
+            }
+
+            if (paymentData.containsKey("finalAmount")) {
+                Object finalAmountObj = paymentData.get("finalAmount");
+                if (finalAmountObj instanceof Long) {
+                    payment.setFinalAmount(((Long) finalAmountObj).doubleValue());
+                } else if (finalAmountObj instanceof Double) {
+                    payment.setFinalAmount((Double) finalAmountObj);
+                }
+            }
+
+            this.payment = payment;
+        }
     }
 
+    public Reservation(Map<String, Object> data) {
+        loadFromMap(data);
+    }
     // Convertir a Map para Firebase
     public Map<String, Object> toMap() {
         Map<String, Object> result = new HashMap<>();
@@ -262,7 +376,6 @@ public class Reservation {
         result.put("payment", payment != null ? payment.toMap() : null);
         result.put("notes", notes);
         result.put("deliveryAddress", deliveryAddress);
-        result.put("priority", priority);
         result.put("totalAmount", totalAmount);
         result.put("lastUpdatedBy", lastUpdatedBy);
         return result;

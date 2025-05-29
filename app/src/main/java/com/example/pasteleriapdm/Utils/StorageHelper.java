@@ -71,7 +71,7 @@ public class StorageHelper {
      * Subir imagen de pastel a Firebase Storage
      *
      * @param imageUri URI de la imagen seleccionada
-     * @param cakeId ID del pastel (opcional, se genera uno si es null)
+     * @param cakeId ID del pastel ( se genera uno si es null)
      * @param callback Callback para manejar el resultado
      */
     public void uploadCakeImage(Uri imageUri, String cakeId, StorageCallback callback) {
@@ -81,7 +81,7 @@ public class StorageHelper {
         }
 
         if (!isValidImageUri(imageUri)) {
-            callback.onError("URI de imagen no válido");
+            callback.onError("URI de imagen no valido");
             return;
         }
 
@@ -95,14 +95,6 @@ public class StorageHelper {
 
             Log.d(TAG, "Subiendo imagen a: " + imagePath);
             Log.d(TAG, "URI de imagen: " + imageUri.toString());
-
-            // Configurar metadata opcional
-            /*
-            StorageMetadata metadata = new StorageMetadata.Builder()
-                    .setContentType("image/jpeg")
-                    .setCustomMetadata("cakeId", cakeId != null ? cakeId : "unknown")
-                    .build();
-            */
 
             // Subir archivo
             UploadTask uploadTask = imageRef.putFile(imageUri);
@@ -223,7 +215,7 @@ public class StorageHelper {
     }
 
     /**
-     * Generar nombre único para archivo de imagen
+     * Generar nombre unico para archivo de imagen
      */
     private String generateImageFileName(String cakeId) {
         String prefix = (cakeId != null && !cakeId.isEmpty()) ? "cake_" + cakeId : "cake";
@@ -246,7 +238,7 @@ public class StorageHelper {
     }
 
     /**
-     * Obtener referencia a una imagen específica
+     * Obtener referencia a una imagen especifica
      */
     public StorageReference getImageReference(String imagePath) {
         if (imagePath == null || imagePath.trim().isEmpty()) {
@@ -309,11 +301,5 @@ public class StorageHelper {
         return STORAGE_BUCKET;
     }
 
-    /**
-     * Limpiar cache y referencias (para testing o cleanup)
-     */
-    public void cleanup() {
-        // Firebase Storage maneja su propia limpieza
-        Log.d(TAG, "StorageHelper cleanup completado");
-    }
+
 }

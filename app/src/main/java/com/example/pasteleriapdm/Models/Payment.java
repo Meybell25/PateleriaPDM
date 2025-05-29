@@ -20,14 +20,11 @@ public class Payment {
     public static final String STATUS_PENDING = "pendiente";
     public static final String STATUS_PAID = "pagado";
     public static final String STATUS_CANCELLED = "cancelado";
-    public static final String STATUS_REFUNDED = "reembolsado";
 
     private double amount;          // Monto total del pago
     private String method;          // Metodo de pago
     private String status;          // Estado del pago
     private long timestamp;         // Timestamp del pago
-    private String reference;       // Referencia del pago (numero de transaccion)
-    private String notes;           // Notas del pago
     private String processedBy;     // UID del usuario que proceso el pago
     private double discount;        // Descuento aplicado
     private double tax;             // Impuesto aplicado
@@ -70,11 +67,6 @@ public class Payment {
     public long getTimestamp() { return timestamp; }
     public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
 
-    public String getReference() { return reference; }
-    public void setReference(String reference) { this.reference = reference; }
-
-    public String getNotes() { return notes; }
-    public void setNotes(String notes) { this.notes = notes; }
 
     @PropertyName("processedBy")
     public String getProcessedBy() { return processedBy; }
@@ -150,8 +142,7 @@ public class Payment {
     public static boolean isValidStatus(String status) {
         return STATUS_PENDING.equals(status) ||
                 STATUS_PAID.equals(status) ||
-                STATUS_CANCELLED.equals(status) ||
-                STATUS_REFUNDED.equals(status);
+                STATUS_CANCELLED.equals(status) ;
     }
 
     // Convertir a Map para Firebase
@@ -161,8 +152,6 @@ public class Payment {
         result.put("method", method);
         result.put("status", status);
         result.put("timestamp", timestamp);
-        result.put("reference", reference);
-        result.put("notes", notes);
         result.put("processedBy", processedBy);
         result.put("discount", discount);
         result.put("tax", tax);
