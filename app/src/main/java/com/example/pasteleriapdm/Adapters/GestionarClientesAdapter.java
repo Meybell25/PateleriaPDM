@@ -75,12 +75,12 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
             holder.lblNombreCompleto.setText(cliente.getName());
             holder.lblTelefono.setText("Tel: " + cliente.getPhone());
 
-            // Dirección (mostrar texto por defecto si está vacía)
+            // Direccion (mostrar texto por defecto si esta vacia)
             if (cliente.getAddress() != null && !cliente.getAddress().trim().isEmpty()) {
                 holder.tvDireccion.setText(cliente.getAddress());
                 holder.tvDireccion.setVisibility(View.VISIBLE);
             } else {
-                holder.tvDireccion.setText("Sin dirección registrada");
+                holder.tvDireccion.setText("Sin direccion registrada");
                 holder.tvDireccion.setVisibility(View.VISIBLE);
             }
 
@@ -90,7 +90,7 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
             // Fechas
             configurarFechas(holder, cliente);
 
-            // Estadísticas
+            // Estadisticas
             configurarEstadisticas(holder, cliente);
 
             // Cliente preferencial
@@ -111,7 +111,7 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
 
     private void obtenerNombreCreador(ViewHolderGestionarClientesAdapter holder, Client cliente) {
         if (cliente.getCreatedBy() != null && !cliente.getCreatedBy().isEmpty()) {
-            // Obtener el nombre del usuario que creó el cliente
+            // Obtener el nombre del usuario que creo el cliente
             databaseHelper.getUserById(cliente.getCreatedBy(), new DatabaseHelper.DatabaseCallback<com.example.pasteleriapdm.Models.User>() {
                 @Override
                 public void onSuccess(com.example.pasteleriapdm.Models.User user) {
@@ -165,7 +165,7 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
     }
 
     private void configurarFechas(ViewHolderGestionarClientesAdapter holder, Client cliente) {
-        // Fecha de creación
+        // Fecha de creacion
         if (cliente.getCreatedAt() > 0) {
             String fechaCreacion = dateFormat.format(new Date(cliente.getCreatedAt()));
             holder.lblFechaCreacion.setText("Creado: " + fechaCreacion);
@@ -173,7 +173,7 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
             holder.lblFechaCreacion.setText("Creado: No disponible");
         }
 
-        // Fecha de actualización
+        // Fecha de actualizacion
         if (cliente.getUpdatedAt() > 0) {
             String fechaActualizacion = dateFormat.format(new Date(cliente.getUpdatedAt()));
             holder.lblUltimaActualizacion.setText("Actualizado: " + fechaActualizacion);
@@ -181,12 +181,12 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
             holder.lblUltimaActualizacion.setText("Actualizado: No disponible");
         }
 
-        // Último pedido
+        // Ultimo pedido
         if (cliente.getLastOrderDate() > 0) {
             String ultimoPedido = dateFormat.format(new Date(cliente.getLastOrderDate()));
-            holder.lblUltimoPedido.setText("Último pedido: " + ultimoPedido);
+            holder.lblUltimoPedido.setText("Ultimo pedido: " + ultimoPedido);
         } else {
-            holder.lblUltimoPedido.setText("Último pedido: Sin pedidos");
+            holder.lblUltimoPedido.setText("Ultimo pedido: Sin pedidos");
         }
     }
 
@@ -199,13 +199,13 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
     }
 
     private void configurarEventos(ViewHolderGestionarClientesAdapter holder, Client cliente, int position) {
-        // Botón Editar
+        // Boton Editar
         holder.btnEditarCliente.setOnClickListener(v -> {
             ClientesDialog dialog = ClientesDialog.newInstanceForEdit(cliente);
             dialog.setClienteDialogListener(new ClientesDialog.ClienteDialogListener() {
                 @Override
                 public void onClienteCreado() {
-                    // No aplica para edición
+                    // No aplica para edicion
                 }
 
                 @Override
@@ -218,7 +218,7 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
             dialog.show(fragmentManager, "editarCliente");
         });
 
-        // Configurar botón eliminar según el estado del cliente
+        // Configurar boton eliminar segun el estado del cliente
         configurarBotonEliminar(holder, cliente, position);
     }
 
@@ -226,12 +226,12 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
         boolean esInactivo = Client.STATUS_INACTIVE.equals(cliente.getStatus());
 
         if (esInactivo) {
-            // Cliente inactivo - permitir eliminación
+            // Cliente inactivo - permitir eliminacion
             holder.btnEliminarCliente.setEnabled(true);
             holder.btnEliminarCliente.setAlpha(1.0f);
             holder.btnEliminarCliente.setOnClickListener(v -> mostrarDialogoEliminar(cliente, position));
         } else {
-            // Cliente activo o bloqueado - no permitir eliminación
+            // Cliente activo o bloqueado - no permitir eliminacion
             holder.btnEliminarCliente.setEnabled(false);
             holder.btnEliminarCliente.setAlpha(0.5f);
             holder.btnEliminarCliente.setOnClickListener(v -> mostrarMensajeNoSePuedeEliminar(cliente));
@@ -254,9 +254,9 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
     private void mostrarDialogoEliminar(Client cliente, int position) {
         new AlertDialog.Builder(context)
                 .setTitle("¿Eliminar Cliente?")
-                .setMessage("¿Estás seguro de que deseas eliminar a " + cliente.getName() + "?\n\n" +
-                        "Esta acción no se puede deshacer.")
-                .setPositiveButton("Sí, Eliminar", (dialog, which) -> {
+                .setMessage("¿Estas seguro de que deseas eliminar a " + cliente.getName() + "?\n\n" +
+                        "Esta accion no se puede deshacer.")
+                .setPositiveButton("Si, Eliminar", (dialog, which) -> {
                     eliminarCliente(cliente, position);
                 })
                 .setNegativeButton("Cancelar", null)
@@ -268,7 +268,7 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
         // Mostrar mensaje de carga
         Toast.makeText(context, "Eliminando cliente...", Toast.LENGTH_SHORT).show();
 
-        // Implementación real con Firebase
+        // Implementacion real con Firebase
         databaseHelper.deleteClient(cliente.getId(), new DatabaseHelper.DatabaseCallback<Void>() {
             @Override
             public void onSuccess(Void result) {
@@ -278,7 +278,7 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
                     notifyItemRemoved(position);
                     notifyItemRangeChanged(position, listaClientes.size());
 
-                    Toast.makeText(context, "Cliente eliminado exitosamente", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Cliente " + cliente.getName() + " eliminado exitosamente", Toast.LENGTH_SHORT).show();
 
                     if (listener != null) {
                         listener.onClienteEliminado();
@@ -301,7 +301,6 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
     }
 
     public class ViewHolderGestionarClientesAdapter extends RecyclerView.ViewHolder {
-        // Declaración de variables según tu layout item_clientes.xml
         public ImageView imgCliente;
         public TextView lblNombreCompleto, lblTelefono;
         public TextView tvDireccion;
@@ -315,7 +314,6 @@ public class GestionarClientesAdapter extends RecyclerView.Adapter<GestionarClie
         public ViewHolderGestionarClientesAdapter(@NonNull View itemView) {
             super(itemView);
 
-            // Asociación con los IDs del layout
             imgCliente = itemView.findViewById(R.id.imgCliente);
             lblNombreCompleto = itemView.findViewById(R.id.lblNombreCompleto);
             lblTelefono = itemView.findViewById(R.id.lblTelefono);
