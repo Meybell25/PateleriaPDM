@@ -63,7 +63,7 @@ public class ClientesPanelAdapter extends RecyclerView.Adapter<ClientesPanelAdap
 
     @Override
     public void onBindViewHolder(@NonNull ClientesPanelAdapter.ViewHolderClientesPanelAdapter holder, int position) {
-        holder.imege.setImageResource(R.drawable.img_clientes_panel); // Asegúrate de tener este drawable
+        holder.imege.setImageResource(R.drawable.img_clientes); // Asegúrate de tener este drawable
         holder.lblClientePanel.setText("Clientes");
         holder.lblCantidadClientesPanel.setText(String.valueOf(totalClientes));
         holder.itemView.setOnClickListener(v -> {

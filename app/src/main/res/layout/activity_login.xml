@@ -133,5 +133,5 @@
         app:layout_constraintBottom_toTopOf="@+id/lblTitulo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

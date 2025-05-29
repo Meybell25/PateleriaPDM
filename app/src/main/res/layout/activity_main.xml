@@ -76,7 +76,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/logo">
+            android:background="@drawable/logo1">
 
             <ImageView
                 android:id="@+id/iv_main_logo"
