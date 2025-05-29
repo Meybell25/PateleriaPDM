@@ -264,68 +264,6 @@
                 android:textColorHint="#80FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Información de creación (solo visible en modo edición) -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardInfoCreacion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:visibility="gone"
-            app:cardBackgroundColor="#33FFFFFF"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPorciones"
-            app:strokeColor="@android:color/white"
-            app:strokeWidth="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Información de Creación"
-                    android:textColor="#F6F3F3"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/lblFechaCreacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Creado: --"
-                    android:textColor="#80FFFFFF"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/lblUltimaActualizacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Actualizado: --"
-                    android:textColor="#80FFFFFF"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/lblCreadoPor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Creado por: --"
-                    android:textColor="#80FFFFFF"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Seccion para imagen -->
         <TextView
             android:id="@+id/lblImagenTitulo"
             android:layout_width="wrap_content"
@@ -337,12 +275,12 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardInfoCreacion" />
+            app:layout_constraintTop_toBottomOf="@id/tilPrecio" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardImagenPastel"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
@@ -356,40 +294,32 @@
             app:strokeWidth="1dp">
 
             <LinearLayout
+                android:id="@+id/layoutSeleccionarImagen"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- Input para URL -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="URL de la imagen"
-                    app:startIconDrawable="@drawable/ic_link"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txtUrlImagen"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textUri"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- ImageView para mostrar la vista previa -->
                 <ImageView
                     android:id="@+id/imgPreview"
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="12dp"
-                    android:scaleType="centerCrop"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/ic_imagen1"
-                    android:background="@drawable/spinner_background"
-                    android:padding="8dp" />
+                    android:visibility="visible" />
 
+                <TextView
+                    android:id="@+id/lblSeleccionarImagen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Toca para agregar imagen"
+                    android:textColor="#83C541"
+                    android:textSize="12sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+
 
         <!-- Botones de accion -->
         <com.google.android.material.button.MaterialButton

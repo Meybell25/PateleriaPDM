@@ -72,5 +72,10 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
 
+    implementation("com.google.firebase:firebase-storage")
+
+    implementation 'com.google.firebase:firebase-functions:20.4.0'
+
+
 
 }

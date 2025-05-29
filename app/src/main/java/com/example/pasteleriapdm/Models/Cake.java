@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  * Modelo para representar un Pastel del catálogo
  * Corresponde al nodo cakes/ en Firebase Realtime Database
+ * MODIFICADO PARA USAR FIREBASE STORAGE
  */
 public class Cake implements Serializable {
 
@@ -36,7 +37,12 @@ public class Cake implements Serializable {
     private String description;      // Descripcion detallada
     private double price;            // Precio en COP
     private String category;         // Categoria del pastel
-    private String imageUrl;
+
+    // CAMPOS MODIFICADOS PARA FIREBASE STORAGE
+    private String imageUrl;         // URL de descarga de Firebase Storage
+    private String imagePath;        // Ruta del archivo en Firebase Storage
+    private String imageFileName;    // Nombre del archivo original
+
     private String status;           // Estado: active, inactive
     private String size;             // Tamaño del pastel
     private long createdAt;          // Timestamp de creación
@@ -68,7 +74,7 @@ public class Cake implements Serializable {
         this.createdBy = createdBy;
     }
 
-    // Getters y Setters
+    // Getters y Setters básicos
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -96,11 +102,28 @@ public class Cake implements Serializable {
         updateTimestamp();
     }
 
+    // GETTERS Y SETTERS PARA IMAGEN (FIREBASE STORAGE)
     @PropertyName("imageUrl")
     public String getImageUrl() { return imageUrl; }
     @PropertyName("imageUrl")
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        updateTimestamp();
+    }
+
+    @PropertyName("imagePath")
+    public String getImagePath() { return imagePath; }
+    @PropertyName("imagePath")
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+        updateTimestamp();
+    }
+
+    @PropertyName("imageFileName")
+    public String getImageFileName() { return imageFileName; }
+    @PropertyName("imageFileName")
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
         updateTimestamp();
     }
 
@@ -115,7 +138,6 @@ public class Cake implements Serializable {
         this.size = size;
         updateTimestamp();
     }
-
 
     @PropertyName("createdAt")
     public long getCreatedAt() { return createdAt; }
@@ -165,9 +187,23 @@ public class Cake implements Serializable {
         return String.format("$%,.0f COP", price);
     }
 
+    // MÉTODOS MODIFICADOS PARA FIREBASE STORAGE
     // Verificar si tiene imagen
     public boolean hasImage() {
         return imageUrl != null && !imageUrl.trim().isEmpty();
+    }
+
+    // Verificar si tiene imagen en Storage
+    public boolean hasStorageImage() {
+        return imagePath != null && !imagePath.trim().isEmpty();
+    }
+
+    // Obtener la URL para mostrar (prioriza Firebase Storage)
+    public String getDisplayImageUrl() {
+        if (hasImage()) {
+            return imageUrl;
+        }
+        return null;
     }
 
     // Convertir a Map para Firebase
@@ -179,6 +215,8 @@ public class Cake implements Serializable {
         result.put("price", price);
         result.put("category", category);
         result.put("imageUrl", imageUrl);
+        result.put("imagePath", imagePath);
+        result.put("imageFileName", imageFileName);
         result.put("status", status);
         result.put("size", size);
         result.put("createdAt", createdAt);
@@ -217,6 +255,7 @@ public class Cake implements Serializable {
             default: return "Tamaño no especificado";
         }
     }
+
     @Override
     public String toString() {
         return "Cake{" +
@@ -226,6 +265,7 @@ public class Cake implements Serializable {
                 ", category='" + category + '\'' +
                 ", status='" + status + '\'' +
                 ", size='" + size + '\'' +
+                ", hasImage=" + hasImage() +
                 '}';
     }
 }

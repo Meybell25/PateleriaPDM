@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.pasteleriapdm.FragmentsAdmin.GestionClientesFragment;
+import com.example.pasteleriapdm.FragmentsAdmin.GestionPastelesFragment; // Importar el nuevo fragment
 import com.example.pasteleriapdm.FragmentsAdmin.PanelAdministrativoFragment;
 import com.example.pasteleriapdm.FragmentsAdmin.ReservaFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,7 +44,7 @@ public class MunuSellerActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragmnetContainer, new GestionClientesFragment())
                     .commit();
-            bottomnavigationSeller.setSelectedItemId(R.id.navPanelAdministrativo);
+            bottomnavigationSeller.setSelectedItemId(R.id.navGestionarClientes);
         }
 
         // Logica del BottomNavigationView
@@ -52,6 +53,11 @@ public class MunuSellerActivity extends AppCompatActivity {
             if (id == R.id.navGestionarClientes) {
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragmnetContainer, new GestionClientesFragment())
+                        .commit();
+                return true;
+            } else if (id == R.id.navGestionarPasteles) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragmnetContainer, new GestionPastelesFragment())
                         .commit();
                 return true;
             } else if (id == R.id.navReservas) {
